@@ -1,20 +1,12 @@
 import "./App.scss";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div className="app-wrapper">
-      <header className="header">
-        <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/business-logo-design-template-78655edda18bc1196ab28760f1535baa_screen.jpg?ts=1617645324"></img>
-      </header>
-      <nav className="nav">
-        <ul>
-          <li>Profile</li>
-          <li>Messages</li>
-          <li>News</li>
-          <li>Music</li>
-          <li>Settings</li>
-        </ul>
-      </nav>
+      <Header />
+      <Navbar />
       <div className="content">
         <div>
           <img
