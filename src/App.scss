@@ -1,0 +1,40 @@
+.app-wrapper {
+  display: grid;
+  grid-template-areas:
+    "h h"
+    "n c";
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-gap: 10px;
+  max-width: 80%;
+  margin: auto;
+}
+
+.header {
+  grid-area: h;
+  background: rgb(194, 255, 159);
+}
+
+.header img {
+  width: 40px;
+}
+
+.nav {
+  grid-area: n;
+  background: rgb(135, 195, 255);
+}
+
+ul {
+  padding-left: 10px;
+  list-style: none;
+}
+
+.content {
+  grid-area: c;
+  background: rgb(229, 174, 255);
+
+  .img_1 {
+    height: 25%;
+    width: 100%;
+  }
+}
