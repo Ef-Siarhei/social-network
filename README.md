@@ -68,3 +68,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Прыгать по коммитам (jump through commits)
+
+- gitk --all& (открыть графическую оболочку гита, чтобы позырить все коммиты)
+- ctrl + insert (копировать в буфер обмена)
+- shift + insert (вставить из буфера обмена)
+- git checkout commit-number (переключится на нужный коммит)
