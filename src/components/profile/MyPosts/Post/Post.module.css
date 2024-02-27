@@ -1,0 +1,20 @@
+.item {
+  color: aqua;
+  display: flex;
+}
+
+.item img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 1rem;
+}
+
+.item span {
+  margin: 1rem;
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 0 0.5rem;
+}
