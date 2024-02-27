@@ -1,12 +1,14 @@
+import n from "./Navbar.module.css";
+
 export default function Navbar() {
   return (
-    <nav className="nav">
+    <nav className={n.nav}>
       <ul>
-        <li>Profile</li>
-        <li>Messages</li>
-        <li>News</li>
-        <li>Music</li>
-        <li>Settings</li>
+        <li className={n.item}>Profile</li>
+        <li className={n.item}>Messages</li>
+        <li className={n.item}>News</li>
+        <li className={n.item}>Music</li>
+        <li className={n.item}>Settings</li>
       </ul>
     </nav>
   );

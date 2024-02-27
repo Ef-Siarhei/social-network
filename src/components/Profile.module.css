@@ -1,0 +1,17 @@
+.content {
+  grid-area: c;
+  background: rgb(229, 174, 255);
+}
+
+.img_1 {
+  height: 25%;
+  width: 100%;
+}
+
+.item {
+  color: aqua;
+}
+
+.img_2 {
+  width: auto;
+}
