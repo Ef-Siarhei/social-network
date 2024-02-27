@@ -3,7 +3,7 @@ import p from "./Profile.module.css";
 export default function Profile() {
   return (
     <div className={p.content}>
-      <div>
+      <div className={p.header_img}>
         <img
           className={p.img_1}
           src="https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630"
@@ -22,8 +22,7 @@ export default function Profile() {
         My posts
         <div>New post</div>
       </div>
-      <div>
-        Posts
+      <div className={p.posts}>
         <div className={p.item}>post 1</div>
         <div className={p.item}>post 2</div>
       </div>
