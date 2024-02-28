@@ -3,7 +3,7 @@ import p from "./Profile.module.css";
 
 export default function Profile() {
   return (
-    <div className={p.content}>
+    <>
       <div className={p.header_img}>
         <img
           className={p.img_1}
@@ -20,6 +20,6 @@ export default function Profile() {
         <div>Description</div>
       </div>
       <MyPosts />
-    </div>
+    </>
   );
 }

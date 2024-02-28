@@ -1,4 +1,5 @@
 import "./App.scss";
+import Dialogs from "./components/dialogs/Dialogs";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
 import Profile from "./components/profile/Profile";
@@ -8,7 +9,10 @@ function App() {
     <div className="app-wrapper">
       <Header />
       <Navbar />
-      <Profile />
+      <div className="app-wrapper-content">
+        <Dialogs />
+        {/* <Profile /> */}
+      </div>
     </div>
   );
 }
