@@ -1,24 +1,49 @@
 import n from "./Navbar.module.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
     <nav className={n.nav}>
       <ul>
         <li className={n.item}>
-          <Link to="/profile">Profile</Link>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) => (isActive ? n.active : "")}
+          >
+            Profile
+          </NavLink>
         </li>
         <li className={n.item}>
-          <Link to="/dialogs">Messages</Link>
+          <NavLink
+            to="/dialogs"
+            className={({ isActive }) => (isActive ? n.active : "")}
+          >
+            Messages
+          </NavLink>
         </li>
         <li className={n.item}>
-          <Link to="/news">News</Link>
+          <NavLink
+            to="/news"
+            className={({ isActive }) => (isActive ? n.active : "")}
+          >
+            News
+          </NavLink>
         </li>
         <li className={n.item}>
-          <Link to="/music">Music</Link>
+          <NavLink
+            to="/music"
+            className={({ isActive }) => (isActive ? n.active : "")}
+          >
+            Music
+          </NavLink>
         </li>
         <li className={n.item}>
-          <Link to="/settings">Settings</Link>
+          <NavLink
+            to="/settings"
+            className={({ isActive }) => (isActive ? n.active : "")}
+          >
+            Settings
+          </NavLink>
         </li>
       </ul>
     </nav>

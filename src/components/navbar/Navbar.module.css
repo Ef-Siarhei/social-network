@@ -8,6 +8,11 @@ ul {
   list-style: none;
 }
 
-.item {
+a {
   color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+.active {
+  color: rgb(255, 217, 0);
 }
