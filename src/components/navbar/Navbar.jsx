@@ -1,23 +1,24 @@
 import n from "./Navbar.module.css";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
     <nav className={n.nav}>
       <ul>
         <li className={n.item}>
-          <a href="/profile">Profile</a>
+          <Link to="/profile">Profile</Link>
         </li>
         <li className={n.item}>
-          <a href="dialogs">Messages</a>
+          <Link to="/dialogs">Messages</Link>
         </li>
         <li className={n.item}>
-          <a href="news">News</a>
+          <Link to="/news">News</Link>
         </li>
         <li className={n.item}>
-          <a href="music">Music</a>
+          <Link to="/music">Music</Link>
         </li>
         <li className={n.item}>
-          <a href="settings">Settings</a>
+          <Link to="/settings">Settings</Link>
         </li>
       </ul>
     </nav>
