@@ -3,16 +3,17 @@
   background: rgb(135, 195, 255);
 }
 
-ul {
+.list {
+  margin: 16px 0;
   padding-left: 10px;
-  list-style: none;
 }
 
-a {
+.list a {
+  display: block;
   color: rgb(255, 255, 255);
   text-decoration: none;
 }
 
-.active {
+a.active {
   color: rgb(255, 217, 0);
 }
