@@ -1,0 +1,17 @@
+.myPosts{
+  padding: 10px;
+}
+
+textarea{
+  width: 50%;
+  height: 5rem;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+button{
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: rgba(47, 246, 57, 0.8);
+  border: none;
+}
