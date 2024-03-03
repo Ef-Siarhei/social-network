@@ -1,28 +1,34 @@
-import {Route, Routes} from "react-router-dom";
-import "./App.scss";
-import Dialogs from "./components/dialogs/Dialogs";
-import Header from "./components/header/Header";
-import Music from "./components/music/Music";
-import Navbar from "./components/navbar/Navbar";
-import News from "./components/news/News";
-import Profile from "./components/profile/Profile";
-import Settings from "./components/settings/Settings";
+import { Route, Routes } from 'react-router-dom';
+import './App.scss';
+import Dialogs from './components/dialogs/Dialogs';
+import Header from './components/header/Header';
+import Music from './components/music/Music';
+import Navbar from './components/navbar/Navbar';
+import News from './components/news/News';
+import Profile from './components/profile/Profile';
+import Settings from './components/settings/Settings';
 
-function App() {
+function App(props) {
   return (
     <div className="app-wrapper">
-      <Header/>
-      <Navbar/>
+      <Header />
+      <Navbar />
       <div className="app-wrapper-content">
         <Routes>
-          <Route path="/profile" Component={Profile}/>
-          <Route path="/dialogs/*" Component={Dialogs}/>
-          <Route path="/news" element={<News/>}/>
-          <Route path="/music" Component={Music}/>
-          <Route path="/settings" Component={Settings}/>
+          <Route path="/profile" element={<Profile posts={props.posts} />} />
+          <Route
+            path="/dialogs/*"
+            element={
+              <Dialogs dialogs={props.dialogs} messages={props.messages} />
+            }
+          />
+          <Route path="/news" element={<News />} />
+          <Route path="/music" element={<Music />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
-    </div>);
+    </div>
+  );
 }
 
 export default App;

@@ -1,11 +1,11 @@
-import MyPosts from "./MyPosts/MyPosts";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import MyPosts from './MyPosts/MyPosts';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-export default function Profile() {
+export default function Profile(props) {
   return (
     <>
       <ProfileInfo />
-      <MyPosts />
+      <MyPosts posts={props.posts} />
     </>
   );
 }
