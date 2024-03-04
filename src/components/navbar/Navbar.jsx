@@ -1,9 +1,9 @@
-import n from "./Navbar.module.css";
-import { NavLink } from "react-router-dom";
+import n from './Navbar.module.css';
+import { NavLink } from 'react-router-dom';
+import Friends from '../friends/Friends';
 
-export default function Navbar() {
-  const setActive = ({ isActive }) => (isActive ? n.active : "");
-
+export default function Navbar(props) {
+  const setActive = ({ isActive }) => (isActive ? n.active : '');
   return (
     <nav className={n.nav}>
       <div className={n.list}>
@@ -27,6 +27,7 @@ export default function Navbar() {
           Settings
         </NavLink>
       </div>
+      <Friends sidebar={props.state.sidebar} />
     </nav>
   );
 }

@@ -12,7 +12,7 @@ function App(props) {
   return (
     <div className="app-wrapper">
       <Header />
-      <Navbar />
+      <Navbar state={props.state} />
       <div className="app-wrapper-content">
         <Routes>
           <Route
