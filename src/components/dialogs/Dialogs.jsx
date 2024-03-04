@@ -1,6 +1,7 @@
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
+import NewMessage from './Message/NewMessage/NewMessage';
 
 export default function Dialogs(props) {
   let dialogElements = props.dialogs.map((person) => (
@@ -13,7 +14,10 @@ export default function Dialogs(props) {
   return (
     <div className={s.dialogs}>
       <div className={s.dialogs_items}>{dialogElements}</div>
-      <div className={s.messages}>{messagesElements}</div>
+      <div className={s.messages_block}>
+        <div className={s.messages}>{messagesElements}</div>
+        <NewMessage />
+      </div>
     </div>
   );
 }
