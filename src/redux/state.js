@@ -66,7 +66,7 @@ let state = {
       },
 
       {
-        id: 2,
+        id: 4,
         name: 'Kat',
         icon: 'https://flomaster.top/uploads/posts/2023-10/thumbs/1697595964_flomaster-top-p-risunki-izvestnikh-lyudei-vkontakte-12.jpg',
       },
