@@ -2,7 +2,7 @@ import Friend from './friend/Friend';
 import s from './Friends.module.css';
 
 export default function Friends(props) {
-  let friendsElements = props.sidebar.friends.map((friend) => {
+  let friendsElements = props.friends.map((friend) => {
     return <Friend friend={friend} key={friend.id} />;
   });
 

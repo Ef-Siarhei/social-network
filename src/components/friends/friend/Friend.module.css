@@ -1,6 +1,14 @@
 .friend {
+display: grid;
 }
 .friend_img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  justify-self: center;
 }
+
 .friend_name {
+  font-size: 1rem;
+  justify-self: center;
 }
