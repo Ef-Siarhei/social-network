@@ -39,12 +39,12 @@ let state = {
       },
     ],
     messages: [
-      { id: 1, message: 'Hi, how are you?' },
-      { id: 2, message: 'What is you do today?' },
-      { id: 3, message: 'Come to me tomorrow.' },
-      { id: 4, message: 'Pasha' },
-      { id: 5, message: 'Sergei' },
-      { id: 6, message: 'Masha' },
+      { id: 1, input: true, message: 'Hi, how are you?' },
+      { id: 2, output: true, message: 'What is you do today?' },
+      { id: 3, input: true, message: 'Come to me tomorrow.' },
+      { id: 4, input: true, message: 'Pasha' },
+      { id: 5, output: true, message: 'Sergei' },
+      { id: 6, input: true, message: 'Masha' },
     ],
   },
 };

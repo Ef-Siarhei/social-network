@@ -8,8 +8,8 @@ export default function Dialogs(props) {
     <DialogItem person={person} key={person.id} />
   ));
 
-  let messagesElements = props.messages.map((m) => (
-    <Message message={m.message} key={m.id} />
+  let messagesElements = props.messages.map((messageItem) => (
+    <Message messageItem={messageItem} key={messageItem.id} />
   ));
   return (
     <div className={s.dialogs}>

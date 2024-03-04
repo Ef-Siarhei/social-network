@@ -1,0 +1,37 @@
+.messageItem {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.positionLeft {
+  align-self: flex-start;
+}
+
+.positionRight {
+  align-self: flex-end;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  align-self: flex-end;
+}
+
+.message {
+  border: solid 1px rgb(63, 189, 166);
+  padding: 3px 15px;
+}
+
+.messageLeft {
+  background-color: rgba(146, 198, 197, 0.903);
+  border-radius: 20px 20px 20px 0;
+  margin-left: 5px;
+}
+
+.messageRight {
+  background-color: rgba(0, 255, 234, 0.645);
+  border-radius: 20px 20px 0 20px;
+  margin-right: 5px;
+  order: -1;
+}
