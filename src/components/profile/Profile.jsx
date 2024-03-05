@@ -5,7 +5,7 @@ export default function Profile(props) {
   return (
     <>
       <ProfileInfo />
-      <MyPosts posts={props.posts} />
+      <MyPosts posts={props.posts} addPost={props.addPost} />
     </>
   );
 }
