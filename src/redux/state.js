@@ -49,6 +49,7 @@ let state = {
       { id: 5, output: true, message: 'Sergei' },
       { id: 6, input: true, message: 'Masha' },
     ],
+    newMessageText: 'New Message',
   },
   sidebar: {
     friends: [
@@ -81,7 +82,7 @@ export const addPost = () => {
   const newPost = {
     id: 3,
     message: state.profilePage.newPostText,
-    like: 0,
+    like: '0',
   };
   state.profilePage.posts.push(newPost);
   state.profilePage.newPostText = '';
@@ -90,6 +91,21 @@ export const addPost = () => {
 
 export const updateNewPostText = (newText) => {
   state.profilePage.newPostText = newText;
+  rerenderEntireTree(state);
+};
+
+export function addMessage() {
+  let newMessage = {
+    id: 7,
+    output: true,
+    message: state.messagesPage.newMessageText,
+  };
+  state.messagesPage.messages.push(newMessage);
+  rerenderEntireTree(state);
+}
+
+export const updateNewMessageText = (newText) => {
+  state.messagesPage.newMessageText = newText;
   rerenderEntireTree(state);
 };
 

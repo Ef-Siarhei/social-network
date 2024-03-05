@@ -16,7 +16,11 @@ export default function Dialogs(props) {
       <div className={s.dialogs_items}>{dialogElements}</div>
       <div className={s.messages_block}>
         <div className={s.messages}>{messagesElements}</div>
-        <NewMessage />
+        <NewMessage
+          newMessageText={props.newMessageText}
+          updateNewMessageText={props.updateNewMessageText}
+          addMessage={props.addMessage}
+        />
       </div>
     </div>
   );
