@@ -10,9 +10,12 @@ export default function MyPosts(props) {
   let newPostElement = React.createRef();
 
   let addNewPost = () => {
+    props.addPost();
+  };
+
+  let onPostChange = () => {
     let text = newPostElement.current.value;
-    props.addPost(text);
-    newPostElement.current.value = '';
+    props.updateNewPostText(text);
   };
 
   return (
@@ -21,7 +24,11 @@ export default function MyPosts(props) {
       <div>
         New post
         <div>
-          <textarea ref={newPostElement} />
+          <textarea
+            onChange={onPostChange}
+            ref={newPostElement}
+            value={props.newPostText}
+          />
         </div>
         <div>
           <button onClick={addNewPost}>Add post</button>
