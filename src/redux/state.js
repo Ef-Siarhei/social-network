@@ -101,6 +101,7 @@ export function addMessage() {
     message: state.messagesPage.newMessageText,
   };
   state.messagesPage.messages.push(newMessage);
+  state.messagesPage.newMessageText = '';
   rerenderEntireTree(state);
 }
 

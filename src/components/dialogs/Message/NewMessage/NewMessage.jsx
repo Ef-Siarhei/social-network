@@ -21,7 +21,7 @@ const NewMessage = (props) => {
         ref={newMessageElement}
         value={props.newMessageText}
       />
-      <button onClick={addNewMessage}>Spend message</button>
+      <button onClick={addNewMessage}>Send message</button>
     </div>
   );
 };
