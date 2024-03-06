@@ -8,7 +8,7 @@ const NewMessage = (props) => {
     props.addMessage();
   };
 
-  let onMessageChange = () => {
+  let onChangeMessage = () => {
     let text = newMessageElement.current.value;
     props.updateNewMessageText(text);
   };
@@ -16,7 +16,7 @@ const NewMessage = (props) => {
   return (
     <div className={s.newMessage}>
       <textarea
-        onChange={onMessageChange}
+        onChange={onChangeMessage}
         className={s.input}
         ref={newMessageElement}
         value={props.newMessageText}

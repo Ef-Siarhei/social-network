@@ -49,7 +49,7 @@ let state = {
       { id: 5, output: true, message: 'Sergei' },
       { id: 6, input: true, message: 'Masha' },
     ],
-    newMessageText: 'Message',
+    newMessageText: 'New Message',
   },
   sidebar: {
     friends: [
@@ -78,13 +78,11 @@ let state = {
   },
 };
 
-window.state = state;
-
 export const addPost = () => {
   const newPost = {
     id: 3,
     message: state.profilePage.newPostText,
-    like: 0,
+    like: '0',
   };
   state.profilePage.posts.push(newPost);
   state.profilePage.newPostText = '';
@@ -96,18 +94,17 @@ export const updateNewPostText = (newText) => {
   rerenderEntireTree(state);
 };
 
-export const addMessage = () => {
-  const newMessage = {
+export function addMessage() {
+  let newMessage = {
     id: 7,
-    input: true,
+    output: true,
     message: state.messagesPage.newMessageText,
   };
-
   state.messagesPage.messages.push(newMessage);
   rerenderEntireTree(state);
-};
+}
 
-export let updateNewMessageText = (newText) => {
+export const updateNewMessageText = (newText) => {
   state.messagesPage.newMessageText = newText;
   rerenderEntireTree(state);
 };
