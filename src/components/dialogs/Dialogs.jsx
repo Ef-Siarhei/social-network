@@ -4,11 +4,11 @@ import Message from './Message/Message';
 import NewMessage from './Message/NewMessage/NewMessage';
 
 export default function Dialogs(props) {
-  let dialogElements = props.dialogs.map((person) => (
+  let dialogElements = props.messagesPage.dialogs.map((person) => (
     <DialogItem person={person} key={person.id} />
   ));
 
-  let messagesElements = props.messages.map((messageItem) => (
+  let messagesElements = props.messagesPage.messages.map((messageItem) => (
     <Message messageItem={messageItem} key={messageItem.id} />
   ));
   return (
@@ -16,7 +16,11 @@ export default function Dialogs(props) {
       <div className={s.dialogs_items}>{dialogElements}</div>
       <div className={s.messages_block}>
         <div className={s.messages}>{messagesElements}</div>
-        <NewMessage />
+        <NewMessage
+          newMessageText={props.messagesPage.newMessageText}
+          addMessage={props.addMessage}
+          updateNewMessageText={props.updateNewMessageText}
+        />
       </div>
     </div>
   );

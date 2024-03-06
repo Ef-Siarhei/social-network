@@ -1,18 +1,27 @@
 import s from './NewMessage.module.css';
 import React from 'react';
 
-let newMessageElement = React.createRef();
+const NewMessage = (props) => {
+  let newMessageElement = React.createRef();
 
-let addMessage = () => {
-  let text = newMessageElement.current.value;
-  alert(text);
-};
+  let addNewMessage = () => {
+    props.addMessage();
+  };
 
-const NewMessage = () => {
+  let onMessageChange = () => {
+    let text = newMessageElement.current.value;
+    props.updateNewMessageText(text);
+  };
+
   return (
     <div className={s.newMessage}>
-      <textarea className={s.input} ref={newMessageElement}></textarea>
-      <button onClick={addMessage}>Spend message</button>
+      <textarea
+        onChange={onMessageChange}
+        className={s.input}
+        ref={newMessageElement}
+        value={props.newMessageText}
+      />
+      <button onClick={addNewMessage}>Spend message</button>
     </div>
   );
 };
