@@ -1,4 +1,4 @@
-let store = {
+let store = /**/ {
   _state: {
     profilePage: {
       posts: [
@@ -81,41 +81,36 @@ let store = {
   getState() {
     return this._state;
   },
-
-  addPost() {
-    const newPost = {
-      id: 3,
-      message: this._state.profilePage.newPostText,
-      like: '0',
-    };
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = '';
-    this._callSubscriber(this._state);
-  },
-
-  updateNewPostText(newText) {
-    this._state.profilePage.newPostText = newText;
-    this._callSubscriber(this._state);
-  },
-
-  addMessage() {
-    let newMessage = {
-      id: 7,
-      output: true,
-      message: this._state.messagesPage.newMessageText,
-    };
-    this._state.messagesPage.messages.push(newMessage);
-    this._state.messagesPage.newMessageText = '';
-    this._callSubscriber(this._state);
-  },
-
-  updateNewMessageText(newText) {
-    this._state.messagesPage.newMessageText = newText;
-    this._callSubscriber(this._state);
-  },
-
   subscribe(observer) {
     this._callSubscriber = observer;
+  },
+
+  disPatch(action) {
+    if (action.type === 'ADD-POST') {
+      const newPost = {
+        id: 3,
+        message: this._state.profilePage.newPostText,
+        like: '0',
+      };
+      this._state.profilePage.posts.push(newPost);
+      this._state.profilePage.newPostText = '';
+      this._callSubscriber(this._state);
+    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+      this._state.profilePage.newPostText = action.newText;
+      this._callSubscriber(this._state);
+    } else if (action.type === 'ADD-MESSAGE') {
+      let newMessage = {
+        id: 7,
+        output: true,
+        message: this._state.messagesPage.newMessageText,
+      };
+      this._state.messagesPage.messages.push(newMessage);
+      this._state.messagesPage.newMessageText = '';
+      this._callSubscriber(this._state);
+    } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+      this._state.messagesPage.newMessageText = action.newText;
+      this._callSubscriber(this._state);
+    }
   },
 };
 
