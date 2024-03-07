@@ -6,14 +6,12 @@ import {
 } from '../../../../redux/state';
 
 const NewMessage = (props) => {
-  let newMessageElement = React.createRef();
-
   let sendNewMessage = () => {
     props.disPatch(sendNewMessageActionCreator());
   };
 
   let onChangeMessage = (event) => {
-    let text = newMessageElement.current.value;
+    let text = event.target.value;
     props.disPatch(updateNewMessageBodyActionCreator(text));
   };
 
@@ -22,7 +20,6 @@ const NewMessage = (props) => {
       <textarea
         onChange={onChangeMessage}
         className={s.input}
-        ref={newMessageElement}
         value={props.newMessageText}
       />
       <button onClick={sendNewMessage}>Send message</button>

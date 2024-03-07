@@ -11,14 +11,12 @@ export default function MyPosts(props) {
     <Post message={p.message} like={p.like} key={p.id} />
   ));
 
-  let newPostElement = React.createRef();
-
   let addNewPost = () => {
     props.disPatch(addNewPostActionCreator());
   };
 
-  let onPostChange = () => {
-    let text = newPostElement.current.value;
+  let onPostChange = (event) => {
+    let text = event.target.value;
     props.disPatch(updateNewPostTextActionCreator(text));
   };
 
@@ -28,11 +26,7 @@ export default function MyPosts(props) {
       <div>
         New post
         <div>
-          <textarea
-            onChange={onPostChange}
-            ref={newPostElement}
-            value={props.newPostText}
-          />
+          <textarea onChange={onPostChange} value={props.newPostText} />
         </div>
         <div>
           <button onClick={addNewPost}>Add post</button>
