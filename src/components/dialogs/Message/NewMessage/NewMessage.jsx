@@ -3,7 +3,7 @@ import React from 'react';
 import {
   sendNewMessageActionCreator,
   updateNewMessageBodyActionCreator,
-} from '../../../../redux/state';
+} from '../../../../redux/reduced/messages-reducer';
 
 const NewMessage = (props) => {
   let sendNewMessage = () => {
