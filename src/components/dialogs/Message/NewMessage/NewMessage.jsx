@@ -1,20 +1,20 @@
 import s from './NewMessage.module.css';
 import React from 'react';
 import {
-  addNewMessageActionCreator,
-  updateNewMessageTextActionCreator,
+  sendNewMessageActionCreator,
+  updateNewMessageBodyActionCreator,
 } from '../../../../redux/state';
 
 const NewMessage = (props) => {
   let newMessageElement = React.createRef();
 
-  let addNewMessage = () => {
-    props.disPatch(addNewMessageActionCreator());
+  let sendNewMessage = () => {
+    props.disPatch(sendNewMessageActionCreator());
   };
 
-  let onChangeMessage = () => {
+  let onChangeMessage = (event) => {
     let text = newMessageElement.current.value;
-    props.disPatch(updateNewMessageTextActionCreator(text));
+    props.disPatch(updateNewMessageBodyActionCreator(text));
   };
 
   return (
@@ -25,7 +25,7 @@ const NewMessage = (props) => {
         ref={newMessageElement}
         value={props.newMessageText}
       />
-      <button onClick={addNewMessage}>Send message</button>
+      <button onClick={sendNewMessage}>Send message</button>
     </div>
   );
 };
