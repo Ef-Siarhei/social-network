@@ -7,12 +7,12 @@ import {
 
 const NewMessage = (props) => {
   let sendNewMessage = () => {
-    props.disPatch(sendNewMessageActionCreator());
+    props.dispatch(sendNewMessageActionCreator());
   };
 
   let onChangeMessage = (event) => {
     let text = event.target.value;
-    props.disPatch(updateNewMessageBodyActionCreator(text));
+    props.dispatch(updateNewMessageBodyActionCreator(text));
   };
 
   return (

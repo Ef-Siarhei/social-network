@@ -8,7 +8,7 @@ export default function Profile(props) {
       <MyPosts
         posts={props.profilePage.posts}
         newPostText={props.profilePage.newPostText}
-        disPatch={props.dispatch}
+        dispatch={props.dispatch}
       />
     </>
   );

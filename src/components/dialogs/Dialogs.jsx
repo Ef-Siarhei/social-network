@@ -18,7 +18,7 @@ export default function Dialogs(props) {
         <div className={s.messages}>{messagesElements}</div>
         <NewMessage
           newMessageText={props.newMessageText}
-          disPatch={props.disPatch}
+          dispatch={props.dispatch}
         />
       </div>
     </div>

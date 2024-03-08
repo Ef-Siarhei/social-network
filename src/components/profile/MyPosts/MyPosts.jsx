@@ -12,12 +12,12 @@ export default function MyPosts(props) {
   ));
 
   let addNewPost = () => {
-    props.disPatch(addNewPostActionCreator());
+    props.dispatch(addNewPostActionCreator());
   };
 
   let onPostChange = (event) => {
     let text = event.target.value;
-    props.disPatch(updateNewPostTextActionCreator(text));
+    props.dispatch(updateNewPostTextActionCreator(text));
   };
 
   return (

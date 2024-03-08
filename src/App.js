@@ -20,7 +20,7 @@ function App(props) {
             element={
               <Profile
                 profilePage={props.state.profilePage}
-                dispatch={props.disPatch}
+                dispatch={props.dispatch}
               />
             }
           />
@@ -31,7 +31,7 @@ function App(props) {
                 dialogs={props.state.messagesPage.dialogs}
                 messages={props.state.messagesPage.messages}
                 newMessageText={props.state.messagesPage.newMessageText}
-                disPatch={props.disPatch}
+                dispatch={props.dispatch}
               />
             }
           />
