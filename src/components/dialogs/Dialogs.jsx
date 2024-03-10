@@ -1,14 +1,16 @@
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import NewMessage from './Message/NewMessage/NewMessage';
+import NewMessageContainer from './Message/NewMessage/NewMessageContainer';
 
 export default function Dialogs(props) {
-  let dialogElements = props.dialogs.map((person) => (
+  let messagesPage = props.store.getState().messagesPage;
+
+  let dialogElements = messagesPage.dialogs.map((person) => (
     <DialogItem person={person} key={person.id} />
   ));
 
-  let messagesElements = props.messages.map((messageItem) => (
+  let messagesElements = messagesPage.messages.map((messageItem) => (
     <Message messageItem={messageItem} key={messageItem.id} />
   ));
   return (
@@ -16,10 +18,7 @@ export default function Dialogs(props) {
       <div className={s.dialogs_items}>{dialogElements}</div>
       <div className={s.messages_block}>
         <div className={s.messages}>{messagesElements}</div>
-        <NewMessage
-          newMessageText={props.newMessageText}
-          dispatch={props.dispatch}
-        />
+        <NewMessageContainer store={props.store} />
       </div>
     </div>
   );

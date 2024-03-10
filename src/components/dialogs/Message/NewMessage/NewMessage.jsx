@@ -1,18 +1,13 @@
 import s from './NewMessage.module.css';
-import React from 'react';
-import {
-  sendNewMessageActionCreator,
-  updateNewMessageBodyActionCreator,
-} from '../../../../redux/reduced/messages-reducer';
 
 const NewMessage = (props) => {
   let sendNewMessage = () => {
-    props.dispatch(sendNewMessageActionCreator());
+    props.sendMessage();
   };
 
   let onChangeMessage = (event) => {
     let text = event.target.value;
-    props.dispatch(updateNewMessageBodyActionCreator(text));
+    props.changeMessage(text);
   };
 
   return (
