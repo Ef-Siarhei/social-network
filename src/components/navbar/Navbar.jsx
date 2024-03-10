@@ -27,7 +27,7 @@ export default function Navbar(props) {
           Settings
         </NavLink>
       </div>
-      <Friends friends={props.state.sidebar.friends} />
+      <Friends store={props.store} />
     </nav>
   );
 }
