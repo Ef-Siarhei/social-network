@@ -1,8 +1,9 @@
 import n from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
 import Friends from '../friends/Friends';
+import StoreContext from '../../store-context';
 
-export default function Navbar(props) {
+export default function Navbar() {
   const setActive = ({ isActive }) => (isActive ? n.active : '');
   return (
     <nav className={n.nav}>
@@ -27,7 +28,11 @@ export default function Navbar(props) {
           Settings
         </NavLink>
       </div>
-      <Friends store={props.store} />
+      <StoreContext.Consumer>
+        {(store) => {
+          return <Friends store={store} />;
+        }}
+      </StoreContext.Consumer>
     </nav>
   );
 }

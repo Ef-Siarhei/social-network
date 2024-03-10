@@ -8,15 +8,15 @@ import News from './components/news/News';
 import Profile from './components/profile/Profile';
 import Settings from './components/settings/Settings';
 
-function App(props) {
+function App() {
   return (
     <div className="app-wrapper">
       <Header />
-      <Navbar store={props.store} />
+      <Navbar />
       <div className="app-wrapper-content">
         <Routes>
-          <Route path="/profile" element={<Profile store={props.store} />} />
-          <Route path="/dialogs/*" element={<Dialogs store={props.store} />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/dialogs/*" element={<Dialogs />} />
           <Route path="/news" element={<News />} />
           <Route path="/music" element={<Music />} />
           <Route path="/settings" element={<Settings />} />
