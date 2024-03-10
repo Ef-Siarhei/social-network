@@ -1,7 +1,6 @@
 import n from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
-import Friends from '../friends/Friends';
-import StoreContext from '../../store-context';
+import FriendsContainer from '../friends/FriendsContainer';
 
 export default function Navbar() {
   const setActive = ({ isActive }) => (isActive ? n.active : '');
@@ -28,11 +27,7 @@ export default function Navbar() {
           Settings
         </NavLink>
       </div>
-      <StoreContext.Consumer>
-        {(store) => {
-          return <Friends store={store} />;
-        }}
-      </StoreContext.Consumer>
+      <FriendsContainer />;
     </nav>
   );
 }

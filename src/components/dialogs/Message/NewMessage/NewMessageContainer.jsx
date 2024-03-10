@@ -3,21 +3,23 @@ import {
   sendNewMessageActionCreator,
   updateNewMessageBodyActionCreator,
 } from '../../../../redux/reduced/messages-reducer';
+import { connect } from 'react-redux';
 
-export default function NewMessageContainer(props) {
-  let newMessageText = props.store.getState().messagesPage.newMessageText;
+const mapStateToProps = (state) => {
+  return {
+    newMessageText: state.messagesPage.newMessageText,
+  };
+};
 
-  const sendMessage = () => {
-    props.store.dispatch(sendNewMessageActionCreator());
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sendMessage: () => dispatch(sendNewMessageActionCreator()),
+    changeMessage: (text) => dispatch(updateNewMessageBodyActionCreator(text)),
   };
-  const changeMessage = (text) => {
-    props.store.dispatch(updateNewMessageBodyActionCreator(text));
-  };
-  return (
-    <NewMessage
-      newMessageText={newMessageText}
-      sendMessage={sendMessage}
-      changeMessage={changeMessage}
-    />
-  );
-}
+};
+
+const NewMessageContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewMessage);
+export default NewMessageContainer;
