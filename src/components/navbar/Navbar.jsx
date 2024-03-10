@@ -27,7 +27,7 @@ export default function Navbar() {
           Settings
         </NavLink>
       </div>
-      <FriendsContainer />;
+      <FriendsContainer />
     </nav>
   );
 }
