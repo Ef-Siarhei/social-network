@@ -1,3 +1,56 @@
+.users {
+  padding: 1rem;
+}
+
+.user {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 3fr;
+  margin-bottom: .5rem;
+}
+
+.user_icon_btn_block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+
+}
+
 .photo {
   height: 50px;
+  border-radius: 30%;
+}
+
+.on_off_Follow {
+  width: 5rem;
+}
+
+.user_description {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: column;
+  padding: .5rem;
+  border: solid 2px #64837e;
+  border-radius: 1rem;
+  background-color: rgba(100, 131, 126, 0.4);
+}
+
+.status{
+  align-self: end;
+}
+
+.country,
+.city{
+  justify-self: end;
+}
+
+.city {
+  align-self: end;
+}
+
+.show_more{
+  display: block;
+  margin:  1rem auto;
 }

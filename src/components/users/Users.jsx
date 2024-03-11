@@ -25,17 +25,16 @@ const Users = (props) => {
   // }
 
   return (
-    <div>
+    <div className={s.users}>
       {props.users.map((user) => {
         return (
-          <div key={user.id}>
-            <span>
-              <div>
-                <img src={user.photoURL} alt="" className={s.photo} />
-              </div>
+          <div className={s.user} key={user.id}>
+            <div className={s.user_icon_btn_block}>
+              <img src={user.photoURL} alt="" className={s.photo} />
               <div>
                 {user.followed ? (
                   <button
+                    className={s.on_off_Follow}
                     onClick={() => {
                       props.unFollow(user.id);
                     }}
@@ -44,6 +43,7 @@ const Users = (props) => {
                   </button>
                 ) : (
                   <button
+                    className={s.on_off_Follow}
                     onClick={() => {
                       props.follow(user.id);
                     }}
@@ -52,20 +52,18 @@ const Users = (props) => {
                   </button>
                 )}
               </div>
-            </span>
-            <span>
-              <span>
-                <div>{user.fullName}</div>
-                <div>{user.status}</div>
-              </span>
-              <span>
-                <div>{user.location.country}</div>
-                <div>{user.location.city}</div>
-              </span>
-            </span>
+            </div>
+            <div className={s.user_description}>
+              <div>{user.fullName}</div>
+              <div className={s.status}>{user.status}</div>
+              <div className={s.country}>{user.location.country}</div>
+              <div className={s.city}>{user.location.city}</div>
+            </div>
           </div>
         );
       })}
+
+      <button className={s.show_more}>Show more</button>
     </div>
   );
 };
