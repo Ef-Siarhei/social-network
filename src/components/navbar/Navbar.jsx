@@ -23,6 +23,10 @@ export default function Navbar() {
           Music
         </NavLink>
 
+        <NavLink to="/users" className={setActive}>
+          Users
+        </NavLink>
+
         <NavLink to="/settings" className={setActive}>
           Settings
         </NavLink>

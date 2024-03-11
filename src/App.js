@@ -7,6 +7,7 @@ import News from './components/news/News';
 import Profile from './components/profile/Profile';
 import Settings from './components/settings/Settings';
 import DialogsContainer from './components/dialogs/DialogsContainer';
+import UsersContainer from './components/users/UsersContainer';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/dialogs/*" element={<DialogsContainer />} />
           <Route path="/news" element={<News />} />
           <Route path="/music" element={<Music />} />
+          <Route path="/users" element={<UsersContainer />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
