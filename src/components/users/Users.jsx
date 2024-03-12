@@ -1,27 +1,14 @@
+import axios from 'axios';
 import s from './users.module.css';
+import userPhoto from './../../assets/images/woman.jpg';
 
 const Users = (props) => {
   if (props.users.length === 0) {
-    props.setUsers([
-      {
-        id: 1,
-        followed: true,
-        fullName: 'Sergei',
-        status: 'I am a boss!',
-        location: { city: 'Minsk', country: 'Belarus' },
-        photoURL:
-          'https://vz.cnwimg.com/thumb-400x400/wp-content/uploads/2020/01/katy-perry2.jpg',
-      },
-      {
-        id: 2,
-        followed: false,
-        fullName: 'Dmitry',
-        status: 'I am a little pig!',
-        location: { city: 'Moscow', country: 'Russia' },
-        photoURL:
-          'https://vz.cnwimg.com/thumb-400x400/wp-content/uploads/2020/01/katy-perry2.jpg',
-      },
-    ]);
+    axios
+      .get('https://social-network.samuraijs.com/api/1.0/users')
+      .then((response) => {
+        props.setUsers(response.data.items);
+      });
   }
 
   return (
@@ -30,7 +17,11 @@ const Users = (props) => {
         return (
           <div className={s.user} key={user.id}>
             <div className={s.user_icon_btn_block}>
-              <img src={user.photoURL} alt="" className={s.photo} />
+              <img
+                src={user.photos.small ? user.photos.small : userPhoto}
+                alt=""
+                className={s.photo}
+              />
               <div>
                 {user.followed ? (
                   <button
@@ -54,10 +45,10 @@ const Users = (props) => {
               </div>
             </div>
             <div className={s.user_description}>
-              <div>{user.fullName}</div>
+              <div>{user.name}</div>
               <div className={s.status}>{user.status}</div>
-              <div className={s.country}>{user.location.country}</div>
-              <div className={s.city}>{user.location.city}</div>
+              <div className={s.country}>{'user.location.country'}</div>
+              <div className={s.city}>{'user.location.city'}</div>
             </div>
           </div>
         );
