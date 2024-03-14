@@ -3,7 +3,6 @@ import {
   addNewPostActionCreator,
   updateNewPostTextActionCreator,
 } from '../../../redux/reduced/profile-reducer';
-import React from 'react';
 import { connect } from 'react-redux';
 
 let mapStateToProps = (state) => {
