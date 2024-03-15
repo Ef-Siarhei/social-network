@@ -54,3 +54,21 @@
   display: block;
   margin:  1rem auto;
 }
+
+.btnNumberPages{
+  text-align: center;
+  margin: 2rem 0 3rem 0;
+}
+
+.btnNumberPages>span{
+  padding: 0 5px;
+  margin: 0 3px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.selectedPage{
+  background-color: aquamarine;
+  border-radius: 5px;
+  font-weight: bold;
+}
