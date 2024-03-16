@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import axios from 'axios';
 import Users from './Users';
-import preloader from '../../assets/images/tube-spinner.svg';
+import Preloader from '../comoon/Preloader/Preloafer';
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
@@ -42,11 +42,7 @@ class UsersAPIContainer extends React.Component {
   render() {
     return (
       <>
-        {this.props.isFetching ? (
-          <div style={{ textAlign: 'center' }}>
-            <img src={preloader} alt={'loading...'} style={{ width: 100 }} />
-          </div>
-        ) : null}
+        {this.props.isFetching ? <Preloader /> : null}
         <Users
           pageSize={this.props.pageSize}
           currentPage={this.props.currentPage}
