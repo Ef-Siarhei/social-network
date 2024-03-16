@@ -54,6 +54,7 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
+// Action Creator
 export const followAC = (userId) => ({ type: FOLLOW, userId });
 export const unFollowAC = (userId) => ({ type: UNFOLLOW, userId });
 export const setUsersAC = (users) => ({ type: SET_USERS, users });
@@ -65,7 +66,7 @@ export const setTotalUsersCountAC = (totalUsersCount) => ({
   type: SET_TOTAL_USERS_COUNT,
   totalUsersCount,
 });
-export const isFetchingAC = (isFetching) => ({
+export const setIsFetchingAC = (isFetching) => ({
   type: IS_FETCHING,
   isFetching,
 });
