@@ -1,10 +1,15 @@
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostContainer from './MyPosts/MyPostContainer';
+import Preloader from '../comoon/Preloader/Preloafer';
 
-export default function Profile() {
+export default function Profile(props) {
+  if (!props.profile) {
+    return <Preloader />;
+  }
+
   return (
     <>
-      <ProfileInfo />
+      <ProfileInfo {...props.profile} />
       <MyPostContainer />
     </>
   );

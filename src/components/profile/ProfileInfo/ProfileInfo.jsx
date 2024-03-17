@@ -1,6 +1,6 @@
-import s from "./ProfileInfo.module.css";
+import s from './ProfileInfo.module.css';
 
-export default function ProfileInfo() {
+export default function ProfileInfo(props) {
   return (
     <div>
       <div>
@@ -11,12 +11,9 @@ export default function ProfileInfo() {
         />
       </div>
       <div className={s.descriptionBlock}>
-        <img
-          className={s.avatar}
-          src="https://www.researchgate.net/publication/328101815/figure/fig3/AS:678371700772865@1538747825499/Original-image-of-Lena-200X200-pixels.ppm"
-          alt=""
-        />
-        <div>Description</div>
+        <img className={s.avatar} src={props.photos.small} alt="" />
+        <div style={{ fontSize: 30 }}>{props.fullName}</div>
+        <div>About me: {props.aboutMe}</div>
       </div>
     </div>
   );
