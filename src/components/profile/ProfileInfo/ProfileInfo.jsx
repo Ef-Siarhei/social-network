@@ -1,4 +1,5 @@
 import s from './ProfileInfo.module.css';
+import Contacts from './Contacts/Contacts';
 
 export default function ProfileInfo(props) {
   return (
@@ -14,6 +15,7 @@ export default function ProfileInfo(props) {
         <img className={s.avatar} src={props.photos.small} alt="" />
         <div style={{ fontSize: 30 }}>{props.fullName}</div>
         <div>About me: {props.aboutMe}</div>
+        <Contacts contacts={props.contacts} />
       </div>
     </div>
   );
