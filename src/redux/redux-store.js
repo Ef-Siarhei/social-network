@@ -3,6 +3,7 @@ import profileReducer from './reduced/profile-reducer';
 import messagesReducer from './reduced/messages-reducer';
 import sidebarReducer from './reduced/sidebar-reducer';
 import usersReducer from './reduced/users-reducer';
+import authReducer from './reduced/auth-reducer';
 // createStore устарел потому legacy_createStore as createStore
 
 let reducers = combineReducers({
@@ -10,6 +11,7 @@ let reducers = combineReducers({
   messagesPage: messagesReducer,
   sidebar: sidebarReducer,
   usersPage: usersReducer,
+  auth: authReducer,
 });
 
 let store = createStore(reducers);
