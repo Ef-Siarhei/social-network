@@ -2,7 +2,7 @@ import s from './users.module.css';
 import userPhoto from '../../assets/images/woman.jpg';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+import { usersAPI } from '../../api/api';
 
 const Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -29,22 +29,11 @@ const Users = (props) => {
                   <button
                     className={s.on_off_Follow}
                     onClick={() => {
-                      axios
-                        .delete(
-                          `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                          {
-                            withCredentials: true,
-                            // work without key!!!
-                            // headers: {
-                            //   'API-KEY': '59a8c29a-9be7-4874-919c-a8a3bc4e3776',
-                            // },
-                          },
-                        )
-                        .then((response) => {
-                          if (response.data.resultCode === 0) {
-                            props.unFollow(user.id);
-                          }
-                        });
+                      usersAPI.deleteFollow(user.id).then((response) => {
+                        if (response.data.resultCode === 0) {
+                          props.unFollow(user.id);
+                        }
+                      });
                     }}
                   >
                     Unfollow
@@ -53,22 +42,11 @@ const Users = (props) => {
                   <button
                     className={s.on_off_Follow}
                     onClick={() => {
-                      axios
-                        .post(
-                          `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
-                          {},
-                          {
-                            withCredentials: true,
-                            // headers: {
-                            //   'API-KEY': '59a8c29a-9be7-4874-919c-a8a3bc4e3776',
-                            // },
-                          },
-                        )
-                        .then((response) => {
-                          if (response.data.resultCode === 0) {
-                            props.follow(user.id);
-                          }
-                        });
+                      usersAPI.addFollow(user.id).then((response) => {
+                        if (response.data.resultCode === 0) {
+                          props.follow(user.id);
+                        }
+                      });
                     }}
                   >
                     Follow

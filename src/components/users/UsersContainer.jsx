@@ -10,27 +10,31 @@ import {
 import React from 'react';
 import Users from './Users';
 import Preloader from '../comoon/Preloader/Preloafer';
-import { getUsers, getUsersClickToNumberPage } from '../../api/api';
+import { usersAPI } from '../../api/api';
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
     this.props.setIsFetching(true);
 
-    getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
-      this.props.setIsFetching(false);
-      this.props.setUsers(data.items);
-      this.props.setTotalUsersCount(data.totalCount / 260);
-    });
+    usersAPI
+      .getUsers(this.props.currentPage, this.props.pageSize)
+      .then((data) => {
+        this.props.setIsFetching(false);
+        this.props.setUsers(data.items);
+        this.props.setTotalUsersCount(data.totalCount / 260);
+      });
   }
 
   onPageChanged = (pageNumber) => {
     this.props.setCurrentPage(pageNumber);
     this.props.setIsFetching(true);
 
-    getUsersClickToNumberPage(pageNumber, this.props.pageSize).then((data) => {
-      this.props.setIsFetching(false);
-      this.props.setUsers(data.items);
-    });
+    usersAPI
+      .getUsersClickToNumberPage(pageNumber, this.props.pageSize)
+      .then((data) => {
+        this.props.setIsFetching(false);
+        this.props.setUsers(data.items);
+      });
   };
 
   render() {
