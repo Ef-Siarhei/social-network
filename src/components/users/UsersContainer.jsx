@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import Users from './Users';
 import Preloader from '../comoon/Preloader/Preloafer';
-import { getUsers, getUsersPage } from '../../api/api';
+import { getUsers, getUsersClickToNumberPage } from '../../api/api';
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
@@ -27,7 +27,7 @@ class UsersAPIContainer extends React.Component {
     this.props.setCurrentPage(pageNumber);
     this.props.setIsFetching(true);
 
-    getUsersPage(pageNumber, this.props.pageSize).then((data) => {
+    getUsersClickToNumberPage(pageNumber, this.props.pageSize).then((data) => {
       this.props.setIsFetching(false);
       this.props.setUsers(data.items);
     });
