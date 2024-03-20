@@ -29,8 +29,8 @@ const Users = (props) => {
                   <button
                     className={s.on_off_Follow}
                     onClick={() => {
-                      usersAPI.deleteFollow(user.id).then((response) => {
-                        if (response.data.resultCode === 0) {
+                      usersAPI.deleteFollow(user.id).then((data) => {
+                        if (data.resultCode === 0) {
                           props.unFollow(user.id);
                         }
                       });
@@ -42,8 +42,8 @@ const Users = (props) => {
                   <button
                     className={s.on_off_Follow}
                     onClick={() => {
-                      usersAPI.addFollow(user.id).then((response) => {
-                        if (response.data.resultCode === 0) {
+                      usersAPI.addFollow(user.id).then((data) => {
+                        if (data.resultCode === 0) {
                           props.follow(user.id);
                         }
                       });
