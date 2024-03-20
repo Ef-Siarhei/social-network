@@ -27,12 +27,17 @@ const Users = (props) => {
               <div>
                 {user.followed ? (
                   <button
+                    disabled={props.followingIsProgress.some(
+                      (id) => id === user.id,
+                    )}
                     className={s.on_off_Follow}
                     onClick={() => {
+                      props.toggleFollowingProgress(true, user.id);
                       usersAPI.deleteFollow(user.id).then((data) => {
                         if (data.resultCode === 0) {
                           props.unFollow(user.id);
                         }
+                        props.toggleFollowingProgress(false, user.id);
                       });
                     }}
                   >
@@ -40,12 +45,17 @@ const Users = (props) => {
                   </button>
                 ) : (
                   <button
+                    disabled={props.followingIsProgress.some(
+                      (id) => id === user.id,
+                    )}
                     className={s.on_off_Follow}
                     onClick={() => {
+                      props.toggleFollowingProgress(true, user.id);
                       usersAPI.addFollow(user.id).then((data) => {
                         if (data.resultCode === 0) {
                           props.follow(user.id);
                         }
+                        props.toggleFollowingProgress(false, user.id);
                       });
                     }}
                   >
