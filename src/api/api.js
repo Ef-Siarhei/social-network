@@ -36,3 +36,9 @@ export const headerAPI = {
     return instance.get('auth/me').then((response) => response.data);
   },
 };
+
+export const profileAPI = {
+  getUser(userId) {
+    return instance.get(`profile/` + userId).then((response) => response.data);
+  },
+};
