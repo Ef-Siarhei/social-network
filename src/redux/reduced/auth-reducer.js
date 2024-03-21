@@ -1,3 +1,5 @@
+import { headerAPI } from '../../api/api';
+
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_IS_AUTH = 'SET_IS_AUTH';
 
@@ -36,5 +38,17 @@ export const setIsAuth = (isAuth) => ({
   type: SET_IS_AUTH,
   isAuth,
 });
+
+export const getAuthMe = () => {
+  return (dispatch) => {
+    headerAPI.getAuthMe().then((data) => {
+      if (data.resultCode === 0) {
+        let { id, email, login } = data.data;
+        dispatch(setUserData(id, email, login));
+        dispatch(setIsAuth(true));
+      }
+    });
+  };
+};
 
 export default authReducer;
