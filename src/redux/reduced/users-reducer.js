@@ -67,8 +67,8 @@ const usersReducer = (state = initialState, action) => {
 };
 
 // Action Creator
-export const follow = (userId) => ({ type: FOLLOW, userId });
-export const unFollow = (userId) => ({ type: UNFOLLOW, userId });
+export const followAC = (userId) => ({ type: FOLLOW, userId });
+export const unFollowAC = (userId) => ({ type: UNFOLLOW, userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
 export const setCurrentPage = (currentPage) => ({
   type: SET_CURRENT_PAGE,
@@ -98,6 +98,30 @@ export const getUsers = (currentPage, pageSize) => {
       dispatch(setIsFetching(false));
       dispatch(setUsers(data.items));
       dispatch(setTotalUsersCount(data.totalCount / 260));
+    });
+  };
+};
+
+export const follow = (userId) => {
+  return (dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId));
+    usersAPI.follow(userId).then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(followAC(userId));
+      }
+      dispatch(toggleFollowingProgress(false, userId));
+    });
+  };
+};
+
+export const unFollow = (userId) => {
+  return (dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId));
+    usersAPI.unFollow(userId).then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(unFollowAC(userId));
+      }
+      dispatch(toggleFollowingProgress(false, userId));
     });
   };
 };

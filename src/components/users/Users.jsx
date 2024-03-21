@@ -32,13 +32,7 @@ const Users = (props) => {
                     )}
                     className={s.on_off_Follow}
                     onClick={() => {
-                      props.toggleFollowingProgress(true, user.id);
-                      usersAPI.deleteFollow(user.id).then((data) => {
-                        if (data.resultCode === 0) {
-                          props.unFollow(user.id);
-                        }
-                        props.toggleFollowingProgress(false, user.id);
-                      });
+                      props.unFollow(user.id);
                     }}
                   >
                     Unfollow
@@ -50,13 +44,7 @@ const Users = (props) => {
                     )}
                     className={s.on_off_Follow}
                     onClick={() => {
-                      props.toggleFollowingProgress(true, user.id);
-                      usersAPI.addFollow(user.id).then((data) => {
-                        if (data.resultCode === 0) {
-                          props.follow(user.id);
-                        }
-                        props.toggleFollowingProgress(false, user.id);
-                      });
+                      props.follow(user.id);
                     }}
                   >
                     Follow
