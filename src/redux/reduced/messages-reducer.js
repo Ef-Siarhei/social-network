@@ -78,5 +78,17 @@ export const updateNewMessageBodyActionCreator = (text) => ({
   type: UPDATE_NEW_MESSAGE_BODY,
   newText: text,
 });
+// thunk creator
+export const sendMessage = () => {
+  //thunk
+  return (dispatch) => {
+    dispatch(sendNewMessageActionCreator());
+  };
+};
+export const changeMessage = (text) => {
+  return (dispatch) => {
+    dispatch(updateNewMessageBodyActionCreator(text));
+  };
+};
 
 export default messagesReducer;
