@@ -21,8 +21,7 @@ const withAuthNavigate = (Component) => {
   //   }
   // }
 
-  let AuthNavigateComponent = connect(mapStateToProps, {})(WrapperComponent);
-  return AuthNavigateComponent;
+  return connect(mapStateToProps, {})(WrapperComponent);
 };
 
 export default withAuthNavigate;

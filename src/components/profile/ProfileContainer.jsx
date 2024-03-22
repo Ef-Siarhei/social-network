@@ -5,6 +5,7 @@ import Preloader from '../comoon/Preloader/Preloafer';
 import { getUserProfile } from '../../redux/reduced/profile-reducer';
 import { useParams } from 'react-router-dom';
 import withAuthNavigate from '../../hoc/withAuthNavigate';
+import { compose } from 'redux';
 
 const withRouter = (WrappedComponent) => (props) => {
   const params = useParams();
@@ -37,18 +38,12 @@ class ProfileContainer extends React.Component {
   }
 }
 
-let AuthNavigateComponent = withAuthNavigate(ProfileContainer);
-
-let WithUrlDataContainerComponent = withRouter(AuthNavigateComponent);
-
 const mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
 });
 
-export default connect(mapStateToProps, {
-  getUserProfile,
-})(WithUrlDataContainerComponent);
-
-// export default connect(mapStateToProps, {
-//   getUserProfile,
-// })(withRouter(withAuthNavigate(ProfileContainer)));
+export default compose(
+  connect(mapStateToProps, { getUserProfile }),
+  withRouter,
+  withAuthNavigate,
+)(ProfileContainer);

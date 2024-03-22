@@ -16,12 +16,6 @@ export const usersAPI = {
       .then((response) => response.data);
   },
 
-  getUsersClickToNumberPage(pageNumber, pageSize) {
-    return instance
-      .get(`users?count=${pageSize}&page=${pageNumber}`)
-      .then((response) => response.data);
-  },
-
   follow(id) {
     return instance.post(`follow/${id}`).then((response) => response.data);
   },
