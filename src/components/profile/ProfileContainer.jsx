@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
 import Preloader from '../comoon/Preloader/Preloafer';
-import { getUser } from '../../redux/reduced/profile-reducer';
+import { getUserProfile } from '../../redux/reduced/profile-reducer';
 import { useParams } from 'react-router-dom';
 
 const withRouter = (WrappedComponent) => (props) => {
@@ -23,7 +23,7 @@ class ProfileContainer extends React.Component {
     if (!userId) {
       userId = 2;
     }
-    this.props.getUser(userId);
+    this.props.getUserProfile(userId);
   }
 
   render() {
@@ -43,5 +43,5 @@ const mapStateToProps = (state) => ({
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
 export default connect(mapStateToProps, {
-  getUser,
+  getUserProfile,
 })(WithUrlDataContainerComponent);

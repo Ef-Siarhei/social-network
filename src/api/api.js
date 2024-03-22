@@ -31,14 +31,14 @@ export const usersAPI = {
   },
 };
 
-export const headerAPI = {
-  getAuthMe() {
+export const authAPI = {
+  getMe() {
     return instance.get('auth/me').then((response) => response.data);
   },
 };
 
 export const profileAPI = {
-  getUser(userId) {
+  getProfile(userId) {
     return instance.get(`profile/` + userId).then((response) => response.data);
   },
 };
