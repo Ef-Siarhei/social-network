@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Profile from './Profile';
 import Preloader from '../comoon/Preloader/Preloafer';
 import { getUserProfile } from '../../redux/reduced/profile-reducer';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 const withRouter = (WrappedComponent) => (props) => {
   const params = useParams();
@@ -27,6 +27,8 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
+    if (!this.props.isAuth) return <Navigate to="/login" />;
+
     return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
@@ -38,6 +40,7 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
+  isAuth: state.auth.isAuth,
 });
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
