@@ -15,7 +15,10 @@ export default function ProfileInfo(props) {
       <div className={s.descriptionBlock}>
         <img className={s.avatar} src={props.photos.small} alt="" />
         <div style={{ fontSize: 30 }}>{props.fullName}</div>
-        <ProfileStatus status={'Мой статус: Сиська'} />
+        <ProfileStatus
+          status={props.status}
+          updateUserStatus={props.updateUserStatus}
+        />
         <div>About me: {props.aboutMe}</div>
         <Contacts contacts={props.contacts} />
       </div>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 class ProfileStatus extends React.Component {
+  statusInputRef = React.createRef();
   state = {
     editMode: false,
   };
-
   activateEditMode = () => {
+    console.log(this);
     this.setState({
       editMode: true,
     });
@@ -14,6 +15,7 @@ class ProfileStatus extends React.Component {
     this.setState({
       editMode: false,
     });
+    this.props.updateUserStatus(this.statusInputRef.current.value);
   };
 
   render() {
@@ -28,10 +30,11 @@ class ProfileStatus extends React.Component {
         ) : (
           <div>
             <input
+              ref={this.statusInputRef}
               autoFocus={true}
               onBlur={this.deactivateEditMode}
               type={'text'}
-              value={this.props.status}
+              defaultValue={this.props.status}
             />
           </div>
         )}
@@ -44,12 +47,14 @@ export default ProfileStatus;
 // This also worked
 // const ProfileStatus = (props) => {
 //   let [state, setState] = useState(false);
+//   let statusInputRef = React.createRef();
 //
 //   const activateEditMode = () => {
 //     setState(true);
 //   };
 //   const deactivateEditMode = () => {
 //     setState(false);
+//     props.updateUserStatus(statusInputRef.current.value);
 //   };
 //
 //   return (
@@ -61,10 +66,11 @@ export default ProfileStatus;
 //       ) : (
 //         <div>
 //           <input
+//             ref={statusInputRef}
 //             autoFocus={true}
 //             onBlur={deactivateEditMode}
 //             type={'text'}
-//             value={props.status}
+//             defaultValue={props.status}
 //           />
 //         </div>
 //       )}
