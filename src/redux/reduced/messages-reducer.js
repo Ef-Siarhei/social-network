@@ -1,5 +1,4 @@
 const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 
 let initialState = {
   dialogs: [
@@ -42,7 +41,6 @@ let initialState = {
     { id: 5, output: true, message: 'Sergei' },
     { id: 6, input: true, message: 'Masha' },
   ],
-  newMessageText: 'New Message',
 };
 
 const messagesReducer = (state = initialState, action) => {
@@ -51,18 +49,11 @@ const messagesReducer = (state = initialState, action) => {
       let newMessage = {
         id: 7,
         output: true,
-        message: state.newMessageText,
+        message: action.message,
       };
       return {
         ...state,
         messages: [...state.messages, newMessage],
-        newMessageText: '',
-      };
-    }
-    case UPDATE_NEW_MESSAGE_BODY: {
-      return {
-        ...state,
-        newMessageText: action.newText,
       };
     }
     default:
@@ -70,24 +61,16 @@ const messagesReducer = (state = initialState, action) => {
   }
 };
 
-export const sendNewMessageActionCreator = () => ({
+export const sendNewMessageActionCreator = (message) => ({
   type: SEND_MESSAGE,
+  message,
 });
 
-export const updateNewMessageBodyActionCreator = (text) => ({
-  type: UPDATE_NEW_MESSAGE_BODY,
-  newText: text,
-});
 // thunk creator
-export const sendMessage = () => {
+export const sendMessage = (message) => {
   //thunk
   return (dispatch) => {
-    dispatch(sendNewMessageActionCreator());
-  };
-};
-export const changeMessage = (text) => {
-  return (dispatch) => {
-    dispatch(updateNewMessageBodyActionCreator(text));
+    dispatch(sendNewMessageActionCreator(message));
   };
 };
 
