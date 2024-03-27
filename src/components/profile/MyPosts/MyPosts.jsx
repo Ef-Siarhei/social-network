@@ -1,6 +1,27 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import { Field, reduxForm } from 'redux-form';
+
+const AddNewPostForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field
+          name={'newPostText'}
+          component={'textarea'}
+          placeholder={'Enter tour post'}
+        />
+      </div>
+      <div>
+        <button>Add post</button>
+      </div>
+    </form>
+  );
+};
+const AddNewPostReduxForm = reduxForm({ form: 'profileAddNewPostForm' })(
+  AddNewPostForm,
+);
 
 export default class MyPosts extends React.Component {
   postsElements = () => {
@@ -9,64 +30,17 @@ export default class MyPosts extends React.Component {
     ));
   };
 
-  onAddNewPost = () => {
-    this.props.addPost();
-  };
-
-  onPostChange = (event) => {
-    let text = event.target.value;
-    this.props.changePost(text);
+  onSubmit = (formData) => {
+    this.props.addPost(formData.newPostText);
   };
 
   render() {
     return (
       <div className={s.myPosts}>
         <h3>My posts</h3>
-        <div>
-          New post
-          <div>
-            <textarea
-              onChange={this.onPostChange}
-              value={this.props.newPostText}
-            />
-          </div>
-          <div>
-            <button onClick={this.onAddNewPost}>Add post</button>
-          </div>
-        </div>
+        <AddNewPostReduxForm onSubmit={this.onSubmit} />
         <div>{this.postsElements()}</div>
       </div>
     );
   }
 }
-
-// export default function MyPosts(props) {
-// let postsElements = props.posts.map((p) => (
-//   <Post message={p.message} like={p.like} key={p.id} />
-// ));
-
-// let onAddNewPost = () => {
-//   props.addPost();
-// };
-
-// let onPostChange = (event) => {
-//   let text = event.target.value;
-//   props.changePost(text);
-// };
-
-// return (
-//   <div className={s.myPosts}>
-//     <h3>My posts</h3>
-//     <div>
-//       New post
-//       <div>
-//         <textarea onChange={onPostChange} value={props.newPostText} />
-//       </div>
-//       <div>
-//         <button onClick={onAddNewPost}>Add post</button>
-//       </div>
-//     </div>
-//     <div>{postsElements}</div>
-//   </div>
-// );
-// }
