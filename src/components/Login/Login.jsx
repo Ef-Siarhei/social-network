@@ -21,7 +21,7 @@ const LoginForm = (props) => {
           name={'password'}
           placeholder={'Password'}
           type={'password'}
-          validate={[required, maxLength10]}
+          validate={[required, maxLength15]}
         />
       </div>
       <div>
