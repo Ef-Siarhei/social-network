@@ -1,6 +1,6 @@
 import s from './Header.module.css';
 import { NavLink } from 'react-router-dom';
-import UserIcon from '../comoon/UserIcon/UserIcon';
+import UserIcon from '../common/UserIcon/UserIcon';
 
 export default function Header(props) {
   return (

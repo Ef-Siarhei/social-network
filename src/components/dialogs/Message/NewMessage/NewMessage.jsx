@@ -1,6 +1,6 @@
 import { Field, reduxForm } from 'redux-form';
 import s from './NewMessage.module.css';
-import { Textarea } from '../../../comoon/FormsControl/FormsControl';
+import { Textarea } from '../../../common/FormsControl/FormsControl';
 import {
   maxLengthCreator,
   required,
