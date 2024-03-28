@@ -6,7 +6,7 @@ import {
   maxLengthCreator,
   required,
 } from '../../../utils/validators/validators';
-import { Textarea } from '../../comoon/FormsControl/FormsControl';
+import { Textarea } from '../../common/FormsControl/FormsControl';
 
 const maxLength10 = maxLengthCreator(10);
 

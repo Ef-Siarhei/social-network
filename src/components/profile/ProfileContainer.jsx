@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import Preloader from '../comoon/Preloader/Preloafer';
 import {
   getUserProfile,
   getUserStatus,
@@ -36,7 +35,6 @@ class ProfileContainer extends React.Component {
   render() {
     return (
       <>
-        {this.props.isFetching ? <Preloader /> : null}
         <Profile {...this.props} />;
       </>
     );
@@ -51,5 +49,5 @@ const mapStateToProps = (state) => ({
 export default compose(
   connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus }),
   withRouter,
-  // withAuthNavigate,
+  withAuthNavigate,
 )(ProfileContainer);
