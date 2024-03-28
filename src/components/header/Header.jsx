@@ -1,5 +1,5 @@
 import s from './Header.module.css';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import UserIcon from '../common/UserIcon/UserIcon';
 
 export default function Header(props) {
@@ -12,8 +12,9 @@ export default function Header(props) {
       <div className={s.loginBlock}>
         {props.isAuth ? (
           <>
-            <UserIcon img={null} />
+            <UserIcon img={null}/>
             {props.login}
+            <button onClick={props.logout}>Log out</button>
           </>
         ) : (
           <NavLink to="/login">Login</NavLink>
