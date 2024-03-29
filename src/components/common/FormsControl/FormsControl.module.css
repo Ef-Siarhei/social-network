@@ -7,3 +7,8 @@
 .error span {
   color: red;
 }
+
+.form_summary_error{
+  border: solid 2px red;
+  padding: 5px;
+}
