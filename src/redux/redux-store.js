@@ -10,6 +10,7 @@ import usersReducer from './reduced/users-reducer';
 import authReducer from './reduced/auth-reducer';
 import { thunk as thunkMiddleware } from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
+import appReducer from "./reduced/app-reducer";
 // createStore устарел потому legacy_createStore as createStore
 
 let reducers = combineReducers({
@@ -19,6 +20,7 @@ let reducers = combineReducers({
   usersPage: usersReducer,
   auth: authReducer,
   form: formReducer,
+  app: appReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
