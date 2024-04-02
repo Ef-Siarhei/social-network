@@ -9,6 +9,12 @@ import {
 import { useParams } from 'react-router-dom';
 import withAuthNavigate from '../../hoc/withAuthNavigate';
 import { compose } from 'redux';
+import {
+  getAuthorizedUserId,
+  getIsAuth,
+  getProfile,
+  getStatus,
+} from '../../redux/selectors/profile-selectors';
 
 const withRouter = (WrappedComponent) => (props) => {
   const params = useParams();
@@ -42,10 +48,10 @@ class ProfileContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  profile: state.profilePage.profile,
-  status: state.profilePage.status,
-  authorizedUserId: state.auth.id,
-  isAuth: state.auth.isAuth
+  profile: getProfile(state),
+  status: getStatus(state),
+  authorizedUserId: getAuthorizedUserId(state),
+  isAuth: getIsAuth(state),
 });
 
 export default compose(
