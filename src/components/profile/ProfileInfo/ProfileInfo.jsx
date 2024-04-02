@@ -1,6 +1,7 @@
 import s from './ProfileInfo.module.css';
 import Contacts from './Contacts/Contacts';
-import ProfileStatus from './ProfileStatus/ProfileStatus';
+// import ProfileStatus from './ProfileStatus/ProfileStatus';
+import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
 export default function ProfileInfo(props) {
   return (
@@ -15,7 +16,7 @@ export default function ProfileInfo(props) {
       <div className={s.descriptionBlock}>
         <img className={s.avatar} src={props.photos.small} alt="" />
         <div style={{ fontSize: 30 }}>{props.fullName}</div>
-        <ProfileStatus
+        <ProfileStatusWithHooks
           status={props.status}
           updateUserStatus={props.updateUserStatus}
         />
