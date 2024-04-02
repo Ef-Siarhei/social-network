@@ -1,18 +1,29 @@
 import { connect } from 'react-redux';
-import { follow, unFollow, getUsers } from '../../redux/reduced/users-reducer';
+import {
+  follow,
+  unFollow,
+  requestUsers,
+} from '../../redux/reduced/users-reducer';
 import React from 'react';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
 import { compose } from 'redux';
 import withAuthNavigate from '../../hoc/withAuthNavigate';
-
+import {
+  getUsers,
+  getPageSize,
+  getCurrentPage,
+  getTotalUsersCount,
+  getIsFetching,
+  getFollowingIsProgress,
+} from '../../redux/selectors/users-selectors';
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize);
   };
 
   render() {
@@ -36,12 +47,12 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    currentPage: state.usersPage.currentPage,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    isFetching: state.usersPage.isFetching,
-    followingIsProgress: state.usersPage.followingIsProgress,
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    currentPage: getCurrentPage(state),
+    totalUsersCount: getTotalUsersCount(state),
+    isFetching: getIsFetching(state),
+    followingIsProgress: getFollowingIsProgress(state),
   };
 };
 
@@ -49,7 +60,7 @@ export default compose(
   connect(mapStateToProps, {
     follow,
     unFollow,
-    getUsers,
+    requestUsers,
   }),
   withAuthNavigate,
 )(UsersContainer);

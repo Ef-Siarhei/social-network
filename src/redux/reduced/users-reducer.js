@@ -89,7 +89,7 @@ export const toggleFollowingProgress = (followingIsProgress, userId) => ({
 });
 
 // ThunkCreator
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (currentPage, pageSize) => {
   // Thunk
   return (dispatch) => {
     dispatch(setCurrentPage(currentPage));
