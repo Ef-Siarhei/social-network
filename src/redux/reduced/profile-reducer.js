@@ -52,7 +52,7 @@ export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
 });
-const setUserStatus = (status) => ({
+export const setUserStatus = (status) => ({
   type: SET_USER_STATUS,
   status,
 });

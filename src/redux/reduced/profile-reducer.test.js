@@ -1,6 +1,7 @@
 import profileReducer, {
   addNewPostActionCreator,
   deletePostAC,
+  setUserStatus,
 } from './profile-reducer';
 
 // 1. test data
@@ -49,4 +50,13 @@ test('after deleting length of posts should not be decrement if id incorrect', (
   let newState = profileReducer(state, action);
   //3. expectation
   expect(newState.posts.length).toBe(2);
+});
+
+test('status of profile should be correct', () => {
+  // 1. test data
+  let action = setUserStatus('Hi man');
+  // 2. action
+  let newState = profileReducer(state, action);
+  //3. expectation
+  expect(newState.status.length).not.toBe(0);
 });
