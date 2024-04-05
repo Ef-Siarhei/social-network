@@ -2,6 +2,7 @@ import profileReducer, {
   addNewPostActionCreator,
   deletePostAC,
   setUserStatus,
+  setUserProfile,
 } from './profile-reducer';
 
 // 1. test data
@@ -59,4 +60,12 @@ test('status of profile should be correct', () => {
   let newState = profileReducer(state, action);
   //3. expectation
   expect(newState.status.length).not.toBe(0);
+});
+test('profile should not be null', () => {
+  // 1. test data
+  let action = setUserProfile({});
+  // 2. action
+  let newState = profileReducer(state, action);
+  //3. expectation
+  expect(newState.profile).not.toBe(null);
 });
