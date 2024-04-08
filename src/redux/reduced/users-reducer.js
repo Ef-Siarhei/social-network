@@ -91,38 +91,38 @@ export const toggleFollowingProgress = (followingIsProgress, userId) => ({
 // ThunkCreator
 export const requestUsers = (currentPage, pageSize) => {
   // Thunk
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setCurrentPage(currentPage));
     dispatch(setIsFetching(true));
-    usersAPI.getUsers(currentPage, pageSize).then((data) => {
-      dispatch(setIsFetching(false));
-      dispatch(setUsers(data.items));
-      dispatch(setTotalUsersCount(data.totalCount / 260));
-    });
+
+    let data = await usersAPI.getUsers(currentPage, pageSize);
+    dispatch(setIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount / 260));
   };
 };
 
 export const follow = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.follow(userId).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(followAC(userId));
-      }
-      dispatch(toggleFollowingProgress(false, userId));
-    });
+
+    let data = await usersAPI.follow(userId);
+    if (data.resultCode === 0) {
+      dispatch(followAC(userId));
+    }
+    dispatch(toggleFollowingProgress(false, userId));
   };
 };
 
 export const unFollow = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.unFollow(userId).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(unFollowAC(userId));
-      }
-      dispatch(toggleFollowingProgress(false, userId));
-    });
+
+    let data = await usersAPI.unFollow(userId);
+    if (data.resultCode === 0) {
+      dispatch(unFollowAC(userId));
+    }
+    dispatch(toggleFollowingProgress(false, userId));
   };
 };
 
