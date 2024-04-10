@@ -1,7 +1,8 @@
 import s from './ProfileInfo.module.css';
 import Contacts from './Contacts/Contacts';
 // import ProfileStatus from './ProfileStatus/ProfileStatus';
-import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
+import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
+import UserIcon from '../../common/UserIcon/UserIcon';
 
 export default function ProfileInfo(props) {
   return (
@@ -14,7 +15,7 @@ export default function ProfileInfo(props) {
         />
       </div>
       <div className={s.descriptionBlock}>
-        <img className={s.avatar} src={props.photos.small} alt="" />
+        <UserIcon img={props.photos.small} />
         <div style={{ fontSize: 30 }}>{props.fullName}</div>
         <ProfileStatusWithHooks
           status={props.status}
