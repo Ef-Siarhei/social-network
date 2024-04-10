@@ -2,15 +2,9 @@ import s from './users.module.css';
 import userPhoto from '../../assets/images/woman.jpg';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { usersAPI } from '../../api/api';
+import Paginator from '../common/Paginator/Paginator';
 
 const Users = (props) => {
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-  let pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
   return (
     <div className={s.users}>
       {props.users.map((user) => {
@@ -62,21 +56,12 @@ const Users = (props) => {
         );
       })}
 
-      <div className={s.btnNumberPages}>
-        {pages.map((p) => {
-          return (
-            <span
-              className={props.currentPage === p ? s.selectedPage : ''}
-              key={p}
-              onClick={() => {
-                props.onPageChanged(p);
-              }}
-            >
-              {p}
-            </span>
-          );
-        })}
-      </div>
+      <Paginator
+        totalUsersCount={props.totalUsersCount}
+        pageSize={props.pageSize}
+        currentPage={props.currentPage}
+        onPageChanged={props.onPageChanged}
+      />
 
       <button className={s.show_more}>Show more</button>
     </div>
