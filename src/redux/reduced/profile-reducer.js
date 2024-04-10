@@ -73,5 +73,8 @@ export const updateUserStatus = (status) => async (dispatch) => {
   const response = await profileAPI.updateStatus(status);
   if (response.data.resultCode === 0) dispatch(setUserStatus(status));
 };
+export const addPost = (postText) => (dispatch) => {
+  dispatch(addNewPostActionCreator(postText));
+};
 
 export default profileReducer;
