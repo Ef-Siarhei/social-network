@@ -1,4 +1,5 @@
-import {Route, Routes} from 'react-router-dom';
+import React from 'react';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import './App.scss';
 import Music from './components/music/Music';
 import Navbar from './components/navbar/Navbar';
@@ -9,10 +10,11 @@ import UsersContainer from './components/users/UsersContainer';
 import ProfileContainer from './components/profile/ProfileContainer';
 import HeaderContainer from './components/header/HeaderContainer';
 import Login from './components/Login/Login';
-import {Component} from "react";
-import {connect} from "react-redux";
-import {initializeApp} from "./redux/reduced/app-reducer";
-import Preloader from "./components/common/Preloader/Preloader";
+import { Component } from 'react';
+import { Provider, connect } from 'react-redux';
+import { initializeApp } from './redux/reduced/app-reducer';
+import Preloader from './components/common/Preloader/Preloader';
+import store from './redux/redux-store';
 
 class App extends Component {
   componentDidMount() {
@@ -21,22 +23,22 @@ class App extends Component {
 
   render() {
     if (!this.props.initialized) {
-      return <Preloader/>
+      return <Preloader />;
     }
 
     return (
       <div className="app-wrapper">
-        <HeaderContainer/>
-        <Navbar/>
+        <HeaderContainer />
+        <Navbar />
         <div className="app-wrapper-content">
           <Routes>
-            <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
-            <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-            <Route path="/news" element={<News/>}/>
-            <Route path="/music" element={<Music/>}/>
-            <Route path="/users" element={<UsersContainer/>}/>
-            <Route path="/settings" element={<Settings/>}/>
-            <Route path="/login" element={<Login/>}/>
+            <Route path="/profile/:userId?" element={<ProfileContainer />} />
+            <Route path="/dialogs/*" element={<DialogsContainer />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/music" element={<Music />} />
+            <Route path="/users" element={<UsersContainer />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>
@@ -45,7 +47,20 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  initialized: state.app.initialized
-})
+  initialized: state.app.initialized,
+});
 
-export default connect(mapStateToProps, {initializeApp})(App)
+const AppContainer = connect(mapStateToProps, { initializeApp })(App);
+
+const SamuraiJSApp = (props) => {
+  return (
+    <React.StrictMode>
+      <BrowserRouter>
+        <Provider store={store}>
+          <AppContainer />
+        </Provider>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+};
+export default SamuraiJSApp;
