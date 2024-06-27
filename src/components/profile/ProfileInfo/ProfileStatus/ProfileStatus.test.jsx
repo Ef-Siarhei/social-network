@@ -11,8 +11,8 @@ describe('ProfileStatus component', () => {
 
   test('after creation <span> should be displayed with correct status', () => {
     const component = create(<ProfileStatus status="I am hallow" />);
-    const instance = component.getInstance();
-    const span = instance.findByType('span');
-    expect(span.length).toBe(1);
+    const root = component.root;
+    const span = root.findByType('span');
+    expect(span).not.toBeNull();
   });
 });
