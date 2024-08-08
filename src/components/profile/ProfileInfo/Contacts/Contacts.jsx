@@ -27,7 +27,7 @@ const Contacts = (props) => {
         : 'https://' + props.contacts[key];
 
       contacts.push(
-        <a href={href} target={'_blank'} key={key}>
+        <a href={href} target={`_blank`} key={key}>
           <img src={icons[key]} alt={''} />
         </a>,
       );
