@@ -17,6 +17,7 @@ import {
   getIsFetching,
   getFollowingIsProgress,
 } from '../../redux/selectors/users-selectors';
+
 class UsersContainer extends React.Component {
   componentDidMount() {
     const { currentPage, pageSize } = this.props;

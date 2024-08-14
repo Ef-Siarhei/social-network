@@ -6,8 +6,14 @@
 .btnNumberPages > span {
   padding: 0 5px;
   margin: 0 3px;
-  text-align: center;
   cursor: pointer;
+}
+
+.btnNumberPages > div {
+  display: inline;
+}
+.btnNumberPages > div > button{
+  margin-left: 5px;;
 }
 
 .selectedPage {
