@@ -1,5 +1,5 @@
 import React, {lazy, Suspense} from 'react';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import {Route, Routes, HashRouter} from 'react-router-dom';
 import './App.scss';
 import Music from './components/music/Music';
 import Navbar from './components/navbar/Navbar';
@@ -24,7 +24,7 @@ class App extends Component {
 
   render() {
     if (!this.props.initialized) {
-      return <Preloader />;
+      return <Preloader />
     }
 
     return (
@@ -58,13 +58,11 @@ const AppContainer = connect(mapStateToProps, { initializeApp })(App);
 const SamuraiJSApp = (props) => {
   return (
     <React.StrictMode>
-      {/* Благодоря basename={process.env.PUBLIC_URL} изменение URL происходит не относительно корня https://ef-siarhei.github.io/ а относительно
-       нашей папки https://ef-siarhei.github.io/social-network */}
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter >
         <Provider store={store}>
           <AppContainer />
         </Provider>
-      </BrowserRouter>
+      </HashRouter>
     </React.StrictMode>
   );
 };
