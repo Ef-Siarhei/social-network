@@ -58,7 +58,9 @@ const AppContainer = connect(mapStateToProps, { initializeApp })(App);
 const SamuraiJSApp = (props) => {
   return (
     <React.StrictMode>
-      <BrowserRouter>
+      {/* Благодоря basename={process.env.PUBLIC_URL} изменение URL происходит не относительно корня https://ef-siarhei.github.io/ а относительно
+       нашей папки https://ef-siarhei.github.io/social-network */}
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
           <AppContainer />
         </Provider>
