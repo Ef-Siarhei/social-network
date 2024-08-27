@@ -10,9 +10,11 @@ export default function Profile(props) {
   return (
     <>
       <ProfileInfo
-        {...props.profile}
+        isOwner={props.isOwner}
+        profile={props.profile}
         status={props.status}
         updateUserStatus={props.updateUserStatus}
+        savePhoto={props.savePhoto}
       />
       <MyPostContainer />
     </>

@@ -1,10 +1,17 @@
 import s from './ProfileInfo.module.css';
 import Contacts from './Contacts/Contacts';
-// import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
-import UserIcon from '../../common/UserIcon/UserIcon';
-
+// import UserIcon from '../../common/UserIcon/UserIcon';
+import noIconUser from '../../../assets/images/noIconUser.svg';
+//
 export default function ProfileInfo(props) {
+
+  const onMainPhotoSelected = (e) => {
+    if (e.target.files.length) {
+      props.savePhoto(e.target.files[0])
+    }
+  }
+
   return (
     <div>
       <div>
@@ -15,13 +22,20 @@ export default function ProfileInfo(props) {
         />
       </div>
       <div className={s.descriptionBlock}>
-        <UserIcon img={props.photos.small} />
-        <div style={{ fontSize: 30 }}>{props.fullName}</div>
+        <img src={props.profile.photos.large || noIconUser} alt={''} className={s.icon}/>
+        {/*<UserIcon img={props.profile.photos.large} />*/}
+
+        {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
+
+        <div style={{ fontSize: 30 }}>{props.profile.fullName}</div>
+
         <ProfileStatusWithHooks
           status={props.status}
           updateUserStatus={props.updateUserStatus}
         />
-        <div>About me: {props.aboutMe}</div>
+
+        <div>About me: {props.profile.aboutMe}</div>
+
         <Contacts contacts={props.contacts} />
       </div>
     </div>
