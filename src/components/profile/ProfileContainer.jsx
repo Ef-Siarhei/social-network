@@ -29,13 +29,23 @@ const withRouter = (WrappedComponent) => (props) => {
 };
 
 class ProfileContainer extends React.Component {
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.params.userId;
     if (!userId) {
       userId = this.props.authorizedUserId;
     }
     this.props.getUserProfile(userId);
     this.props.getUserStatus(userId);
+  }
+
+  componentDidMount() {
+    this.refreshProfile();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+     if(this.props.params.userId !== prevProps.params.userId){
+      this.refreshProfile();
+    }
   }
 
   render() {
