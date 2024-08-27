@@ -33,7 +33,10 @@ const Contacts = (props) => {
       );
     }
   }
-  return contacts;
+  return (
+    <>
+      <h3>My contacts:</h3> {contacts}
+    </>)
 };
 
 export default Contacts;
