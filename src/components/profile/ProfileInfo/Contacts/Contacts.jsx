@@ -18,25 +18,44 @@ const icons = {
   mainLink,
 };
 
-const Contacts = (props) => {
-  let contacts = [];
-  for (let key in props.contacts) {
-    if (props.contacts[key]) {
-      let href = props.contacts[key].startsWith('https://')
-        ? props.contacts[key]
-        : 'https://' + props.contacts[key];
+// const Contacts = (props) => {
+//   let contacts = [];
+//   for (let key in props.contacts) {
+//     if (props.contacts[key]) {
+//       let href = props.contacts[key].startsWith('https://')
+//         ? props.contacts[key]
+//         : 'https://' + props.contacts[key];
+//       contacts.push(
+//         <a href={href} target={`_blank`} key={key}>
+//           <img src={icons[key]} alt={''} />
+//         </a>,
+//       );
+//     }
+//   }
+//   return (
+//     <>
+//       <b>My contacts:</b>
+//       <div>{contacts}</div>
+//     </>)
+// };
 
-      contacts.push(
-        <a href={href} target={`_blank`} key={key}>
-          <img src={icons[key]} alt={''} />
-        </a>,
-      );
-    }
-  }
-  return (
-    <>
-      <h3>My contacts:</h3> {contacts}
-    </>)
+const Contacts = (props) => {
+  return <>
+    <b>My contacts:</b>
+    <div>
+      {Object.keys(props.contacts).filter(key => props.contacts[key] !== null).map(key => {
+        if (props.contacts[key]) {
+          let href = props.contacts[key].startsWith('https://')
+            ? props.contacts[key]
+            : 'https://' + props.contacts[key];
+
+          return <a href={href} target={`_blank`} key={key}>
+            <img src={icons[key]} alt={''}/>
+          </a>
+        }
+      })}
+    </div>
+  </>
 };
 
 export default Contacts;
