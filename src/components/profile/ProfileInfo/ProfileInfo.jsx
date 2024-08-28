@@ -1,15 +1,23 @@
 import s from './ProfileInfo.module.css';
-import Contacts from './Contacts/Contacts';
 import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
 // import UserIcon from '../../common/UserIcon/UserIcon';
 import noIconUser from '../../../assets/images/noIconUser.svg';
-//
+import React, {useState} from "react";
+import ProfileData from "./ProfileData/ProfileData";
+import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
+
 export default function ProfileInfo(props) {
+
+  const [editMode, setEditMode] = useState(false)
 
   const onMainPhotoSelected = (e) => {
     if (e.target.files.length) {
       props.savePhoto(e.target.files[0])
     }
+  }
+
+  const onSubmit = (formData)=>{
+    props.saveProfile(formData)
   }
 
   return (
@@ -22,22 +30,28 @@ export default function ProfileInfo(props) {
         />
       </div>
       <div className={s.descriptionBlock}>
-        <img src={props.profile.photos.large || noIconUser} alt={''} className={s.icon}/>
+        <img src={props.profile.photos['large'] || noIconUser} alt={''} className={s.icon}/>
         {/*<UserIcon img={props.profile.photos.large} />*/}
-
         {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
 
-        <div style={{ fontSize: 30 }}>{props.profile.fullName}</div>
+        <div style={{fontSize: 20}}>
+          <b>Full name:</b> {props.profile.fullName}
+        </div>
 
         <ProfileStatusWithHooks
           status={props.status}
-          updateUserStatus={props.updateUserStatus}
-        />
+          updateUserStatus={props.updateUserStatus}/>
 
-        <div>About me: {props.profile.aboutMe}</div>
+        {editMode
+          ? <ProfileDataForm onSubmit={onSubmit}/>
+          : <ProfileData
+            profile={props.profile}
+            isOwner={props.isOwner}
+            goToEditMode={()=>{setEditMode(true)}}/>}
 
-        <Contacts contacts={props.profile.contacts} />
       </div>
     </div>
   );
 }
+
+
