@@ -1,4 +1,4 @@
-import Contacts from "../Contacts/Contacts";
+// import Contacts from "../Contacts/Contacts";
 import {createField, Input, Textarea} from "../../../common/FormsControl/FormsControl";
 import {maxLengthCreator, required} from "../../../../utils/validators/validators";
 import {reduxForm} from "redux-form";
@@ -35,6 +35,6 @@ const ProfileDataForm = ({handleSubmit}) => {
   </form>
 }
 
-const ProfileDataFormReduxForm = reduxForm({form: 'edit-profile'})(ProfileDataForm)
+const ProfileDataFormReduxForm = reduxForm({form: 'edit-profile', destroyOnUnmount : false})(ProfileDataForm)
 
 export default ProfileDataFormReduxForm
