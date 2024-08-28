@@ -36,7 +36,7 @@ export default function ProfileInfo(props) {
 
         <div>About me: {props.profile.aboutMe}</div>
 
-        <Contacts contacts={props.contacts} />
+        <Contacts contacts={props.profile.contacts} />
       </div>
     </div>
   );
