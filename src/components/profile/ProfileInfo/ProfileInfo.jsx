@@ -44,7 +44,7 @@ export default function ProfileInfo(props) {
           updateUserStatus={props.updateUserStatus}/>
 
         {editMode
-          ? <ProfileDataForm initialValues={props.profile} onSubmit={onSubmit} />
+          ? <ProfileDataForm initialValues={props.profile} onSubmit={onSubmit} profile={props.profile}/>
           : <ProfileData
             profile={props.profile}
             isOwner={props.isOwner}

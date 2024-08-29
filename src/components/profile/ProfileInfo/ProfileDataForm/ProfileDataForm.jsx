@@ -1,4 +1,3 @@
-// import Contacts from "../Contacts/Contacts";
 import {createField, Input, Textarea} from "../../../common/FormsControl/FormsControl";
 import {maxLengthCreator, required} from "../../../../utils/validators/validators";
 import {reduxForm} from "redux-form";
@@ -6,12 +5,8 @@ import {reduxForm} from "redux-form";
 const maxLength15 = maxLengthCreator(15)
 const maxLength150 = maxLengthCreator(150)
 
-const ProfileDataForm = ({handleSubmit}) => {
+const ProfileDataForm = ({handleSubmit, profile}) => {
   return <form onSubmit={handleSubmit}>
-
-    {/*<Contacts contacts={props.profile.contacts}/>*/}
-
-
     <div>
       <b>Full name:</b>
       {createField('Full name', 'fullName', [required, maxLength15], Input)}
@@ -28,6 +23,15 @@ const ProfileDataForm = ({handleSubmit}) => {
       <b>About me:</b>
       {createField('About me...', 'aboutMe', [required, maxLength150], Textarea)}
     </div>
+    <div>
+      <b>My contacts:</b>
+      {Object.keys(profile.contacts).map(key => {
+        return <div key={key}>
+          <b>{key}:</b>
+          {createField(key, 'contacts.' + key, null, Input)}
+        </div>
+      })}
+    </div>
 
     <div>
       <button>Save</button>
@@ -35,6 +39,6 @@ const ProfileDataForm = ({handleSubmit}) => {
   </form>
 }
 
-const ProfileDataFormReduxForm = reduxForm({form: 'edit-profile', destroyOnUnmount : false})(ProfileDataForm)
+const ProfileDataFormReduxForm = reduxForm({form: 'edit-profile', destroyOnUnmount: false})(ProfileDataForm)
 
 export default ProfileDataFormReduxForm
