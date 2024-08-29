@@ -1,4 +1,5 @@
-import { profileAPI } from '../../api/api';
+import {profileAPI} from '../../api/api';
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -10,8 +11,8 @@ const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS'
 let initialState = {
   profile: null,
   posts: [
-    { id: 1, message: 'Hi, how are you?', like: '5' },
-    { id: 2, message: "It's my first post.", like: '20' },
+    {id: 1, message: 'Hi, how are you?', like: '5'},
+    {id: 2, message: "It's my first post.", like: '20'},
   ],
   status: '',
 };
@@ -30,10 +31,10 @@ const profileReducer = (state = initialState, action) => {
       };
     }
     case SET_USER_PROFILE: {
-      return { ...state, profile: action.profile };
+      return {...state, profile: action.profile};
     }
     case SET_USER_STATUS: {
-      return { ...state, status: action.status };
+      return {...state, status: action.status};
     }
     case DELETE_POST: {
       return {
@@ -107,6 +108,11 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
   if (response.data.resultCode === 0) {
     // dispatch(saveProfileSuccess(profile))
     dispatch(getUserProfile(userId))
+  } else {
+    let messageError = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error';
+    let socialNetwork = messageError.slice(messageError.indexOf('>') + 1, -1).toLowerCase()
+    // socialNetwork => word from message about error
+    dispatch(stopSubmit('edit-profile', {'contacts': {[socialNetwork]: messageError}}))
   }
 }
 export const addPost = (postText) => (dispatch) => {

@@ -18,7 +18,7 @@ export default function ProfileInfo(props) {
 
   const onSubmit = (formData)=>{
     props.saveProfile(formData)
-    setEditMode(false)
+    // setEditMode(false)
   }
 
   return (
