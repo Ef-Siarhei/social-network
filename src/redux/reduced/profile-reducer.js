@@ -7,6 +7,9 @@ const SET_USER_STATUS = 'profile/SET_USER_STATUS';
 const DELETE_POST = 'profile/DELETE_POST';
 const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS'
 // const SAVE_PROFILE_SUCCESS = 'profile/SAVE_PROFILE_SUCCESS'
+const PROFILE_UPDATE_SUCCESS = 'profile/PROFILE_UPDATE_SUCCESS'
+const PROFILE_UPDATE_ERROR = 'profile/PROFILE_UPDATE_ERROR'
+const PROFILE_UPDATE_EDIT = 'profile/PROFILE_UPDATE_EDIT'
 
 let initialState = {
   profile: null,
@@ -15,6 +18,7 @@ let initialState = {
     {id: 2, message: "It's my first post.", like: '20'},
   ],
   status: '',
+  profileUpdateStatus: ''
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -54,6 +58,24 @@ const profileReducer = (state = initialState, action) => {
     //     profile: {...state.profile, ...action.formData}
     //   }
     // }
+    case PROFILE_UPDATE_SUCCESS: {
+      return {
+        ...state,
+        profileUpdateStatus: action.status
+      }
+    }
+    case PROFILE_UPDATE_ERROR: {
+      return {
+        ...state,
+        profileUpdateStatus: action.status
+      }
+    }
+    case PROFILE_UPDATE_EDIT: {
+      return {
+        ...state,
+        profileUpdateStatus: action.status
+      }
+    }
     default:
       return state;
   }
@@ -84,6 +106,12 @@ export const savePhotoSuccess = (photos) => ({
 //   formData
 // })
 
+export const setProfileUpdateStatus = (status) => {
+  if(status === 'edit') return {type: PROFILE_UPDATE_EDIT, status}
+  if(status === 'success') return {type: PROFILE_UPDATE_SUCCESS, status}
+  if(status === 'error') return {type: PROFILE_UPDATE_ERROR, status}
+ }
+
 export const getUserProfile = (userId) => async (dispatch) => {
   const data = await profileAPI.getProfile(userId);
   dispatch(setUserProfile(data));
@@ -108,13 +136,19 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
   if (response.data.resultCode === 0) {
     // dispatch(saveProfileSuccess(profile))
     dispatch(getUserProfile(userId))
+    dispatch(setProfileUpdateStatus('success'));
   } else {
     let messageError = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error';
     let socialNetwork = messageError.slice(messageError.indexOf('>') + 1, -1).toLowerCase()
     // socialNetwork => word from message about error
     dispatch(stopSubmit('edit-profile', {'contacts': {[socialNetwork]: messageError}}))
+    dispatch(setProfileUpdateStatus('error'));
   }
 }
+export const setProfileStatusEdit = (status) => async (dispatch) => {
+  dispatch(setProfileUpdateStatus(status));
+};
+
 export const addPost = (postText) => (dispatch) => {
   dispatch(addNewPostActionCreator(postText));
 };

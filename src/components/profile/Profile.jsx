@@ -16,6 +16,8 @@ export default function Profile(props) {
         updateUserStatus={props.updateUserStatus}
         savePhoto={props.savePhoto}
         saveProfile={props.saveProfile}
+        profileUpdateStatus={props.profileUpdateStatus}
+        setProfileStatusEdit={props.setProfileStatusEdit}
       />
       <MyPostContainer />
     </>

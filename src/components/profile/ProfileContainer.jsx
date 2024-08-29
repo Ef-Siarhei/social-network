@@ -6,7 +6,8 @@ import {
   getUserStatus,
   updateUserStatus,
   savePhoto,
-  saveProfile
+  saveProfile,
+  setProfileStatusEdit,
 } from '../../redux/reduced/profile-reducer';
 import { useParams } from 'react-router-dom';
 import withAuthNavigate from '../../hoc/withAuthNavigate';
@@ -16,6 +17,7 @@ import {
   getIsAuth,
   getProfile,
   getStatus,
+  getProfileUpdateStatus,
 } from '../../redux/selectors/profile-selectors';
 
 const withRouter = (WrappedComponent) => (props) => {
@@ -57,6 +59,8 @@ class ProfileContainer extends React.Component {
         <Profile {...this.props}
         isOwner={!this.props.params['userId']}
         savePhoto={this.props.savePhoto}/>
+        profileUpdateStatus={this.props.profileUpdateStatus}
+        updateProfileStatusEdit={this.props.updateProfileStatusEdit}
       </>
     );
   }
@@ -67,10 +71,11 @@ const mapStateToProps = (state) => ({
   status: getStatus(state),
   authorizedUserId: getAuthorizedUserId(state),
   isAuth: getIsAuth(state),
+  profileUpdateStatus: getProfileUpdateStatus(state)
 });
 
 export default compose(
-  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile }),
+  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile, setProfileStatusEdit }),
   withRouter,
   withAuthNavigate,
 )(ProfileContainer);

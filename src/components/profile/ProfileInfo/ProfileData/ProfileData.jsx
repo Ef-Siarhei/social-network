@@ -22,7 +22,7 @@ const ProfileData = (props) => {
 
       {props.isOwner &&
         <div>
-          <button onClick={props.goToEditMode}>Edit profile</button>
+          <button onClick={props.setProfileStatusEdit}>Edit profile</button>
         </div>}
     </div>
   )

@@ -2,13 +2,13 @@ import s from './ProfileInfo.module.css';
 import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
 // import UserIcon from '../../common/UserIcon/UserIcon';
 import noIconUser from '../../../assets/images/noIconUser.svg';
-import React, {useState} from "react";
+import React from "react";
 import ProfileData from "./ProfileData/ProfileData";
 import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 
 export default function ProfileInfo(props) {
 
-  const [editMode, setEditMode] = useState(false)
+  let statusProfile = props.profileUpdateStatus
 
   const onMainPhotoSelected = (e) => {
     if (e.target.files.length) {
@@ -18,7 +18,6 @@ export default function ProfileInfo(props) {
 
   const onSubmit = (formData)=>{
     props.saveProfile(formData)
-    // setEditMode(false)
   }
 
   return (
@@ -41,15 +40,20 @@ export default function ProfileInfo(props) {
 
         <ProfileStatusWithHooks
           status={props.status}
-          updateUserStatus={props.updateUserStatus}/>
+          updateUserStatus={props.updateUserStatus}
+        />
 
-        {editMode
-          ? <ProfileDataForm initialValues={props.profile} onSubmit={onSubmit} profile={props.profile}/>
+        {statusProfile === 'edit' || statusProfile === 'error'
+          ? <ProfileDataForm
+            initialValues={props.profile}
+            onSubmit={onSubmit}
+            profile={props.profile}
+          />
           : <ProfileData
             profile={props.profile}
             isOwner={props.isOwner}
-            goToEditMode={()=>{setEditMode(true)}}/>}
-
+            setProfileStatusEdit={() => {props.setProfileStatusEdit('edit')}}
+          />}
       </div>
     </div>
   );
