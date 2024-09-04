@@ -43,16 +43,14 @@ const Contacts = (props) => {
   return <>
     <b>My contacts:</b>
     <div>
-      {Object.keys(props.contacts).filter(key => props.contacts[key] !== null).map(key => {
-        if (props.contacts[key]) {
-          let href = props.contacts[key].startsWith('https://')
-            ? props.contacts[key]
-            : 'https://' + props.contacts[key];
+      {Object.keys(props.contacts).filter(key => props.contacts[key]).map(key => {
+        let href = props.contacts[key].startsWith('https://')
+          ? props.contacts[key]
+          : 'https://' + props.contacts[key];
 
-          return <a href={href} target={`_blank`} key={key}>
-            <img src={icons[key]} alt={''}/>
-          </a>
-        }
+        return <a href={href} target={`_blank`} key={key}>
+          <img src={icons[key]} alt={''}/>
+        </a>
       })}
     </div>
   </>
