@@ -18,8 +18,18 @@ const DialogsContainer = lazy(() => import('./components/dialogs/DialogsContaine
 const UsersContainer = lazy(() => import('./components/users/UsersContainer'));
 
 class App extends Component {
+  catchUnhandledErrors = (reason, promise) => {
+    alert(`Unhandled Rejection at: ${promise}, reason: ${reason}`)
+  }
+
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener('unhandledrejection', this.catchUnhandledErrors)
+  }
+  // If we subscribed to addEventListener in componentDidMount,
+  // we must unsubscribe from it addEventListener to componentWillUnmount.
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.catchUnhandledErrors)
   }
 
   render() {
