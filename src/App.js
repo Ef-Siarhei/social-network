@@ -1,5 +1,5 @@
 import React, {lazy, Suspense} from 'react';
-import {Route, Routes, HashRouter} from 'react-router-dom';
+import {Route, Routes, HashRouter, Navigate} from 'react-router-dom';
 import './App.scss';
 import Music from './components/music/Music';
 import Navbar from './components/navbar/Navbar';
@@ -34,6 +34,7 @@ class App extends Component {
         <div className="app-wrapper-content">
           <Suspense fallback={<div>LOADING....</div>}>
             <Routes>
+              <Route path="/" element={<Navigate to='/profile'/>} />
               <Route path="/profile/:userId?" element={<ProfileContainer/>} />
               <Route path="/dialogs/*" element={<DialogsContainer/>} />
               <Route path="/news" element={<News />} />
