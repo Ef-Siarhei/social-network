@@ -57,13 +57,13 @@ const AppContainer = connect(mapStateToProps, { initializeApp })(App);
 
 const SamuraiJSApp = (props) => {
   return (
-    <React.StrictMode>
+    // <React.StrictMode>
       <HashRouter >
         <Provider store={store}>
           <AppContainer />
         </Provider>
       </HashRouter>
-    </React.StrictMode>
+    // </React.StrictMode>
   );
 };
 export default SamuraiJSApp;
