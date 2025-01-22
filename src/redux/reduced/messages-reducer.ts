@@ -1,5 +1,16 @@
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
+type DialogsType = {
+  id: number
+  name: string
+  icon: string
+}
+type MessagesType = {
+  id: number
+  input?: boolean
+  output?: boolean
+  message: string
+}
 let initialState = {
   dialogs: [
     {
@@ -32,28 +43,30 @@ let initialState = {
       name: 'Masha',
       icon: 'https://flomaster.top/uploads/posts/2023-10/thumbs/1697595983_flomaster-top-p-risunki-izvestnikh-lyudei-vkontakte-26.jpg',
     },
-  ],
+  ] as Array<DialogsType>,
   messages: [
-    { id: 1, input: true, message: 'Hi, how are you?' },
-    { id: 2, output: true, message: 'What is you do today?' },
-    { id: 3, input: true, message: 'Come to me tomorrow.' },
-    { id: 4, input: true, message: 'Pasha' },
-    { id: 5, output: true, message: 'Sergei' },
-    { id: 6, input: true, message: 'Masha' },
-  ],
+    {id: 1, input: true, message: 'Hi, how are you?'},
+    {id: 2, output: true, message: 'What is you do today?'},
+    {id: 3, input: true, message: 'Come to me tomorrow.'},
+    {id: 4, input: true, message: 'Pasha'},
+    {id: 5, output: true, message: 'Sergei'},
+    {id: 6, input: true, message: 'Masha'},
+  ] as Array<MessagesType>
 };
 
-const messagesReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState
+
+const messagesReducer = (state = initialState, action: any): InitialStateType => {
   switch (action.type) {
     case SEND_MESSAGE: {
-      let newMessage = {
+      let newMessage: MessagesType = {
         id: 7,
         output: true,
-        message: action.message,
+        message: action.message
       };
       return {
         ...state,
-        messages: [...state.messages, newMessage],
+        messages: [...state.messages, newMessage]
       };
     }
     default:
@@ -61,15 +74,20 @@ const messagesReducer = (state = initialState, action) => {
   }
 };
 
-export const sendNewMessageActionCreator = (message) => ({
+type SendNewMessageActionCreatorType = {
+  type: typeof SEND_MESSAGE,
+  message: string
+}
+
+export const sendNewMessageActionCreator = (message: string): SendNewMessageActionCreatorType => ({
   type: SEND_MESSAGE,
   message,
 });
 
 // thunk creator
-export const sendMessage = (message) => {
+export const sendMessage = (message: string) => {
   //thunk
-  return (dispatch) => {
+  return (dispatch: any) => {
     dispatch(sendNewMessageActionCreator(message));
   };
 };
