@@ -1,3 +1,9 @@
+type FriendType = {
+  id: number
+  name: string
+  icon: string
+}
+
 let initialState = {
   friends: [
     {
@@ -21,11 +27,13 @@ let initialState = {
       name: 'Kat',
       icon: 'https://flomaster.top/uploads/posts/2023-10/thumbs/1697595964_flomaster-top-p-risunki-izvestnikh-lyudei-vkontakte-12.jpg',
     },
-  ],
+  ] as Array<FriendType>,
 };
 
-const sidebarReducer = (state = initialState, action) => {
-  return { ...state };
+type InitialStateType = typeof initialState
+
+const sidebarReducer = (state = initialState, action: any): InitialStateType => {
+  return {...state};
 };
 
 export default sidebarReducer;
