@@ -1,5 +1,6 @@
 import {profileAPI} from '../../api/api';
 import {stopSubmit} from "redux-form";
+import {PhotosType, PostType, ProfileType} from "../../types/types";
 
 const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -9,34 +10,6 @@ const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS'
 const PROFILE_UPDATE_SUCCESS = 'profile/PROFILE_UPDATE_SUCCESS'
 const PROFILE_UPDATE_ERROR = 'profile/PROFILE_UPDATE_ERROR'
 const PROFILE_UPDATE_EDIT = 'profile/PROFILE_UPDATE_EDIT'
-
-type ContactsType = {
-  github: string
-  vk: string
-  facebook: string
-  instagram: string
-  twitter: string
-  website: string
-  youtube: string
-  mainLink: string
-}
-type PhotosType = {
-  small: string | null
-  large: string | null
-}
-type ProfileType = {
-  userId?: number
-  lookingForAJob?: boolean
-  lookingForAJobDescription?: string
-  fullName?: string
-  contacts?: ContactsType
-  photos?: PhotosType
-}
-type PostType = {
-  id: number
-  message: string
-  like: number
-}
 
 let initialState = {
   profile: null as ProfileType | null,
@@ -48,7 +21,7 @@ let initialState = {
   profileUpdateStatus: ''
 };
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 const profileReducer = (state = initialState, action: any): InitialStateType => {
   switch (action.type) {
