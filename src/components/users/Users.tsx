@@ -1,12 +1,24 @@
-import s from './users.module.css';
-import React from 'react';
+import style from './users.module.css';
+import React, {FC} from 'react';
 import Paginator from '../common/Paginator/Paginator';
 import User from './User';
+import {UserType} from "../../types/types";
 
-const Users = (props) => {
+type PropsType = {
+  users: Array<UserType>
+  pageSize:number
+  currentPage: number
+  totalUsersCount: number
+  followingIsProgress: Array<number>
+  follow: (userId: number) => void
+  unFollow: (userId: number) => void
+  onPageChanged: (pageNumber: number) => void
+}
+
+const Users: FC<PropsType> = (props) => {
   return (
-    <div className={s.users}>
-      {props.users.map((user) => {
+    <div className={style.users}>
+      {props.users.map((user: UserType) => {
         return (
           <User
             user={user}
@@ -25,7 +37,7 @@ const Users = (props) => {
         onPageChanged={props.onPageChanged}
       />
 
-      <button className={s.show_more}>Show more</button>
+      <button className={style.show_more}>Show more</button>
     </div>
   );
 };
