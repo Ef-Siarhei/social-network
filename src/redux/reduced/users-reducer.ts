@@ -1,5 +1,6 @@
 import {usersAPI} from '../../api/api';
 import {updateObjectInArray} from '../../utils/object-helper';
+import {UserType} from "../../types/types";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -9,45 +10,28 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const IS_FETCHING = 'IS_FETCHING';
 const TOGGLE_FOLLOWING_PROGRESS = 'TOGGLE_FOLLOWING_PROGRESS';
 
-type UserType = {
-  id: number
-  name: string
-  status: string
-  photos: {
-    small: string
-    large: string
-  }
-  followed: boolean
-}
-type InitialStateType = {
-  users?: Array<UserType>,
-  pageSize: number,
-  currentPage?: number,
-  totalUsersCount?: number,
-  isFetching?: boolean,
-  followingIsProgress: Array<number | undefined>
-}
-
 const initialState = {
-  users: [],
+  users: [] as Array<UserType>,
   pageSize: 10,
   currentPage: 1,
   totalUsersCount: 0,
   isFetching: false,
-  followingIsProgress: []
+  followingIsProgress: [] as Array<number>
 };
 
-type ActionType = {
-  type: string
-  userId?: number
-  users?: []
-  currentPage?: number
-  totalUsersCount?: number
-  isFetching?: boolean
-  followingIsProgress?: boolean
-}
+type InitialStateType = typeof initialState
 
-const usersReducer = (state = initialState, action: ActionType): InitialStateType => {
+// type ActionType = {
+//   type: string
+//   userId?: number
+//   users?: []
+//   currentPage?: number
+//   totalUsersCount?: number
+//   isFetching?: boolean
+//   followingIsProgress?: boolean
+// }
+
+const usersReducer = (state = initialState, action: any): InitialStateType => {
   switch (action.type) {
     case FOLLOW: {
       return {
