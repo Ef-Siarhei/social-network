@@ -33,10 +33,10 @@ type MapDispatchToPropsType = {
   unFollow: (userId: number) => void
   getUsers: (currentPage: number, pageSize: number) => void
 }
-type OunPropsType = {
+type OwnPropsType = {
   pageTitle: string
 }
-type PropsType = MapStateToPropsType & MapDispatchToPropsType & OunPropsType
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
 
 class UsersContainer extends React.Component<PropsType> {
   componentDidMount() {
@@ -83,7 +83,7 @@ const mapStateToProps = (state: AppStateType):MapStateToPropsType => {
 export default compose(
   // нажимаем Ctrl + b при курсоре на connect и смотрим какие уточнения можно добавить в <> в файле react-redux.d.ts
   // <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
-  connect<MapStateToPropsType, MapDispatchToPropsType, OunPropsType, AppStateType>(mapStateToProps, {
+  connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
     follow,
     unFollow,
     getUsers: requestUsers,
