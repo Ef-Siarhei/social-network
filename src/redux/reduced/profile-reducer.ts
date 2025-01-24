@@ -129,11 +129,11 @@ export const setProfileUpdateStatus = (status: 'edit' | 'success' | 'error'): Se
 }
 
 // Санки
-export const getUserProfile = (userId: number) => async (dispatch: any) => {
+export const getUserProfile = (userId: string) => async (dispatch: any) => {
   const data = await profileAPI.getProfile(userId);
   dispatch(setUserProfile(data));
 };
-export const getUserStatus = (userId: number) => async (dispatch: any) => {
+export const getUserStatus = (userId: string) => async (dispatch: any) => {
   const response = await profileAPI.getStatus(userId);
   dispatch(setUserStatus(response.data));
 };
