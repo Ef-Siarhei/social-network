@@ -28,13 +28,13 @@ type ParamsType = {
 type MapStateToPropsType = {
   profile: ProfileType
   status: string
-  authorizedUserId: string
+  authorizedUserId: number
   isAuth: boolean
   profileUpdateStatus: string
 }
 type MapDispatchToPropsType = {
-  getUserProfile: (userId: string) => void
-  getUserStatus: (userId: string) => void
+  getUserProfile: (userId: number) => void
+  getUserStatus: (userId: number) => void
   updateUserStatus: (newStatus: string) => void
   savePhoto: (file: any) => void
   saveProfile: (profile: ProfileType) => void
@@ -56,7 +56,7 @@ const withRouter = (WrappedComponent: React.ComponentType<PropsType>) => (props:
 
 class ProfileContainer extends React.Component<PropsType> {
   refreshProfile() {
-    let userId: string | undefined = this.props.params['userId'];
+    let userId: number | undefined = Number(this.props.params['userId']);
     if (!userId) {
       userId = this.props.authorizedUserId;
     }
