@@ -2,21 +2,33 @@ import s from './ProfileInfo.module.css';
 import ProfileStatusWithHooks from './ProfileStatus/ProfileStatusWithHooks';
 // import UserIcon from '../../common/UserIcon/UserIcon';
 import noIconUser from '../../../assets/images/noIconUser.svg';
-import React from "react";
+import React, {ChangeEvent, FC} from "react";
 import ProfileData from "./ProfileData/ProfileData";
 import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
+import {ProfileType} from "../../../types/types";
 
-export default function ProfileInfo(props) {
+type OwnPropsType = {
+  isOwner: boolean
+  profile: ProfileType
+  status: string
+  profileUpdateStatus: string
+  updateUserStatus: (newStatus: string) => void
+  savePhoto: (file: any) => void
+  saveProfile: (profile: ProfileType) => void
+  setProfileStatusEdit: (status: 'edit' | 'success' | 'error') => void
+}
+
+const ProfileInfo: FC<OwnPropsType> = (props) => {
 
   let statusProfile = props.profileUpdateStatus
 
-  const onMainPhotoSelected = (e) => {
-    if (e.target.files.length) {
+  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
       props.savePhoto(e.target.files[0])
     }
   }
 
-  const onSubmit = (formData)=>{
+  const onSubmit = (formData: ProfileType) => {
     props.saveProfile(formData)
   }
 
@@ -30,8 +42,8 @@ export default function ProfileInfo(props) {
         />
       </div>
       <div className={s.descriptionBlock}>
-        <img src={props.profile.photos['large'] || noIconUser} alt={''} className={s.icon}/>
-        {/*<UserIcon img={props.profile.photos.large} />*/}
+        <img src={props.profile.photos?.['large'] || noIconUser} alt={''} className={s.icon}/>
+        {/*<UserIcon img={props.profile.photos?.large} />*/}
         {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
 
         <div style={{fontSize: 20}}>
@@ -47,16 +59,17 @@ export default function ProfileInfo(props) {
           ? <ProfileDataForm
             initialValues={props.profile}
             onSubmit={onSubmit}
-            profile={props.profile}
           />
           : <ProfileData
             profile={props.profile}
             isOwner={props.isOwner}
-            setProfileStatusEdit={() => {props.setProfileStatusEdit('edit')}}
+            setProfileStatusEdit={() => {
+              props.setProfileStatusEdit('edit')
+            }}
           />}
       </div>
     </div>
   );
 }
 
-
+export default ProfileInfo
