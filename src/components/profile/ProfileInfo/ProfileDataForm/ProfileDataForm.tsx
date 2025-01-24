@@ -1,11 +1,18 @@
 import {createField, Input, Textarea} from "../../../common/FormsControl/FormsControl";
 import {maxLengthCreator, required} from "../../../../utils/validators/validators";
-import {reduxForm} from "redux-form";
+import {reduxForm, SubmitHandler} from "redux-form";
+import {ProfileType} from "../../../../types/types";
+import {FC} from "react";
 
 const maxLength15 = maxLengthCreator(15)
 const maxLength150 = maxLengthCreator(150)
 
-const ProfileDataForm = ({handleSubmit, profile}) => {
+type PropsType = {
+  handleSubmit: SubmitHandler
+  initialValues: Partial<ProfileType>
+}
+
+const ProfileDataForm: FC<PropsType> = ({handleSubmit, initialValues}) => {
   return <form onSubmit={handleSubmit}>
     <div>
       <b>Full name:</b>
@@ -25,7 +32,7 @@ const ProfileDataForm = ({handleSubmit, profile}) => {
     </div>
     <div>
       <b>My contacts:</b>
-      {Object.keys(profile.contacts).map(key => {
+      {Object.keys(initialValues.contacts ?? {}).map(key => {
         return <div key={key}>
           <b>{key}:</b>
           {createField(key, 'contacts.' + key, null, Input)}
