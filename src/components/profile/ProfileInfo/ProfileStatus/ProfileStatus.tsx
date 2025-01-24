@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
-class ProfileStatus extends React.Component {
+type OwnPropsType = {
+  status: string
+  updateUserStatus: (newStatus: string) => void
+}
+type StateType = {
+  editMode: boolean
+  status: string
+}
+
+class ProfileStatus extends React.Component<OwnPropsType, StateType> {
   state = {
     editMode: false,
     status: this.props.status,
@@ -17,13 +26,13 @@ class ProfileStatus extends React.Component {
     this.props.updateUserStatus(this.state.status);
   };
 
-  onStatusChange = (e) => {
+  onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({
       status: e.currentTarget.value,
     });
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: OwnPropsType, prevState: StateType) {
     if (prevProps.status !== this.props.status)
       this.setState({
         status: this.props.status,
@@ -57,10 +66,15 @@ class ProfileStatus extends React.Component {
 export default ProfileStatus;
 
 // This also worked
-// const ProfileStatus = (props) => {
+// type OwnPropsType = {
+//   status: string
+//   updateUserStatus: (newStatus: string) => void
+// }
+//
+// const ProfileStatus = (props: OwnPropsType) => {
 //   let [editMode, setEditMode] = useState(false);
 //   let [status, setStatus] = useState(props.status);
-
+//
 //   const activateEditMode = () => {
 //     setEditMode(true);
 //   };
@@ -68,11 +82,11 @@ export default ProfileStatus;
 //     setEditMode(false);
 //     props.updateUserStatus(status);
 //   };
-
-//   const onStatusChange = (e) => {
+//
+//   const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
 //     setStatus(e.currentTarget.value);
 //   };
-
+//
 //   return (
 //     <div>
 //       {!editMode ? (
