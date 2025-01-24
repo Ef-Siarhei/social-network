@@ -1,6 +1,14 @@
 import Contacts from "../Contacts/Contacts";
+import {ProfileType} from "../../../../types/types";
+import {FC} from "react";
 
-const ProfileData = (props) => {
+type PropsType = {
+  isOwner: boolean
+  profile: ProfileType
+  setProfileStatusEdit: () => void
+}
+
+const ProfileData: FC<PropsType> = (props) => {
   return (
     <div>
       <Contacts contacts={props.profile.contacts}/>
