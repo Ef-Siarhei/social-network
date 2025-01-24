@@ -1,18 +1,14 @@
 import {createField, Input, Textarea} from "../../../common/FormsControl/FormsControl";
 import {maxLengthCreator, required} from "../../../../utils/validators/validators";
-import {reduxForm, SubmitHandler} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {ProfileType} from "../../../../types/types";
 import {FC} from "react";
 
 const maxLength15 = maxLengthCreator(15)
 const maxLength150 = maxLengthCreator(150)
 
-type PropsType = {
-  handleSubmit: SubmitHandler
-  initialValues: Partial<ProfileType>
-}
 
-const ProfileDataForm: FC<PropsType> = ({handleSubmit, initialValues}) => {
+const ProfileDataForm: FC<InjectedFormProps<ProfileType>> = ({handleSubmit, initialValues}) => {
   return <form onSubmit={handleSubmit}>
     <div>
       <b>Full name:</b>
@@ -46,6 +42,6 @@ const ProfileDataForm: FC<PropsType> = ({handleSubmit, initialValues}) => {
   </form>
 }
 
-const ProfileDataFormReduxForm = reduxForm({form: 'edit-profile', destroyOnUnmount: false})(ProfileDataForm)
+const ProfileDataFormReduxForm = reduxForm<ProfileType>({form: 'edit-profile', destroyOnUnmount: false})(ProfileDataForm)
 
 export default ProfileDataFormReduxForm

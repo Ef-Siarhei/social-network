@@ -1,16 +1,28 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import { Field, reduxForm } from 'redux-form';
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {
   maxLengthCreator,
   required,
 } from '../../../utils/validators/validators';
-import { Textarea } from '../../common/FormsControl/FormsControl';
+import {Textarea} from '../../common/FormsControl/FormsControl';
+import {PostType} from "../../../types/types";
+
+
+type FormDataType = {
+  newPostText: string;
+}
+
+type MyPostsPropsType = {
+  posts: Array<PostType>;
+  addPost: (postText: string) => void;
+}
 
 const maxLength10 = maxLengthCreator(10);
 
-const AddNewPostForm = (props) => {
+
+const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
@@ -27,18 +39,17 @@ const AddNewPostForm = (props) => {
     </form>
   );
 };
-const AddNewPostReduxForm = reduxForm({ form: 'profileAddNewPostForm' })(
-  AddNewPostForm,
-);
+const AddNewPostReduxForm = reduxForm<FormDataType>({form: 'profileAddNewPostForm'})(AddNewPostForm);
 
-export default class MyPosts extends React.Component {
+
+class MyPosts extends React.Component<MyPostsPropsType> {
   postsElements = () => {
     return this.props.posts.map((p) => (
-      <Post message={p.message} like={p.like} key={p.id} />
+      <Post message={p.message} like={p.like} key={p.id}/>
     ));
   };
 
-  onSubmit = (formData) => {
+  onSubmit = (formData: FormDataType) => {
     this.props.addPost(formData.newPostText);
   };
 
@@ -46,9 +57,11 @@ export default class MyPosts extends React.Component {
     return (
       <div className={s.myPosts}>
         <h3>My posts</h3>
-        <AddNewPostReduxForm onSubmit={this.onSubmit} />
+        <AddNewPostReduxForm onSubmit={this.onSubmit}/>
         <div>{this.postsElements()}</div>
       </div>
     );
   }
 }
+
+export default MyPosts
