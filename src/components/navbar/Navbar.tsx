@@ -1,9 +1,14 @@
 import n from './Navbar.module.css';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import FriendsContainer from '../friends/FriendsContainer';
 
-export default function Navbar() {
-  const setActive = ({ isActive }) => (isActive ? n.active : '');
+type NavLinkProps = {
+  isActive: boolean
+}
+
+function Navbar() {
+
+  const setActive = ({isActive}: NavLinkProps) => (isActive ? n.active : '');
   return (
     <nav className={n.nav}>
       <div className={n.list}>
@@ -31,7 +36,9 @@ export default function Navbar() {
           Settings
         </NavLink>
       </div>
-      <FriendsContainer />
+      <FriendsContainer/>
     </nav>
   );
 }
+
+export default Navbar
