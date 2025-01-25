@@ -1,3 +1,5 @@
+import React from "react";
+
 import facebook from '../../../../assets/images/icons_contacts/facebook.svg';
 import website from '../../../../assets/images/icons_contacts/website.svg';
 import vk from '../../../../assets/images/icons_contacts/vk.svg';
@@ -7,7 +9,8 @@ import youtube from '../../../../assets/images/icons_contacts/youtube.svg';
 import github from '../../../../assets/images/icons_contacts/github.svg';
 import mainLink from '../../../../assets/images/icons_contacts/mainLink.svg';
 
-const icons = {
+
+const icons:ContactsKey = {
   facebook,
   website,
   vk,
@@ -18,7 +21,7 @@ const icons = {
   mainLink,
 };
 
-// const Contacts = (props) => {
+// const Contacts: React.FC<PropsType> = (props) => {
 //   let contacts = [];
 //   for (let key in props.contacts) {
 //     if (props.contacts[key]) {
@@ -39,7 +42,14 @@ const icons = {
 //     </>)
 // };
 
-const Contacts = (props) => {
+type ContactsKey = {
+  [key: string]: string
+}
+type PropsType = {
+  contacts: ContactsKey
+}
+
+const Contacts: React.FC<PropsType> = (props) => {
   return <>
     <b>My contacts:</b>
     <div>
