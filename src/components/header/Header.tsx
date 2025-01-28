@@ -1,8 +1,15 @@
 import s from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import UserIcon from '../common/UserIcon/UserIcon';
+import {FC} from "react";
 
-export default function Header(props) {
+type PropsType = {
+  isAuth: boolean
+  login: string | null
+  logout: () => void
+}
+
+ const Header: FC<PropsType> = (props) => {
   return (
     <header className={s.header}>
       <img
@@ -23,3 +30,4 @@ export default function Header(props) {
     </header>
   );
 }
+export default Header
