@@ -1,5 +1,3 @@
-import React from "react";
-
 import facebook from '../../../../assets/images/icons_contacts/facebook.svg';
 import website from '../../../../assets/images/icons_contacts/website.svg';
 import vk from '../../../../assets/images/icons_contacts/vk.svg';
@@ -9,8 +7,7 @@ import youtube from '../../../../assets/images/icons_contacts/youtube.svg';
 import github from '../../../../assets/images/icons_contacts/github.svg';
 import mainLink from '../../../../assets/images/icons_contacts/mainLink.svg';
 
-
-const icons:ContactsKey = {
+const icons :ContactsKey = {
   facebook,
   website,
   vk,
@@ -21,7 +18,7 @@ const icons:ContactsKey = {
   mainLink,
 };
 
-// const Contacts: React.FC<PropsType> = (props) => {
+// const Contacts = (props) => {
 //   let contacts = [];
 //   for (let key in props.contacts) {
 //     if (props.contacts[key]) {
@@ -42,21 +39,24 @@ const icons:ContactsKey = {
 //     </>)
 // };
 
-type ContactsKey = {
+type PropsType = {
+  contacts?: ContactsKey
+}
+type ContactsKey ={
   [key: string]: string
 }
-type PropsType = {
-  contacts: ContactsKey
-}
 
-const Contacts: React.FC<PropsType> = (props) => {
+const Contacts = (props: PropsType) => {
+  if (!props.contacts){
+    return <b>No my contacts</b>
+  }
   return <>
     <b>My contacts:</b>
     <div>
-      {Object.keys(props.contacts).filter(key => props.contacts[key]).map(key => {
-        let href = props.contacts[key].startsWith('https://')
-          ? props.contacts[key]
-          : 'https://' + props.contacts[key];
+      {Object.keys(props.contacts).filter((key)=> props.contacts?.[key]).map(key => {
+        let href = props.contacts?.[key].startsWith('https://')
+          ? props.contacts?.[key]
+          : 'https://' + props.contacts?.[key];
 
         return <a href={href} target={`_blank`} key={key}>
           <img src={icons[key]} alt={''}/>
