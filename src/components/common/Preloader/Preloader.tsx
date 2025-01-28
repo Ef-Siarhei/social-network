@@ -1,7 +1,7 @@
 import preloader from '../../../assets/images/tube-spinner.svg';
 import React from 'react';
 
-const Preloader = (props) => {
+const Preloader = () => {
   return (
     <div style={{ textAlign: 'center' }}>
       <img src={preloader} alt={'loading...'} style={{ width: 100 }} />
