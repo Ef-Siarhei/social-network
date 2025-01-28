@@ -3,7 +3,7 @@ import { sendMessage } from '../../../../redux/reduced/messages-reducer';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (/*state*/) => {
   return {};
 };
 

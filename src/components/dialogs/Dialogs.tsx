@@ -2,11 +2,17 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import NewMessageContainer from './Message/NewMessage/NewMessageContainer';
-import React from 'react';
+import React, {FC} from 'react';
+import {DialogsType, MessagesType} from "../../redux/reduced/messages-reducer";
 
-export default function Dialogs(props) {
-  let dialogElements = props.dialogs.map((person) => (
-    <DialogItem person={person} key={person.id} />
+type PropsType = {
+  dialogs: Array<DialogsType>
+  messages: Array<MessagesType>
+}
+
+ const Dialogs: FC<PropsType> = (props) => {
+  let dialogElements = props.dialogs.map((dialogItem) => (
+    <DialogItem dialogItem={dialogItem} key={dialogItem.id} />
   ));
 
   let messagesElements = props.messages.map((messageItem) => (
@@ -23,3 +29,4 @@ export default function Dialogs(props) {
     </div>
   );
 }
+export default Dialogs

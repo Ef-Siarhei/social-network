@@ -1,6 +1,13 @@
 import s from './Message.module.css';
+import {MessagesType} from "../../../redux/reduced/messages-reducer";
+import {FC} from "react";
 
-const Message = (props) => {
+type OwnPropsType = {
+  messageItem: MessagesType
+  key: number
+}
+
+const Message: FC<OwnPropsType> = (props) => {
   const position = props.messageItem.hasOwnProperty('input')
     ? {
         positionMessageItem: s.positionLeft,
