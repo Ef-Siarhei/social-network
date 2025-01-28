@@ -1,4 +1,4 @@
-type FriendType = {
+export type FriendType = {
   id: number
   name: string
   icon: string

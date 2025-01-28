@@ -1,3 +1,5 @@
+import {FriendType} from "../redux/reduced/sidebar-reducer";
+
 export type ContactsType = {
   github: string
   vk: string
@@ -34,4 +36,8 @@ export type UserType = {
   status: string
   photos: PhotosType
   followed: boolean
+}
+
+export type FriendsType = {
+  friends: Array<FriendType>
 }
