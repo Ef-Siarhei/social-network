@@ -1,6 +1,10 @@
 import noIconUser from '../../../assets/images/noIconUser.svg';
 
-export default function UserIcon(props) {
+type OwnPropsType = {
+  img: string | null
+}
+
+export default function UserIcon(props: OwnPropsType) {
   let src = props.img ? props.img : noIconUser;
 
   return <img src={src} alt="" />;
