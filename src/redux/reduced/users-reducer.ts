@@ -1,6 +1,9 @@
 import {usersAPI} from '../../api/api';
 import {updateObjectInArray} from '../../utils/object-helper';
 import {UserType} from "../../types/types";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../redux-store";
+import {Dispatch} from "redux";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -21,17 +24,7 @@ const initialState = {
 
 type InitialStateType = typeof initialState
 
-// type ActionType = {
-//   type: string
-//   userId?: number
-//   users?: []
-//   currentPage?: number
-//   totalUsersCount?: number
-//   isFetching?: boolean
-//   followingIsProgress?: boolean
-// }
-
-const usersReducer = (state = initialState, action: any): InitialStateType => {
+const usersReducer = (state = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case FOLLOW: {
       return {
@@ -73,6 +66,16 @@ const usersReducer = (state = initialState, action: any): InitialStateType => {
       return state;
   }
 };
+
+// Create Actions type
+type ActionsType =
+  FollowACType |
+  UnFollowACType |
+  SetUsersType |
+  SetCurrentPageType |
+  SetTotalUsersCountType |
+  SetIsFetchingType |
+  ToggleFollowingProgressType
 
 // Action Creator
 type FollowACType = {
@@ -125,10 +128,15 @@ export const toggleFollowingProgress = (followingIsProgress: boolean, userId: nu
   userId,
 });
 
+
+type DispatchType = Dispatch<ActionsType>
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+
 // ThunkCreator
-export const requestUsers = (currentPage: number, pageSize: number) => {
-  // Thunk
-  return async (dispatch: Function) => {
+export const requestUsers = (currentPage: number, pageSize: number): ThunkType => {
+  // ThunkCreator возвращает Thunk
+  return async (dispatch, getState) => {
+    getState().profilePage.profile?.userId?.toFixed()
     dispatch(setCurrentPage(currentPage));
     dispatch(setIsFetching(true));
 
@@ -139,11 +147,12 @@ export const requestUsers = (currentPage: number, pageSize: number) => {
   };
 };
 
-const followUnFollowFlow = async (
-  dispatch: Function,
+// _ намекает что функция для внутреннего использования, тоесть никуда не экспортируеться
+const _followUnFollowFlow = async (
+  dispatch: DispatchType,
   userId: number,
   apiMethod: Function,
-  actionCreator: Function,
+  actionCreator: (userId: number) => FollowACType | UnFollowACType,
 ) => {
   dispatch(toggleFollowingProgress(true, userId));
 
@@ -154,9 +163,9 @@ const followUnFollowFlow = async (
   dispatch(toggleFollowingProgress(false, userId));
 };
 
-export const follow = (userId: number) => {
-  return async (dispatch: Function) => {
-    followUnFollowFlow(
+export const follow = (userId: number): ThunkType => {
+  return async (dispatch) => {
+    await _followUnFollowFlow(
       dispatch,
       userId,
       usersAPI.follow.bind(usersAPI),
@@ -165,9 +174,9 @@ export const follow = (userId: number) => {
   };
 };
 
-export const unFollow = (userId: number) => {
-  return async (dispatch: Function) => {
-    followUnFollowFlow(
+export const unFollow = (userId: number): ThunkType => {
+  return async (dispatch) => {
+    await _followUnFollowFlow(
       dispatch,
       userId,
       usersAPI.unFollow.bind(usersAPI),
