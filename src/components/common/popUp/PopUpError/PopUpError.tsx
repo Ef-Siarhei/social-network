@@ -1,7 +1,12 @@
 import React from "react";
 import style from "./PopUpError.module.css"
 
-const PopUpError = (props) => {
+type PropsType = {
+  message: string
+  unShowMessage: () => void
+}
+
+const PopUpError = (props: PropsType) => {
   document.body.classList.add(`${style.notScroll}`)
 
   const unShow = () => {
