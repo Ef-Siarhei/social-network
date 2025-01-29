@@ -1,20 +1,25 @@
-import {getAuthUserData} from "./auth-reducer";
+import {getAuthUserData} from "./auth-reducer"
+import {ThunkAction} from "redux-thunk"
+import {AppStateType} from "../redux-store"
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
 const SHOW_GLOBAL_ERROR_SUCCESS = 'auth/SHOW_GLOBAL_ERROR_SUCCESS'
 const UN_SHOW_GLOBAL_ERROR_SUCCESS = 'auth/UN_SHOW_GLOBAL_ERROR_SUCCESS'
 
-export type InitialStateType = {
+type InitialStateType = {
   initialized: boolean
   globalError: null | string
 }
+type ActionsType =
+  InitializedSuccessActionType |
+  ShowAndUnShowGlobalErrorSuccessActionType
 
 let initialState: InitialStateType = {
   initialized: false,
   globalError: null,
 }
 
-const appReducer = (state = initialState, action: any): InitialStateType => {
+const appReducer = (state = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case INITIALIZED_SUCCESS: {
       return {...state, initialized: true}
@@ -28,9 +33,11 @@ const appReducer = (state = initialState, action: any): InitialStateType => {
   }
 }
 
+// Actions creator
 type InitializedSuccessActionType = {
   type: typeof INITIALIZED_SUCCESS
 }
+const initializedSuccessAC = (): InitializedSuccessActionType => ({type: INITIALIZED_SUCCESS})
 
 type ShowAndUnShowGlobalErrorSuccessActionType = {
   type: typeof SHOW_GLOBAL_ERROR_SUCCESS | typeof UN_SHOW_GLOBAL_ERROR_SUCCESS
@@ -38,8 +45,6 @@ type ShowAndUnShowGlobalErrorSuccessActionType = {
     globalError: null | string
   }
 }
-
-const initializedSuccessAC = (): InitializedSuccessActionType => ({type: INITIALIZED_SUCCESS})
 const showGlobalErrorSuccess = (globalError: any): ShowAndUnShowGlobalErrorSuccessActionType => ({
   type: SHOW_GLOBAL_ERROR_SUCCESS,
   payload: {globalError}
@@ -49,7 +54,9 @@ const unShowGlobalErrorSuccess = (): ShowAndUnShowGlobalErrorSuccessActionType =
   payload: {globalError: null}
 })
 
-export const initializeApp = () => (dispatch: any) => {
+// Thunk creator
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
+export const initializeApp = (): ThunkType => (dispatch) => {
   let promise = dispatch(getAuthUserData())
   promise.then(() => {
     dispatch(initializedSuccessAC())
@@ -57,10 +64,10 @@ export const initializeApp = () => (dispatch: any) => {
   // When all promises resolved - then do dispatch
   //Promise.all([promise, somePromise]).then(()=>{dispatch(initializedSuccessAC())})
 }
-export const showGlobalError = (message: any) => (dispatch: any) => {
+export const showGlobalError = (message: string): ThunkType => (dispatch) => {
   dispatch(showGlobalErrorSuccess(message))
 }
-export const unShowGlobalError = () => (dispatch: any) => {
+export const unShowGlobalError = (): ThunkType => (dispatch) => {
   dispatch(unShowGlobalErrorSuccess())
 }
 
