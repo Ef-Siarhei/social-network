@@ -1,8 +1,8 @@
-import {profileAPI} from '../../api/api'
+import {profileAPI, ResultCodesEnum} from '../../api/api'
 import {stopSubmit} from "redux-form"
 import {PhotosType, PostType, ProfileType} from "../../types/types"
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "../redux-store";
+import {ThunkAction} from "redux-thunk"
+import {AppStateType} from "../redux-store"
 
 const ADD_POST = 'profile/ADD-POST'
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
@@ -146,29 +146,29 @@ export const getUserProfile = (userId: number): ThunkType => async (dispatch) =>
   dispatch(setUserProfile(data))
 }
 export const getUserStatus = (userId: number): ThunkType => async (dispatch) => {
-  const response = await profileAPI.getStatus(userId)
-  dispatch(setUserStatus(response.data))
+  const data = await profileAPI.getStatus(userId)
+  dispatch(setUserStatus(data))
 }
 export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
-  const response = await profileAPI.updateStatus(status)
-  if (response.data.resultCode === 0) dispatch(setUserStatus(status))
+  const data = await profileAPI.updateStatus(status)
+  if (data.resultCode === ResultCodesEnum.Sucsess) dispatch(setUserStatus(status))
 }
-export const savePhoto = (file: any): ThunkType => async (dispatch) => {
-  const response = await profileAPI.savePhoto(file)
-  if (response.data.resultCode === 0) {
-    dispatch(savePhotoSuccess(response.data.data.photos))
+export const savePhoto = (file: string): ThunkType => async (dispatch) => {
+  const data = await profileAPI.savePhoto(file)
+  if (data.resultCode === 0) {
+    dispatch(savePhotoSuccess(data.data.photos))
   }
 }
 export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch, getState) => {
   const userId = getState().auth.id
   if (userId !== null) {
-    const response = await profileAPI.saveProfile(profile)
-    if (response.data.resultCode === 0) {
+    const data = await profileAPI.saveProfile(profile)
+    if (data.resultCode === ResultCodesEnum.Sucsess) {
       await
         dispatch(getUserProfile(userId))
       dispatch(setProfileUpdateStatus('success'))
     } else {
-      let messageError = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error'
+      let messageError = data.messages.length > 0 ? data.messages[0] : 'Some Error'
       let socialNetwork = messageError.slice(messageError.indexOf('>') + 1, -1).toLowerCase()
       // socialNetwork => word from message about error
 

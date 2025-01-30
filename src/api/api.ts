@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {ProfileType, UserType} from "../types/types"
+import {PhotosType, ProfileType, UserType} from "../types/types"
 
 const instance = axios.create({
   withCredentials: true,
@@ -10,6 +10,7 @@ const instance = axios.create({
 })
 
 // ------------------------------------ Start usersAPI
+
 type GetUsersResponseType = {
   items: Array<UserType>
   totalCount: number
@@ -35,6 +36,7 @@ export const usersAPI = {
 }
 
 // ------------------------------------ Start authAPI
+
 export enum ResultCodesEnum {
   Sucsess = 0,
   Error = 1,
@@ -86,28 +88,40 @@ export const authAPI = {
   },
 }
 
+// ------------------------------------ Start profileAPI
+
+type UpdateStatusType = LogOutResponseType
+type SaveProfileType = LogOutResponseType
+type SavePhotoType = {
+  data: {
+    photos: PhotosType
+  }
+  resultCode: ResultCodesEnum
+  messages: Array<string>
+}
+
 export const profileAPI = {
   getProfile(userId: number) {
-    return instance.get(`profile/` + userId).then((response) => response.data)
+    return instance.get<ProfileType>(`profile/` + userId).then((response) => response.data)
   },
 
   getStatus(userId: number) {
-    return instance.get('profile/status/' + userId)
+    return instance.get<string>('profile/status/' + userId).then(res => res.data)
   },
   updateStatus(status: string) {
-    return instance.put('profile/status', {status: status})
+    return instance.put<UpdateStatusType>('profile/status', {status: status}).then(res => res.data)
   },
-  savePhoto(photoFile: any) {
+  savePhoto(photoFile: string) {
     const formData = new FormData()
     formData.append('image', photoFile)
-    return instance.put('profile/photo', formData, {
+    return instance.put<SavePhotoType>('profile/photo', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    })
+    }).then(res => res.data)
   },
   saveProfile(profile: ProfileType) {
-    return instance.put('profile', profile)
+    return instance.put<SaveProfileType>('profile', profile).then(res => res.data)
   }
 }
 
