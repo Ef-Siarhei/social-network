@@ -100,8 +100,8 @@ export const logout = (): ThunkType => async (dispatch) => {
 }
 
 export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
-  const response = await securityApi.getCaptchaURL()
-  const captchaUrl = response.data.url
+  const data = await securityApi.getCaptchaURL()
+  const captchaUrl = data.url
   dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
 

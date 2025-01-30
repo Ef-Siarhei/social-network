@@ -125,8 +125,14 @@ export const profileAPI = {
   }
 }
 
+// ------------------------------------ Start securityAPI
+
+type GetCaptchaURLType = {
+  url: string
+}
+
 export const securityApi = {
   getCaptchaURL() {
-    return instance.get('/security/get-captcha-url')
+    return instance.get<GetCaptchaURLType>('/security/get-captcha-url').then(response => response.data)
   }
 }
