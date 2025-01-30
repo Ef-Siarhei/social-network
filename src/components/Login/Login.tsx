@@ -20,36 +20,30 @@ type FormDataType = {
 const maxLength15 = maxLengthCreator(15)
 
 // определение компонента входа в систему
-const LoginForm: FC<InjectedFormProps<FormDataType, OwnLoginReduxFormPropsType> & OwnLoginReduxFormPropsType> = ({
-                                                                                                                   handleSubmit,
-                                                                                                                   error,
-                                                                                                                   captchaUrl
-                                                                                                                 }) => {
-  return (
-    <form onSubmit={handleSubmit}>
-      {createField('Email', 'email', [required, maxLength15], Input)}
-      {createField('Password', 'password', [required, maxLength15], Input, {
-        type: 'password',
-      })}
-      {createField(
-        null,
-        'rememberMe',
-        null,
-        Input,
-        {type: 'checkbox'},
-        'remember me',
-      )}
+const LoginForm: FC<InjectedFormProps<FormDataType, OwnLoginReduxFormPropsType> & OwnLoginReduxFormPropsType> =
+  ({
+     handleSubmit,
+     error,
+     captchaUrl
+   }) => {
+    return (
+      <form onSubmit={handleSubmit}>
+        {createField('Email', 'email', [required, maxLength15], Input)}
+        {createField('Password', 'password', [required, maxLength15], Input, {
+          type: 'password',
+        })}
+        {createField(null, 'rememberMe', null, Input, {type: 'checkbox', hi: 'qwerty'}, 'remember me')}
 
-      {captchaUrl && <img src={captchaUrl} alt={'captcha'}/>}
-      {captchaUrl && createField('Enter symbol from img up', 'captcha', [required], Input)}
+        {captchaUrl && <img src={captchaUrl} alt={'captcha'}/>}
+        {captchaUrl && createField('Enter symbol from img up', 'captcha', [required], Input)}
 
-      {error && <div className={s.form_summary_error}>{error}</div>}
-      <div>
-        <button>Login</button>
-      </div>
-    </form>
-  )
-}
+        {error && <div className={s.form_summary_error}>{error}</div>}
+        <div>
+          <button>Login</button>
+        </div>
+      </form>
+    )
+  }
 
 // Определите типы предложений для LoginReduxForm
 type OwnLoginReduxFormPropsType = {
@@ -90,7 +84,7 @@ const Login: FC<LoginPropsType> = ({login, isAuth, captchaUrl}) => {
   )
 }
 
-const mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
   isAuth: state.auth.isAuth,
   captchaUrl: state.auth.captchaUrl,
 })
