@@ -1,5 +1,5 @@
-import axios, {AxiosResponse} from 'axios'
-import {ProfileType} from "../types/types"
+import axios from 'axios'
+import {ProfileType, UserType} from "../types/types"
 
 const instance = axios.create({
   withCredentials: true,
@@ -9,23 +9,32 @@ const instance = axios.create({
   },
 })
 
+// ------------------------------------ Start usersAPI
+type GetUsersResponseType = {
+  items: Array<UserType>
+  totalCount: number
+  error: string
+}
+
+export type FollowUnFollowResponseType = LogOutResponseType
+
 export const usersAPI = {
   getUsers(currentPage = 1, pageSize = 10) {
     return instance
-      .get(`users?page=${currentPage}&count=${pageSize}`)
+      .get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
       .then((response) => response.data)
   },
 
   follow(id: number) {
-    return instance.post(`follow/${id}`).then((response) => response.data)
+    return instance.post<FollowUnFollowResponseType>(`follow/${id}`).then((response) => response.data)
   },
 
   unFollow(id: number) {
-    return instance.delete(`follow/${id}`).then((response) => response.data)
+    return instance.delete<FollowUnFollowResponseType>(`follow/${id}`).then((response) => response.data)
   },
 }
 
-// TODO start authApi
+// ------------------------------------ Start authAPI
 export enum ResultCodesEnum {
   Sucsess = 0,
   Error = 1,
