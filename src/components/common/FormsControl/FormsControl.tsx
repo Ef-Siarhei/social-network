@@ -7,6 +7,8 @@ type FieldComponentType = {
   input: WrappedFieldInputProps
   meta: WrappedFieldMetaProps
 }
+
+// Field from redux-form передает сам в компаненту пропсы input, meta, и пользовательские
 // type WrappedFieldProps обьединяет input: WrappedFieldInputProps и meta: WrappedFieldMetaProps
 
 type ChildrenType = {
@@ -41,10 +43,10 @@ export const Input: FC<FieldComponentType> = (props) => {
   );
 };
 
-export const createField = (
-  placeholder: string | null,
-  name: string,
-  validators: Array<FieldValidatorType> | null,
+export const createField = <FormKeysType extends string,>(
+  placeholder: string | undefined,
+  name: FormKeysType,
+  validators: Array<FieldValidatorType> | undefined,
   component: React.FC<FieldComponentType>,
   props = {},
   text = '',
@@ -60,3 +62,4 @@ export const createField = (
     {text}
   </div>
 );
+

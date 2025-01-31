@@ -16,7 +16,7 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileType>> = ({handleSubmit, init
     </div>
     <div>
       <b>Looking for a job</b>:
-      {createField('Looking for a Job', 'lookingForAJob', null, Input, {type: 'checkbox'})}
+      {createField('Looking for a Job', 'lookingForAJob', undefined, Input, {type: 'checkbox'})}
     </div>
     <div>
       <b>My professional skills:</b>
@@ -31,7 +31,7 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileType>> = ({handleSubmit, init
       {Object.keys(initialValues.contacts ?? {}).map(key => {
         return <div key={key}>
           <b>{key}:</b>
-          {createField(key, 'contacts.' + key, null, Input)}
+          {createField(key, 'contacts.' + key, undefined, Input)}
         </div>
       })}
     </div>

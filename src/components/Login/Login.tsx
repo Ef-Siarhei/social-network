@@ -15,6 +15,7 @@ type FormDataType = {
   rememberMe: boolean
   captcha: string
 }
+export type FormDataTypeKeys = Extract<keyof FormDataType, string>
 
 // Создать валидатор максимальной длины
 const maxLength15 = maxLengthCreator(15)
@@ -28,14 +29,14 @@ const LoginForm: FC<InjectedFormProps<FormDataType, OwnLoginReduxFormPropsType> 
    }) => {
     return (
       <form onSubmit={handleSubmit}>
-        {createField('Email', 'email', [required, maxLength15], Input)}
-        {createField('Password', 'password', [required, maxLength15], Input, {
+        {createField<FormDataTypeKeys>('Email', 'email', [required, maxLength15], Input)}
+        {createField<FormDataTypeKeys>('Password', 'password', [required, maxLength15], Input, {
           type: 'password',
         })}
-        {createField(null, 'rememberMe', null, Input, {type: 'checkbox', hi: 'qwerty'}, 'remember me')}
+        {createField<FormDataTypeKeys>(undefined, 'rememberMe', undefined, Input, {type: 'checkbox', hi: 'qwerty'}, 'remember me')}
 
         {captchaUrl && <img src={captchaUrl} alt={'captcha'}/>}
-        {captchaUrl && createField('Enter symbol from img up', 'captcha', [required], Input)}
+        {captchaUrl && createField<FormDataTypeKeys>('Enter symbol from img up', 'captcha', [required], Input)}
 
         {error && <div className={s.form_summary_error}>{error}</div>}
         <div>
