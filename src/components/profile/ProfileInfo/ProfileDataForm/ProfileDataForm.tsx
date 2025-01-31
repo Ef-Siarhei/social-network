@@ -7,24 +7,25 @@ import {FC} from "react";
 const maxLength15 = maxLengthCreator(15)
 const maxLength150 = maxLengthCreator(150)
 
+type FormDataKeysType = keyof ProfileType
 
 const ProfileDataForm: FC<InjectedFormProps<ProfileType>> = ({handleSubmit, initialValues}) => {
   return <form onSubmit={handleSubmit}>
     <div>
       <b>Full name:</b>
-      {createField('Full name', 'fullName', [required, maxLength15], Input)}
+      {createField<FormDataKeysType>('Full name', 'fullName', [required, maxLength15], Input)}
     </div>
     <div>
       <b>Looking for a job</b>:
-      {createField('Looking for a Job', 'lookingForAJob', undefined, Input, {type: 'checkbox'})}
+      {createField<FormDataKeysType>('Looking for a Job', 'lookingForAJob', undefined, Input, {type: 'checkbox'})}
     </div>
     <div>
       <b>My professional skills:</b>
-      {createField('My professional skills...', 'lookingForAJobDescription', [required, maxLength150], Textarea)}
+      {createField<FormDataKeysType>('My professional skills...', 'lookingForAJobDescription', [required, maxLength150], Textarea)}
     </div>
     <div>
       <b>About me:</b>
-      {createField('About me...', 'aboutMe', [required, maxLength150], Textarea)}
+      {createField<FormDataKeysType>('About me...', 'aboutMe', [required, maxLength150], Textarea)}
     </div>
     <div>
       <b>My contacts:</b>
