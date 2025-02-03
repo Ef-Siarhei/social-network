@@ -2,23 +2,20 @@ import {getAuthUserData} from "./auth-reducer"
 import {ThunkAction} from "redux-thunk"
 import {AppStateType, InferActionsTypes} from "../redux-store"
 
-
-type ActionsTypes = InferActionsTypes<typeof actions>
-
 let initialState = {
   initialized: false,
   globalError: null,
 }
 type InitialStateType = typeof initialState
-
+type ActionsTypes = InferActionsTypes<typeof actions>
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
-    case 'INITIALIZED_SUCCESS': {
+    case 'sn/app/INITIALIZED_SUCCESS': {
       return {...state, initialized: true}
     }
-    case 'SHOW_GLOBAL_ERROR_SUCCESS':
-    case 'UN_SHOW_GLOBAL_ERROR_SUCCESS': {
+    case 'sn/app/SHOW_GLOBAL_ERROR_SUCCESS':
+    case 'sn/app/UN_SHOW_GLOBAL_ERROR_SUCCESS': {
       return {...state, ...action.payload}
     }
     default:
@@ -28,13 +25,13 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 
 // Actions creator
 const actions = {
-  initializedSuccessAC: () => ({type: 'INITIALIZED_SUCCESS'} as const),
+  initializedSuccessAC: () => ({type: 'sn/app/INITIALIZED_SUCCESS'} as const),
   showGlobalErrorSuccess: (globalError: any) => ({
-    type: 'SHOW_GLOBAL_ERROR_SUCCESS',
+    type: 'sn/app/SHOW_GLOBAL_ERROR_SUCCESS',
     payload: {globalError}
   } as const),
   unShowGlobalErrorSuccess: () => ({
-    type: 'UN_SHOW_GLOBAL_ERROR_SUCCESS',
+    type: 'sn/app/UN_SHOW_GLOBAL_ERROR_SUCCESS',
     payload: {globalError: null}
   } as const)
 }
