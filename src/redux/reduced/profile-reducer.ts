@@ -114,7 +114,7 @@ export const getUserStatus = (userId: number): ThunkType => async (dispatch) => 
 }
 export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
   const data = await profileAPI.updateStatus(status)
-  if (data.resultCode === ResultCodesEnum.Sucsess) dispatch(actions.setUserStatus(status))
+  if (data.resultCode === ResultCodesEnum.Success) dispatch(actions.setUserStatus(status))
 }
 export const savePhoto = (file: string): ThunkType => async (dispatch) => {
   const data = await profileAPI.savePhoto(file)
@@ -126,7 +126,7 @@ export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch,
   const userId = getState().auth.id
   if (userId !== null) {
     const data = await profileAPI.saveProfile(profile)
-    if (data.resultCode === ResultCodesEnum.Sucsess) {
+    if (data.resultCode === ResultCodesEnum.Success) {
       await
         dispatch(getUserProfile(userId))
       dispatch(actions.setProfileUpdateStatus('success'))

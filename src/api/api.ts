@@ -9,7 +9,7 @@ export const instance = axios.create({
 })
 
 export enum ResultCodesEnum {
-  Sucsess = 0,
+  Success = 0,
   Error = 1,
 }
 

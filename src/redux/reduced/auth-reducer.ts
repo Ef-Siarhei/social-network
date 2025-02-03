@@ -54,7 +54,7 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
   let data = await authAPI.getMe()
-  if (data.resultCode === ResultCodesEnum.Sucsess) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     let {id, email, login} = data.data
     dispatch(actions.setAuthUserData(id, email, login, true))
   }
@@ -62,7 +62,7 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
 
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
   const data = await authAPI.login(email, password, rememberMe, captcha)
-  if (data.resultCode === ResultCodesEnum.Sucsess) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     await dispatch(getAuthUserData())
   } else {
     if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
@@ -78,7 +78,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 
 export const logout = (): ThunkType => async (dispatch) => {
   const data = await authAPI.logout()
-  if (data.resultCode === ResultCodesEnum.Sucsess) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     dispatch(actions.setAuthUserData(null, null, null, false))
   }
 }
