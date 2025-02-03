@@ -1,5 +1,5 @@
 import {ResultCodeForCaptchaEnum, ResultCodesEnum} from '../../api/api'
-import {stopSubmit} from 'redux-form'
+import {FormAction, stopSubmit} from 'redux-form'
 import {BaseThunkType, InferActionsTypes} from "../redux-store"
 import {authAPI} from "../../api/auth-api";
 import {securityApi} from "../../api/security-api";
@@ -42,7 +42,7 @@ const actions = {
 }
 
 // Thunks creator
-type ThunkType = BaseThunkType<ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes | FormAction>
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
   let data = await authAPI.getMe()
@@ -60,10 +60,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
       await dispatch(getCaptchaUrl())
     }
-    let messageError =
-      data.messages.length > 0 ? data.messages[0] : 'Some error'
-
-    // @ts-ignore
+    let messageError = data.messages.length > 0 ? data.messages[0] : 'Some error'
     dispatch(stopSubmit('login', {_error: messageError}))
   }
 }
