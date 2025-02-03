@@ -2,14 +2,14 @@ import {
   combineReducers,
   legacy_createStore as createStore,
   applyMiddleware,
-  compose,
+  compose, Action,
 } from 'redux'
 import profileReducer from './reduced/profile-reducer'
 import messagesReducer from './reduced/messages-reducer'
 import sidebarReducer from './reduced/sidebar-reducer'
 import usersReducer from './reduced/users-reducer'
 import authReducer from './reduced/auth-reducer'
-import {thunk as thunkMiddleware} from 'redux-thunk'
+import {thunk as thunkMiddleware, ThunkAction} from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import appReducer from './reduced/app-reducer'
 // createStore устарел потому legacy_createStore as createStore
@@ -29,6 +29,8 @@ export type AppStateType = ReturnType<RootReducerType>
 
 export type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never
 export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<InferValueTypes<T>>
+
+export type BaseThunkType<BasicAction extends Action, ReturnType = Promise<void>> = ThunkAction<ReturnType, AppStateType, unknown, BasicAction>
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
