@@ -17,8 +17,8 @@ type ActionsTypes = InferActionsTypes<typeof actions>
 
 const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
-    case 'auth/SET_USER_DATA':
-    case 'auth/GET_CAPTCHA_URL_SUCCESS': {
+    case 'sn/auth/SET_USER_DATA':
+    case 'sn/auth/GET_CAPTCHA_URL_SUCCESS': {
       return {
         ...state,
         ...action.payload,
@@ -32,11 +32,11 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialStateTy
 // Actions creator
 const actions = {
   setAuthUserData: (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
-    type: 'auth/SET_USER_DATA',
+    type: 'sn/auth/SET_USER_DATA',
     payload: {id, email, login, isAuth},
   } as const),
   getCaptchaUrlSuccess: (captchaUrl: string) => ({
-    type: 'auth/GET_CAPTCHA_URL_SUCCESS',
+    type: 'sn/auth/GET_CAPTCHA_URL_SUCCESS',
     payload: {captchaUrl},
   } as const)
 }
