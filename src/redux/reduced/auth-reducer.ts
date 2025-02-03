@@ -1,7 +1,6 @@
 import {ResultCodeForCaptchaEnum, ResultCodesEnum} from '../../api/api'
 import {stopSubmit} from 'redux-form'
-import {ThunkAction} from "redux-thunk"
-import {AppStateType, InferActionsTypes} from "../redux-store"
+import {BaseThunkType, InferActionsTypes} from "../redux-store"
 import {authAPI} from "../../api/auth-api";
 import {securityApi} from "../../api/security-api";
 
@@ -43,7 +42,7 @@ const actions = {
 }
 
 // Thunks creator
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes>
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
   let data = await authAPI.getMe()
