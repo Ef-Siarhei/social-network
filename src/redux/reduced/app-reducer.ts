@@ -5,15 +5,12 @@ import {AppStateType, InferActionsTypes} from "../redux-store"
 
 type ActionsTypes = InferActionsTypes<typeof actions>
 
-type InitialStateType = {
-  initialized: boolean
-  globalError: null | string
-}
-
-let initialState: InitialStateType = {
+let initialState = {
   initialized: false,
   globalError: null,
 }
+type InitialStateType = typeof initialState
+
 
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
