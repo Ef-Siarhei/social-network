@@ -1,21 +1,19 @@
-import profileReducer, {
-  addNewPostActionCreator,
-  deletePostAC,
-  setUserStatus,
-  setUserProfile,
-} from './profile-reducer';
+import profileReducer, {actions} from './profile-reducer';
 
 // 1. test data
 let state = {
   posts: [
-    { id: 1, message: 'Hi, how are you?', like: '5' },
-    { id: 2, message: "It's my first post.", like: '20' },
+    {id: 1, message: 'Hi, how are you?', like: 5},
+    {id: 2, message: "It's my first post.", like: 20},
   ],
+  profile: null,
+  status: '',
+  profileUpdateStatus: ''
 };
 
 test('length of posts should be incremented', () => {
   // 1. test data
-  let action = addNewPostActionCreator('qwerty');
+  let action = actions.addNewPostActionCreator('qwerty');
 
   // 2. action
   let newState = profileReducer(state, action);
@@ -26,7 +24,7 @@ test('length of posts should be incremented', () => {
 
 test('message of new post should be correct', () => {
   // 1. test data
-  let action = addNewPostActionCreator('qwerty');
+  let action = actions.addNewPostActionCreator('qwerty');
 
   // 2. action
   let newState = profileReducer(state, action);
@@ -37,7 +35,7 @@ test('message of new post should be correct', () => {
 
 test('after deleting length of posts should be decrement', () => {
   // 1. test data
-  let action = deletePostAC(2);
+  let action = actions.deletePostAC(2);
   // 2. action
   let newState = profileReducer(state, action);
   //3. expectation
@@ -46,7 +44,7 @@ test('after deleting length of posts should be decrement', () => {
 
 test('after deleting length of posts should not be decrement if id incorrect', () => {
   // 1. test data
-  let action = deletePostAC(20);
+  let action = actions.deletePostAC(20);
   // 2. action
   let newState = profileReducer(state, action);
   //3. expectation
@@ -55,7 +53,7 @@ test('after deleting length of posts should not be decrement if id incorrect', (
 
 test('status of profile should be correct', () => {
   // 1. test data
-  let action = setUserStatus('Hi man');
+  let action = actions.setUserStatus('Hi man');
   // 2. action
   let newState = profileReducer(state, action);
   //3. expectation
@@ -63,7 +61,7 @@ test('status of profile should be correct', () => {
 });
 test('profile should not be null', () => {
   // 1. test data
-  let action = setUserProfile({});
+  let action = actions.setUserProfile({});
   // 2. action
   let newState = profileReducer(state, action);
   //3. expectation

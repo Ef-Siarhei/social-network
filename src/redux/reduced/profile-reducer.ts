@@ -69,7 +69,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 }
 
 // ActionsCreator
-const actions = {
+export const actions = {
   addNewPostActionCreator: (postText: string) => ({
     type: 'sn/profile/ADD_POST',
     postText,
