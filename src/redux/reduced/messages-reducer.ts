@@ -1,5 +1,4 @@
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionsTypes} from "../redux-store";
+import {BaseThunkType, InferActionsTypes} from "../redux-store";
 
 type ActionsTypes = InferActionsTypes<typeof actions>
 
@@ -61,7 +60,7 @@ let initialState = {
 
 const messagesReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
-    case 'SEND_MESSAGE': {
+    case 'sn/messages/SEND_MESSAGE': {
       let newMessage: MessagesType = {
         id: 7,
         output: true,
@@ -79,14 +78,13 @@ const messagesReducer = (state = initialState, action: ActionsTypes): InitialSta
 
 const actions = {
   sendNewMessageActionCreator: (message: string) => ({
-    type: 'SEND_MESSAGE',
+    type: 'sn/messages/SEND_MESSAGE',
     message,
-  }as const)
+  } as const)
 };
 
 // thunk creator
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
-
+type ThunkType = BaseThunkType<ActionsTypes, void>
 export const sendMessage = (message: string): ThunkType => {
   //thunk
   return (dispatch) => {
