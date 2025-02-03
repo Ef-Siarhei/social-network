@@ -63,7 +63,7 @@ type ActionTypes = InferActionsTypes<typeof actions>
 
 // Object Actions Creators
 const actions = {
-  followAC: (userId: number) => (<const>{type: 'FOLLOW', userId}),
+  followAC: (userId: number) => ({type: 'FOLLOW', userId} as const),
   unFollowAC: (userId: number) => ({type: 'UNFOLLOW', userId} as const),
   setUsers: (users: Array<UserType>) => ({type: 'SET_USERS', users} as const),
   setCurrentPage: (currentPage: number) => ({

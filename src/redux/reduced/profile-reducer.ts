@@ -74,31 +74,31 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 
 // ActionsCreator
 const actions = {
-  addNewPostActionCreator: (postText: string) => (<const>{
+  addNewPostActionCreator: (postText: string) => ({
     type: 'ADD_POST',
     postText,
-  }),
-  setUserProfile: (profile: ProfileType) => (<const>{
+  } as const),
+  setUserProfile: (profile: ProfileType) => ({
     type: 'SET_USER_PROFILE',
     profile,
-  }),
-  setUserStatus: (status: string) => (<const>{
+  } as const),
+  setUserStatus: (status: string) => ({
     type: 'SET_USER_STATUS',
     status,
-  }),
-  deletePostAC: (postId: number) => (<const>{
+  } as const),
+  deletePostAC: (postId: number) => ({
     type: 'DELETE_POST',
     postId,
-  }),
-  savePhotoSuccess: (photos: PhotosType) => (<const>{
+  } as const),
+  savePhotoSuccess: (photos: PhotosType) => ({
     type: 'SAVE_PHOTO_SUCCESS',
     photos,
-  }),
+  } as const),
   setProfileUpdateStatus: (status: 'edit' | 'success' | 'error') => {
-    if (status === 'edit') return <const>{type: 'PROFILE_UPDATE_EDIT', status}
-    if (status === 'success') return <const>{type: 'PROFILE_UPDATE_SUCCESS', status}
+    if (status === 'edit') return {type: 'PROFILE_UPDATE_EDIT', status} as const
+    if (status === 'success') return {type: 'PROFILE_UPDATE_SUCCESS', status} as const
     // if (status === 'error')
-    return <const>{type: 'PROFILE_UPDATE_ERROR', status}
+    return {type: 'PROFILE_UPDATE_ERROR', status} as const
   }
 }
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
