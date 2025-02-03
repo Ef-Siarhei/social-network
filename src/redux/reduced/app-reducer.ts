@@ -28,15 +28,15 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 
 // Actions creator
 const actions = {
-  initializedSuccessAC: () => (<const>{type: 'INITIALIZED_SUCCESS'}),
-  showGlobalErrorSuccess: (globalError: any) => (<const>{
+  initializedSuccessAC: () => ({type: 'INITIALIZED_SUCCESS'} as const),
+  showGlobalErrorSuccess: (globalError: any) => ({
     type: 'SHOW_GLOBAL_ERROR_SUCCESS',
     payload: {globalError}
-  }),
-  unShowGlobalErrorSuccess: () => (<const>{
+  } as const),
+  unShowGlobalErrorSuccess: () => ({
     type: 'UN_SHOW_GLOBAL_ERROR_SUCCESS',
     payload: {globalError: null}
-  })
+  } as const)
 }
 
 // Thunk creator
