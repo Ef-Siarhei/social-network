@@ -39,14 +39,14 @@ const icons :ContactsKey = {
 //     </>)
 // };
 
-type PropsType = {
+type OwnPropsType = {
   contacts?: ContactsKey
 }
 type ContactsKey ={
   [key: string]: string
 }
 
-const Contacts = (props: PropsType) => {
+const Contacts = (props: OwnPropsType) => {
   if (!props.contacts){
     return <b>No my contacts</b>
   }

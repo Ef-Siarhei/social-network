@@ -43,6 +43,9 @@ const ProfileDataForm: FC<InjectedFormProps<ProfileType>> = ({handleSubmit, init
   </form>
 }
 
-const ProfileDataFormReduxForm = reduxForm<ProfileType>({form: 'edit-profile', destroyOnUnmount: false})(ProfileDataForm)
+const ProfileDataFormReduxForm = reduxForm<ProfileType>({
+  form: 'edit-profile',
+  destroyOnUnmount: false
+})(ProfileDataForm)
 
 export default ProfileDataFormReduxForm
