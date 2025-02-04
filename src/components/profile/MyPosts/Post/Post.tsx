@@ -1,7 +1,12 @@
 import React from 'react';
 import s from './Post.module.css';
 
-export default class Post extends React.Component {
+type OwnPropsType = {
+  message: string
+  like: number
+  key: number
+}
+export default class Post extends React.Component<OwnPropsType> {
   render() {
     return (
       <div>

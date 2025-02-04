@@ -1,37 +1,29 @@
 import React, {FC} from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {Field, InjectedFormProps, reduxForm} from 'redux-form';
-import {
-  maxLengthCreator,
-  required,
-} from '../../../utils/validators/validators';
-import {Textarea} from '../../common/FormsControl/FormsControl';
+import {InjectedFormProps, reduxForm} from 'redux-form';
+import {maxLengthCreator, required,} from '../../../utils/validators/validators';
+import {createField, Textarea} from '../../common/FormsControl/FormsControl';
 import {PostType} from "../../../types/types";
 
 
 type FormDataType = {
   newPostText: string;
 }
+type FormDataKeyType = keyof FormDataType
 
-type MyPostsPropsType = {
+type OwnPropsType = {
   posts: Array<PostType>;
   addPost: (postText: string) => void;
 }
 
-const maxLength10 = maxLengthCreator(10);
-
+const maxLength100 = maxLengthCreator(100);
 
 const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field
-          name={'newPostText'}
-          component={Textarea}
-          placeholder={'Enter tour post'}
-          validate={[required, maxLength10]}
-        />
+        {createField<FormDataKeyType>('Enter tour post', 'newPostText', [required, maxLength100], Textarea)}
       </div>
       <div>
         <button>Add post</button>
@@ -42,9 +34,9 @@ const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = (props) => {
 const AddNewPostReduxForm = reduxForm<FormDataType>({form: 'profileAddNewPostForm'})(AddNewPostForm);
 
 
-class MyPosts extends React.Component<MyPostsPropsType> {
+class MyPosts extends React.Component<OwnPropsType> {
   postsElements = () => {
-    return this.props.posts.map((p) => (
+    return [...this.props.posts].reverse().map((p) => (
       <Post message={p.message} like={p.like} key={p.id}/>
     ));
   };
