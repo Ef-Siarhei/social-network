@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import withAuthNavigate from '../../hoc/withAuthNavigate';
 import Dialogs from './Dialogs';
-import { compose } from 'redux';
+import {compose} from 'redux';
 import {AppStateType} from "../../redux/redux-store";
 import {DialogsType, MessagesType} from "../../redux/reduced/messages-reducer";
 
@@ -17,4 +17,5 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   };
 };
 
-export default compose(connect(mapStateToProps), withAuthNavigate)(Dialogs);
+const DialogsContainer = compose(connect(mapStateToProps), withAuthNavigate)(Dialogs);
+export default DialogsContainer

@@ -5,12 +5,12 @@ import NewMessageContainer from './Message/NewMessage/NewMessageContainer';
 import React, {FC} from 'react';
 import {DialogsType, MessagesType} from "../../redux/reduced/messages-reducer";
 
-type PropsType = {
+type OwnPropsType = {
   dialogs: Array<DialogsType>
   messages: Array<MessagesType>
 }
 
- const Dialogs: FC<PropsType> = (props) => {
+ const Dialogs: FC<OwnPropsType> = (props) => {
   let dialogElements = props.dialogs.map((dialogItem) => (
     <DialogItem dialogItem={dialogItem} key={dialogItem.id} />
   ));
