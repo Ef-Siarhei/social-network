@@ -4,6 +4,7 @@ import Dialogs from './Dialogs';
 import {compose} from 'redux';
 import {AppStateType} from "../../redux/redux-store";
 import {DialogsType, MessagesType} from "../../redux/reduced/messages-reducer";
+import React from "react";
 
 type MapStateToPropsType = {
   dialogs: Array<DialogsType>
@@ -17,5 +18,5 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   };
 };
 
-const DialogsContainer = compose(connect(mapStateToProps), withAuthNavigate)(Dialogs);
+const DialogsContainer = compose<React.FC>(connect(mapStateToProps), withAuthNavigate)(Dialogs);
 export default DialogsContainer

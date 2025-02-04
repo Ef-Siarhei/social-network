@@ -80,7 +80,7 @@ const mapStateToProps = (state: AppStateType):MapStateToPropsType => {
   };
 };
 
-export default compose(
+export default compose<React.ComponentType<OwnPropsType>>(
   // нажимаем Ctrl + b при курсоре на connect и смотрим какие уточнения можно добавить в <> в файле react-redux.d.ts
   // <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
   connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
