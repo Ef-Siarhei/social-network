@@ -1,5 +1,5 @@
-import React, {lazy, Suspense} from 'react';
-import {Route, Routes, HashRouter, Navigate} from 'react-router-dom';
+import React, {Component, FC, lazy, Suspense} from 'react';
+import {HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 import './App.scss';
 import Music from './components/music/Music';
 import Navbar from './components/navbar/Navbar';
@@ -7,21 +7,21 @@ import News from './components/news/News';
 import Settings from './components/settings/Settings';
 import HeaderContainer from './components/header/HeaderContainer';
 import Login from './components/Login/Login';
-import {Component} from 'react';
-import {Provider, connect} from 'react-redux';
+import {connect, Provider} from 'react-redux';
 import {initializeApp, showGlobalError, unShowGlobalError} from './redux/reduced/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
-import store from './redux/redux-store';
+import store, {AppStateType} from './redux/redux-store';
 import cn from 'classnames'
 import PopUpError from "./components/common/popUp/PopUpError/PopUpError";
 
+// const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer')as Promise<{ default: React.ComponentType }>);
 const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer'));
 const DialogsContainer = lazy(() => import('./components/dialogs/DialogsContainer'));
 const UsersContainer = lazy(() => import('./components/users/UsersContainer'));
 
-class App extends Component {
-  catchUnhandledErrors = (reason, promise) => {
-    const messageError = `Unhandled Rejection at: ${promise}, reason: ${reason}`
+class App extends Component<PropsType> {
+  catchUnhandledErrors = (event: PromiseRejectionEvent) => {
+    const messageError = `Unhandled Rejection at: ${event.promise}, reason: ${event.reason}`
     this.props.showGlobalError(messageError)
   }
 
@@ -71,14 +71,22 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchToPropsType = {
+  initializeApp: () => void
+  showGlobalError: (message: string) => void
+  unShowGlobalError: () => void
+}
+type PropsType = MapStateToPropsType & MapDispatchToPropsType
+
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
   globalError: state.app.globalError
 });
 
 const AppContainer = connect(mapStateToProps, {initializeApp, showGlobalError, unShowGlobalError})(App);
 
-const SamuraiJSApp = (props) => {
+const SamuraiJSApp: FC = () => {
   return (
     // <React.StrictMode>
     <HashRouter>

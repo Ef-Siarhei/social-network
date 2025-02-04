@@ -4,7 +4,7 @@ import {AppStateType, InferActionsTypes} from "../redux-store"
 
 let initialState = {
   initialized: false,
-  globalError: null,
+  globalError: null as (string | null),
 }
 type InitialStateType = typeof initialState
 type ActionsTypes = InferActionsTypes<typeof actions>
@@ -26,7 +26,7 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
 // Actions creator
 const actions = {
   initializedSuccessAC: () => ({type: 'sn/app/INITIALIZED_SUCCESS'} as const),
-  showGlobalErrorSuccess: (globalError: any) => ({
+  showGlobalErrorSuccess: (globalError: string) => ({
     type: 'sn/app/SHOW_GLOBAL_ERROR_SUCCESS',
     payload: {globalError}
   } as const),

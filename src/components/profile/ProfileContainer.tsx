@@ -94,7 +94,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
   profileUpdateStatus: getProfileUpdateStatus(state)
 });
 
-export default compose(
+export default compose<React.ComponentType>(
   connect<MapStateToPropsType, MapDispatchToPropsType, ParamsType, AppStateType>(mapStateToProps, {
     getUserProfile,
     getUserStatus,
