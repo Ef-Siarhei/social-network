@@ -13,7 +13,7 @@ let state = {
 
 test('length of posts should be incremented', () => {
   // 1. test data
-  let action = actions.addNewPostActionCreator('qwerty');
+  let action = actions.addNewPost('qwerty');
 
   // 2. action
   let newState = profileReducer(state, action);
@@ -24,7 +24,7 @@ test('length of posts should be incremented', () => {
 
 test('message of new post should be correct', () => {
   // 1. test data
-  let action = actions.addNewPostActionCreator('qwerty');
+  let action = actions.addNewPost('qwerty');
 
   // 2. action
   let newState = profileReducer(state, action);
@@ -35,7 +35,7 @@ test('message of new post should be correct', () => {
 
 test('after deleting length of posts should be decrement', () => {
   // 1. test data
-  let action = actions.deletePostAC(2);
+  let action = actions.deletePost(2);
   // 2. action
   let newState = profileReducer(state, action);
   //3. expectation
@@ -44,7 +44,7 @@ test('after deleting length of posts should be decrement', () => {
 
 test('after deleting length of posts should not be decrement if id incorrect', () => {
   // 1. test data
-  let action = actions.deletePostAC(20);
+  let action = actions.deletePost(20);
   // 2. action
   let newState = profileReducer(state, action);
   //3. expectation

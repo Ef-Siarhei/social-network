@@ -25,13 +25,7 @@ import {ProfileType} from "../../types/types";
 type ParamsType = {
   params: Readonly<Params>
 }
-type MapStateToPropsType = {
-  profile: ProfileType | null
-  status: string
-  authorizedUserId: number | null
-  isAuth: boolean
-  profileUpdateStatus: string
-}
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchToPropsType = {
   getUserProfile: (userId: number | null) => void
   getUserStatus: (userId: number | null) => void
@@ -86,7 +80,7 @@ class ProfileContainer extends React.Component<PropsType> {
   }
 }
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+const mapStateToProps = (state: AppStateType) => ({
   profile: getProfile(state),
   status: getStatus(state),
   authorizedUserId: getAuthorizedUserId(state),

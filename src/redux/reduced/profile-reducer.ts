@@ -70,10 +70,6 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 
 // ActionsCreator
 export const actions = {
-  addNewPostActionCreator: (postText: string) => ({
-    type: 'sn/profile/ADD_POST',
-    postText,
-  } as const),
   setUserProfile: (profile: ProfileType) => ({
     type: 'sn/profile/SET_USER_PROFILE',
     profile,
@@ -82,13 +78,17 @@ export const actions = {
     type: 'sn/profile/SET_USER_STATUS',
     status,
   } as const),
-  deletePostAC: (postId: number) => ({
-    type: 'sn/profile/DELETE_POST',
-    postId,
-  } as const),
   savePhotoSuccess: (photos: PhotosType) => ({
     type: 'sn/profile/SAVE_PHOTO_SUCCESS',
     photos,
+  } as const),
+  addNewPost: (postText: string) => ({
+    type: 'sn/profile/ADD_POST',
+    postText,
+  } as const),
+  deletePost: (postId: number) => ({
+    type: 'sn/profile/DELETE_POST',
+    postId,
   } as const),
   setProfileUpdateStatus: (status: 'edit' | 'success' | 'error') => {
     if (status === 'edit') return {type: 'sn/profile/PROFILE_UPDATE_EDIT', status} as const
@@ -138,7 +138,7 @@ export const setProfileStatusEdit = (status: 'edit' | 'success' | 'error'): Thun
   dispatch(actions.setProfileUpdateStatus(status))
 }
 export const addPost = (postText: string): ThunkType => async (dispatch) => {
-  dispatch(actions.addNewPostActionCreator(postText))
+  dispatch(actions.addNewPost(postText))
 }
 
 export default profileReducer
