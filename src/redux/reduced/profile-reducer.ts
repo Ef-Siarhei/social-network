@@ -99,11 +99,11 @@ export const actions = {
 }
 
 // Санки
-export const getUserProfile = (userId: number): ThunkType => async (dispatch) => {
+export const getUserProfile = (userId: number | null): ThunkType => async (dispatch) => {
   const data = await profileAPI.getProfile(userId)
   dispatch(actions.setUserProfile(data))
 }
-export const getUserStatus = (userId: number): ThunkType => async (dispatch) => {
+export const getUserStatus = (userId: number | null): ThunkType => async (dispatch) => {
   const data = await profileAPI.getStatus(userId)
   dispatch(actions.setUserStatus(data))
 }

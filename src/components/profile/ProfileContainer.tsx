@@ -26,15 +26,15 @@ type ParamsType = {
   params: Readonly<Params>
 }
 type MapStateToPropsType = {
-  profile: ProfileType
+  profile: ProfileType | null
   status: string
-  authorizedUserId: number
+  authorizedUserId: number | null
   isAuth: boolean
   profileUpdateStatus: string
 }
 type MapDispatchToPropsType = {
-  getUserProfile: (userId: number) => void
-  getUserStatus: (userId: number) => void
+  getUserProfile: (userId: number | null) => void
+  getUserStatus: (userId: number | null) => void
   updateUserStatus: (newStatus: string) => void
   savePhoto: (file: any) => void
   saveProfile: (profile: ProfileType) => void
@@ -56,7 +56,7 @@ const withRouter = (WrappedComponent: React.ComponentType<PropsType>) => (props:
 
 class ProfileContainer extends React.Component<PropsType> {
   refreshProfile() {
-    let userId: number | undefined = Number(this.props.params['userId']);
+    let userId: number | null = Number(this.props.params['userId']);
     if (!userId) {
       userId = this.props.authorizedUserId;
     }
@@ -95,14 +95,15 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 });
 
 export default compose<React.ComponentType>(
-  connect<MapStateToPropsType, MapDispatchToPropsType, ParamsType, AppStateType>(mapStateToProps, {
-    getUserProfile,
-    getUserStatus,
-    updateUserStatus,
-    savePhoto,
-    saveProfile,
-    setProfileStatusEdit
-  }),
+  connect<MapStateToPropsType, MapDispatchToPropsType, ParamsType, AppStateType>(mapStateToProps,
+    {
+      getUserProfile,
+      getUserStatus,
+      updateUserStatus,
+      savePhoto,
+      saveProfile,
+      setProfileStatusEdit
+    }),
   withRouter,
   withAuthNavigate,
 )(ProfileContainer);

@@ -7,9 +7,9 @@ import {FC} from "react";
 
 type OwnPropsType = {
   isOwner: boolean
-  profile: ProfileType
+  profile: ProfileType | null
   status: string
-  authorizedUserId: number
+  authorizedUserId: number | null
   isAuth: boolean
   profileUpdateStatus: string
   getUserProfile: (userId: number) => void
