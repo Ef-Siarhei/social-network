@@ -11,7 +11,6 @@ type LoginResponseDataType = {
 
 export const authAPI = {
   getMe() {
-    // This type <GetMeResponseType> returned to response.data
     return instance.get<ApiResponseType<GetMeResponseDataType>>('auth/me').then((response) => response.data)
   },
   login(email: string, password: string, rememberMe = false, captcha: null | string = null) {

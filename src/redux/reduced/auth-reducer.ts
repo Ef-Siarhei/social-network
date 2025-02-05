@@ -12,9 +12,6 @@ let initialState = {
   captchaUrl: null as (string | null),
 }
 
-type InitialStateType = typeof initialState
-type ActionsTypes = InferActionsTypes<typeof actions>
-
 const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
     case 'sn/auth/SET_USER_DATA':
@@ -42,8 +39,6 @@ const actions = {
 }
 
 // Thunks creator
-type ThunkType = BaseThunkType<ActionsTypes | FormAction>
-
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
   let data = await authAPI.getMe()
   if (data.resultCode === ResultCodesEnum.Success) {
@@ -79,3 +74,7 @@ export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
 }
 
 export default authReducer
+
+type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes | FormAction>

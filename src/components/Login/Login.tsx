@@ -8,19 +8,16 @@ import {Navigate} from 'react-router-dom'
 import s from '../common/FormsControl/FormsControl.module.css'
 import {AppStateType} from "../../redux/redux-store"
 
-// Определить набор данных для данных формы
 type FormDataType = {
   email: string
   password: string
   rememberMe: boolean
   captcha: string
 }
-export type FormDataTypeKeys = Extract<keyof FormDataType, string>
+type FormDataTypeKeys = Extract<keyof FormDataType, string>
 
-// Создать валидатор максимальной длины
 const maxLength15 = maxLengthCreator(15)
 
-// определение компонента входа в систему
 const LoginForm: FC<InjectedFormProps<FormDataType, OwnLoginReduxFormPropsType> & OwnLoginReduxFormPropsType> =
   ({
      handleSubmit,
@@ -33,7 +30,10 @@ const LoginForm: FC<InjectedFormProps<FormDataType, OwnLoginReduxFormPropsType> 
         {createField<FormDataTypeKeys>('Password', 'password', [required, maxLength15], Input, {
           type: 'password',
         })}
-        {createField<FormDataTypeKeys>(undefined, 'rememberMe', undefined, Input, {type: 'checkbox', hi: 'qwerty'}, 'remember me')}
+        {createField<FormDataTypeKeys>(undefined, 'rememberMe', undefined, Input, {
+          type: 'checkbox',
+          hi: 'qwerty'
+        }, 'remember me')}
 
         {captchaUrl && <img src={captchaUrl} alt={'captcha'}/>}
         {captchaUrl && createField<FormDataTypeKeys>('Enter symbol from img up', 'captcha', [required], Input)}
@@ -46,7 +46,6 @@ const LoginForm: FC<InjectedFormProps<FormDataType, OwnLoginReduxFormPropsType> 
     )
   }
 
-// Определите типы предложений для LoginReduxForm
 type OwnLoginReduxFormPropsType = {
   captchaUrl: string | null
 }
@@ -54,19 +53,6 @@ type OwnLoginReduxFormPropsType = {
 // Создать форму Redux
 const LoginReduxForm = reduxForm<FormDataType, OwnLoginReduxFormPropsType>({form: 'login'})(LoginForm)
 
-// определить типы состояния Redux и отправки
-type MapStateToPropsType = {
-  isAuth: boolean
-  captchaUrl: string | null
-}
-
-type MapDispatchToPropsType = {
-  login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-}
-// объединить реквизиты state and dispatch
-type LoginPropsType = MapStateToPropsType & MapDispatchToPropsType
-
-// Основное определение компонента входа в систему
 const Login: FC<LoginPropsType> = ({login, isAuth, captchaUrl}) => {
   const onSubmit = (formData: FormDataType) => {
     login(formData.email, formData.password, formData.rememberMe, formData.captcha)
@@ -85,7 +71,13 @@ const Login: FC<LoginPropsType> = ({login, isAuth, captchaUrl}) => {
   )
 }
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+type MapDispatchToPropsType = {
+  login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+}
+type LoginPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+const mapStateToProps = (state: AppStateType) => ({
   isAuth: state.auth.isAuth,
   captchaUrl: state.auth.captchaUrl,
 })
