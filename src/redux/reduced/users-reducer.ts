@@ -58,7 +58,7 @@ const usersReducer = (state = initialState, action: ActionTypes): InitialStateTy
 }
 
 // Object Actions Creators
-const actions = {
+export const actions = {
   followAC: (userId: number) => ({type: 'sn/users/FOLLOW', userId} as const),
   unFollowAC: (userId: number) => ({type: 'sn/users/UNFOLLOW', userId} as const),
   setUsers: (users: Array<UserType>) => ({type: 'sn/users/SET_USERS', users} as const),
@@ -132,6 +132,6 @@ export const unFollow = (userId: number): ThunkType => async (dispatch) => {
 
 export default usersReducer
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 type ActionTypes = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionTypes>

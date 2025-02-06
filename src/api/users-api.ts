@@ -1,7 +1,7 @@
 import {UserType} from "../types/types";
 import {instance, ApiResponseType} from "./api";
 
-type GetUsersResponseType = {
+export type GetUsersResponseType = {
   items: Array<UserType>
   totalCount: number
   error: string
