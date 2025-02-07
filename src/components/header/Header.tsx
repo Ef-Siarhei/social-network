@@ -19,7 +19,7 @@ type PropsType = {
       <div className={s.loginBlock}>
         {props.isAuth ? (
           <>
-            <UserIcon img={null}/>
+            <UserIcon src={''}/>
             {props.login}
             <button onClick={props.logout}>Log out</button>
           </>

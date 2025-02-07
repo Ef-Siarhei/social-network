@@ -1,5 +1,3 @@
-import {FriendType} from "../redux/reduced/sidebar-reducer";
-
 export type ContactsType = {
   github: string
   vk: string
@@ -39,5 +37,5 @@ export type UserType = {
 }
 
 export type FriendsType = {
-  friends: Array<FriendType>
+  friends: Array<UserType>
 }

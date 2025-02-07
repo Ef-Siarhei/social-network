@@ -1,39 +1,38 @@
-export type FriendType = {
-  id: number
-  name: string
-  icon: string
-}
+import {UserType} from "../../types/types";
+import {usersAPI} from "../../api/users-api";
+import {BaseThunkType, InferActionsTypes} from "../redux-store";
 
 let initialState = {
-  friends: [
-    {
-      id: 1,
-      name: 'Roman',
-      icon: 'https://flomaster.top/uploads/posts/2023-10/thumbs/1697595928_flomaster-top-p-risunki-izvestnikh-lyudei-vkontakte-3.jpg',
-    },
-    {
-      id: 2,
-      name: 'Kat',
-      icon: 'https://flomaster.top/uploads/posts/2023-10/thumbs/1697595964_flomaster-top-p-risunki-izvestnikh-lyudei-vkontakte-12.jpg',
-    },
-    {
-      id: 3,
-      name: 'Olga',
-      icon: 'https://flomaster.top/uploads/posts/2023-10/thumbs/1697595973_flomaster-top-p-risunki-izvestnikh-lyudei-vkontakte-29.jpg',
-    },
-
-    {
-      id: 4,
-      name: 'Kat',
-      icon: 'https://flomaster.top/uploads/posts/2023-10/thumbs/1697595964_flomaster-top-p-risunki-izvestnikh-lyudei-vkontakte-12.jpg',
-    },
-  ] as Array<FriendType>,
+  friends: [] as Array<UserType>,
+  portionFriendsNumber: 2,
+  portionFriendsSize: 20,
+  showFriends: true
 };
 
-type InitialStateType = typeof initialState
-
-const sidebarReducer = (state = initialState, action: any): InitialStateType => {
-  return {...state};
+const sidebarReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+  switch (action.type) {
+    case 'sn/sidebar/SET_FRIENDS': {
+      return {
+        ...state,
+        friends: action.friends
+      }
+    }
+    default:
+      return state
+  }
 };
+
+const actions = {
+  setFriends: (friends: Array<UserType>) => ({type: 'sn/sidebar/SET_FRIENDS', friends} as const)
+}
+
+export const getFriends = (currentPage: number, pageSize: number, friends: null | boolean): ThunkType => async (dispatch) => {
+  let data = await usersAPI.getUsers(currentPage, pageSize, friends)
+  dispatch(actions.setFriends(data.items))
+}
 
 export default sidebarReducer;
+
+type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes>

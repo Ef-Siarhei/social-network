@@ -4,8 +4,12 @@
   font-size: 1.3rem;
 }
 .friends_items {
-  display: grid ;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: .2rem;
-  margin-top: .5rem;
+  /*display: flex ;*/
+  /*grid-template-columns: repeat(3, 1fr);*/
+  /*grid-gap: .2rem;*/
+  /*margin-top: .5rem;*/
+  height: 250px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
+

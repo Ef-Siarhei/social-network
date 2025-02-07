@@ -1,14 +1,15 @@
 import Friend from './friend/Friend';
 import s from './Friends.module.css';
-import {FriendsType} from "../../types/types";
+import {UserType} from "../../types/types";
 import {FC} from "react";
 
 type OwnPropsType = {
-  sidebar: FriendsType
+  friends: Array<UserType>
 }
 
 const Friends: FC<OwnPropsType> = (props) => {
-  let friendsElements = props.sidebar.friends.map((friend) => {
+
+  let friendsElements = props.friends.map((friend) => {
     return <Friend friend={friend} key={friend.id}/>;
   });
 
@@ -17,6 +18,6 @@ const Friends: FC<OwnPropsType> = (props) => {
       Friends
       <div className={s.friends_items}>{friendsElements}</div>
     </div>
-  );
+  )
 }
 export default Friends

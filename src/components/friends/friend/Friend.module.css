@@ -1,6 +1,10 @@
 .friend {
-display: grid;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: .2rem;
 }
+
 .friend_img {
   width: 2rem;
   height: 2rem;
