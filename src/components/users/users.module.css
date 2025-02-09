@@ -76,3 +76,7 @@ h2 {
   border-radius: 5px;
   font-weight: bold;
 }
+.text_input{
+  border: 6px solid red;
+  background-color: aqua;
+}
