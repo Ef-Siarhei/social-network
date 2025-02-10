@@ -11,7 +11,10 @@ const initialState = {
   currentPage: 1,
   totalUsersCount: 0,
   isFetching: false,
-  followingIsProgress: [] as Array<number>
+  followingIsProgress: [] as Array<number>,
+  filter: {
+    term: ''
+  }
 }
 
 const usersReducer = (state = initialState, action: ActionTypes): InitialStateType => {
@@ -44,6 +47,9 @@ const usersReducer = (state = initialState, action: ActionTypes): InitialStateTy
     case 'sn/users/IS_FETCHING': {
       return {...state, isFetching: action.isFetching}
     }
+    case 'sn/users/SET_FILTER': {
+      return {...state, filter: action.payload}
+    }
     case 'sn/users/TOGGLE_FOLLOWING_PROGRESS': {
       return {
         ...state,
@@ -62,6 +68,7 @@ export const actions = {
   followAC: (userId: number) => ({type: 'sn/users/FOLLOW', userId} as const),
   unFollowAC: (userId: number) => ({type: 'sn/users/UNFOLLOW', userId} as const),
   setUsers: (users: Array<UserType>) => ({type: 'sn/users/SET_USERS', users} as const),
+  setFilter: (term: string) => ({type: 'sn/users/SET_FILTER', payload: {term}} as const),
   setCurrentPage: (currentPage: number) => ({
     type: 'sn/users/SET_CURRENT_PAGE',
     currentPage,
@@ -82,14 +89,15 @@ export const actions = {
 }
 
 // ThunkCreator
-export const requestUsers = (currentPage: number, pageSize: number): ThunkType => {
+export const requestUsers = (currentPage: number, pageSize: number, term: string): ThunkType => {
   // ThunkCreator возвращает Thunk
   return async (dispatch, getState) => {
     getState().profilePage.profile?.userId?.toFixed()
     dispatch(actions.setCurrentPage(currentPage))
     dispatch(actions.setIsFetching(true))
+    dispatch(actions.setFilter(term))
 
-    let data = await usersAPI.getUsers(currentPage, pageSize)
+    let data = await usersAPI.getUsers(currentPage, pageSize, term)
     dispatch(actions.setIsFetching(false))
     dispatch(actions.setUsers(data.items))
     dispatch(actions.setTotalUsersCount(data.totalCount))
@@ -133,5 +141,6 @@ export const unFollow = (userId: number): ThunkType => async (dispatch) => {
 export default usersReducer
 
 export type InitialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 type ActionTypes = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionTypes>

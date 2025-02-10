@@ -50,7 +50,10 @@ beforeEach(() =>
     currentPage: 1,
     totalUsersCount: 0,
     isFetching: false,
-    followingIsProgress: []
+    followingIsProgress: [],
+    filter: {
+      term: ''
+    }
   }
 )
 

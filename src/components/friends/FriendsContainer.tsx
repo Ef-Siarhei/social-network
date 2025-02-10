@@ -15,7 +15,7 @@ const FriendsContainer: FC<PropsType> = (props) => {
   const {getFriends, portionFriendsNumber, portionFriendsSize, showFriends, friends, isAuth} = props
 
   useEffect(() => {
-    getFriends(portionFriendsNumber, portionFriendsSize, showFriends)
+    getFriends(portionFriendsNumber, portionFriendsSize, '', showFriends)
   }, [portionFriendsNumber, portionFriendsSize, showFriends])
 
   if (isAuth) {
@@ -25,7 +25,7 @@ const FriendsContainer: FC<PropsType> = (props) => {
 
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchToPropsType = {
-  getFriends: (currentPage: number, pageSize: number, friends: null | boolean) => void
+  getFriends: (currentPage: number, pageSize: number, term: string, friends: null | boolean) => void
   portionFriendsNumber: number
   portionFriendsSize: number
   showFriends: boolean
