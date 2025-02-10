@@ -25,7 +25,7 @@ const FriendsContainer: FC<PropsType> = (props) => {
 
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 type MapDispatchToPropsType = {
-  getFriends: (currentPage: number, pageSize: number, term: string, friends: null | boolean) => void
+  getFriends: (currentPage: number, pageSize: number, term: string, friends: boolean) => void
   portionFriendsNumber: number
   portionFriendsSize: number
   showFriends: boolean

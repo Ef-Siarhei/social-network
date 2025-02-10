@@ -26,7 +26,7 @@ const actions = {
   setFriends: (friends: Array<UserType>) => ({type: 'sn/sidebar/SET_FRIENDS', friends} as const)
 }
 
-export const getFriends = (currentPage: number, pageSize: number, term: string, friends: null | boolean): ThunkType => async (dispatch) => {
+export const getFriends = (currentPage: number, pageSize: number, term: string, friends: boolean): ThunkType => async (dispatch) => {
   let data = await usersAPI.getUsers(currentPage, pageSize, term,  friends)
   dispatch(actions.setFriends(data.items))
 }

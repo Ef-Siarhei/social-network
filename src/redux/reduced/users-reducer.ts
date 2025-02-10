@@ -5,6 +5,7 @@ import {BaseThunkType, InferActionsTypes} from "../redux-store"
 import {Dispatch} from "redux"
 import {usersAPI} from "../../api/users-api";
 
+
 const initialState = {
   users: [] as Array<UserType>,
   pageSize: 10,
@@ -13,7 +14,8 @@ const initialState = {
   isFetching: false,
   followingIsProgress: [] as Array<number>,
   filter: {
-    term: ''
+    term: '',
+    friend: null as null | boolean
   }
 }
 
@@ -68,7 +70,7 @@ export const actions = {
   followAC: (userId: number) => ({type: 'sn/users/FOLLOW', userId} as const),
   unFollowAC: (userId: number) => ({type: 'sn/users/UNFOLLOW', userId} as const),
   setUsers: (users: Array<UserType>) => ({type: 'sn/users/SET_USERS', users} as const),
-  setFilter: (term: string) => ({type: 'sn/users/SET_FILTER', payload: {term}} as const),
+  setFilter: (filter: FilterType) => ({type: 'sn/users/SET_FILTER', payload: filter} as const),
   setCurrentPage: (currentPage: number) => ({
     type: 'sn/users/SET_CURRENT_PAGE',
     currentPage,
@@ -89,15 +91,15 @@ export const actions = {
 }
 
 // ThunkCreator
-export const requestUsers = (currentPage: number, pageSize: number, term: string): ThunkType => {
+export const requestUsers = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => {
   // ThunkCreator возвращает Thunk
   return async (dispatch, getState) => {
     getState().profilePage.profile?.userId?.toFixed()
     dispatch(actions.setCurrentPage(currentPage))
     dispatch(actions.setIsFetching(true))
-    dispatch(actions.setFilter(term))
+    dispatch(actions.setFilter(filter))
 
-    let data = await usersAPI.getUsers(currentPage, pageSize, term)
+    let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
     dispatch(actions.setIsFetching(false))
     dispatch(actions.setUsers(data.items))
     dispatch(actions.setTotalUsersCount(data.totalCount))

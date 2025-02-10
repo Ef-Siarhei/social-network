@@ -52,7 +52,8 @@ beforeEach(() =>
     isFetching: false,
     followingIsProgress: [],
     filter: {
-      term: ''
+      term: '',
+      friend: null
     }
   }
 )

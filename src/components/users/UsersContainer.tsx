@@ -32,7 +32,7 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
   follow: (userId: number) => void
   unFollow: (userId: number) => void
-  getUsers: (currentPage: number, pageSize: number, term: string) => void
+  getUsers: (currentPage: number, pageSize: number, filter: FilterType) => void
 }
 type OwnPropsType = {
   pageTitle: string
@@ -41,18 +41,18 @@ type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
 
 class UsersContainer extends React.Component<PropsType> {
   componentDidMount() {
-    const {currentPage, pageSize} = this.props;
-    this.props.getUsers(currentPage, pageSize, '');
+    const {currentPage, pageSize, filter} = this.props;
+    this.props.getUsers(currentPage, pageSize, filter);
   }
 
   onPageChanged = (pageNumber: number) => {
     const {pageSize, filter} = this.props;
-    this.props.getUsers(pageNumber, pageSize, filter.term);
+    this.props.getUsers(pageNumber, pageSize, filter);
   };
 
   onFilterChanged = (filter: FilterType) => {
     const {pageSize} = this.props;
-    this.props.getUsers(1, pageSize, filter.term);
+    this.props.getUsers(1, pageSize, filter);
   }
 
   render() {

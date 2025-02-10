@@ -10,12 +10,17 @@ type PropsType = {
 export const UsersSearchForm: FC<PropsType> = (props) => {
   return <div>
     <Formik
-      initialValues={{term: ''}}
+      initialValues={{term: '', friend: 'null'}}
       validationSchema={Yup.object({
-        term: Yup.string().max(15, 'Must be 15 characters or less').required(),
+        term: Yup.string().max(15, 'Must be 15 characters or less')
       })}
-      onSubmit={(values: FilterType, formik) => {
-        props.onFilterChanged(values)
+      onSubmit={(values, formik) => {
+        const filter: FilterType = {
+          term: values.term,
+          friend: values.friend === 'null' ? null : values.friend === 'true'
+        }
+        // alert(JSON.stringify(values, null,2))
+        props.onFilterChanged(filter)
         formik.setSubmitting(false)
       }}
     >
@@ -23,11 +28,11 @@ export const UsersSearchForm: FC<PropsType> = (props) => {
         <Form>
           <Field type={'text'} name={'term'}/>
           {/*<ErrorMessage name={'term'}/>*/}
-          {/*<Field as={'select'} name={'friends'} >*/}
-          {/*  <option value={'null'}>All peoples</option>*/}
-          {/*  <option value={'true'}>Only friends</option>*/}
-          {/*  <option value={'false'}>Only unfriends</option>*/}
-          {/*</Field>*/}
+          <Field as={'select'} name={'friend'}>
+            <option value={'null'}>All peoples</option>
+            <option value={'true'}>Only friends</option>
+            <option value={'false'}>Only unfriends</option>
+          </Field>
           <button type={'submit'} disabled={formik.isSubmitting}>Find</button>
         </Form>
       )}
