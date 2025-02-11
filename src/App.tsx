@@ -17,7 +17,7 @@ import PopUpError from "./components/common/popUp/PopUpError/PopUpError";
 // const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer')as Promise<{ default: React.ComponentType }>);
 const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer'));
 const DialogsContainer = lazy(() => import('./components/dialogs/DialogsContainer'));
-const UsersContainer = lazy(() => import('./components/users/UsersContainer'));
+const UsersPage = lazy(() => import('./components/users/UsersContainer'));
 
 class App extends Component<PropsType> {
   catchUnhandledErrors = (event: PromiseRejectionEvent) => {
@@ -54,7 +54,7 @@ class App extends Component<PropsType> {
                 <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                 <Route path="/news" element={<News/>}/>
                 <Route path="/music" element={<Music/>}/>
-                <Route path="/users" element={<UsersContainer pageTitle={'Just go ahead!!!'}/>}/>
+                <Route path="/users" element={<UsersPage pageTitle={'Just go ahead!!!'}/>}/>
                 <Route path="/settings" element={<Settings/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="*" element={<div>404 NOT FOUND</div>}/>

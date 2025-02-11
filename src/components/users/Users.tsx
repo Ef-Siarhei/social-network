@@ -1,50 +1,89 @@
+import React, {FC, useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import style from './users.module.css';
-import React, {FC} from 'react';
 import Paginator from '../common/Paginator/Paginator';
 import User from './User';
 import {UserType} from "../../types/types";
 import {UsersSearchForm} from "./UsersSearchForm";
-import {FilterType} from "../../redux/reduced/users-reducer";
+import {FilterType, requestUsers} from "../../redux/reduced/users-reducer";
+import {
+  getCurrentPage,
+  getFollowingIsProgress,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers,
+  getUsersFilter
+} from "../../redux/selectors/users-selectors";
+import {AppDispatch} from "../../redux/redux-store";
 
-type PropsType = {
-  users: Array<UserType>
-  pageSize: number
-  currentPage: number
-  totalUsersCount: number
-  followingIsProgress: Array<number>
-  follow: (userId: number) => void
-  unFollow: (userId: number) => void
-  onPageChanged: (pageNumber: number) => void
-  onFilterChanged: (filter: FilterType) => void
-}
+const Users: FC = () => {
 
-const Users: FC<PropsType> = (props) => {
+  const users = useSelector(getUsers)
+  const pageSize = useSelector(getPageSize)
+  const currentPage = useSelector(getCurrentPage)
+  const totalUsersCount = useSelector(getTotalUsersCount)
+  const followingIsProgress = useSelector(getFollowingIsProgress)
+  const filter = useSelector(getUsersFilter)
+
+  const dispatch: AppDispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(requestUsers(currentPage, pageSize, filter));
+  }, [])
+
+  const onPageChanged = async (pageNumber: number) => {
+    try {
+      await dispatch(requestUsers(pageNumber, pageSize, filter));
+    } catch (error) {
+      console.error("Failed to change page:", error);
+    }
+  };
+
+  const onFilterChanged = async (filter: FilterType) => {
+    await dispatch(requestUsers(1, pageSize, filter))
+  }
+
+  const follow = async (userId: number) => {
+    // @ts-ignore
+    await dispatch(follow(userId))
+  }
+
+  const unFollow = async (userId: number) => {
+    // @ts-ignore
+    await dispatch(unFollow(userId))
+  }
+
+  const showMore = async () => {
+    const nextPage = currentPage + 1;
+    await dispatch(requestUsers(nextPage, pageSize, filter));
+  };
+
   return (
     <div className={style.users}>
 
       {/*<SignupForm/>*/}
-      <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
+      <UsersSearchForm onFilterChanged={onFilterChanged}/>
 
-      {props.users.map((user: UserType) => {
+      {users.map((user: UserType) => {
         return (
           <User
             user={user}
             key={user.id}
-            followingIsProgress={props.followingIsProgress}
-            follow={props.follow}
-            unFollow={props.unFollow}
+            followingIsProgress={followingIsProgress}
+            follow={follow}
+            unFollow={unFollow}
           />
         );
       })}
 
       <Paginator
-        totalItemsCount={props.totalUsersCount}
-        pageSize={props.pageSize}
-        currentPage={props.currentPage}
-        onPageChanged={props.onPageChanged}
+        totalItemsCount={totalUsersCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChanged={onPageChanged}
       />
 
-      <button className={style.show_more}>Show more</button>
+      <button className={style.show_more} onClick={showMore}>Show more</button>
     </div>
   );
 };

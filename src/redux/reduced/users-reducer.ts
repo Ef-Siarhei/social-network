@@ -1,4 +1,4 @@
-import {ResultCodesEnum, ApiResponseType} from '../../api/api'
+import {ApiResponseType, ResultCodesEnum} from '../../api/api'
 import {updateObjectInArray} from '../../utils/object-helper'
 import {UserType} from "../../types/types"
 import {BaseThunkType, InferActionsTypes} from "../redux-store"
