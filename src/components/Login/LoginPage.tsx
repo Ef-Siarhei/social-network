@@ -2,11 +2,12 @@ import React, {FC} from 'react'
 import {InjectedFormProps, reduxForm} from 'redux-form'
 import {createField, Input} from '../common/FormsControl/FormsControl'
 import {maxLengthCreator, required} from '../../utils/validators/validators'
-import {connect} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {login} from '../../redux/reduced/auth-reducer'
 import {Navigate} from 'react-router-dom'
 import s from '../common/FormsControl/FormsControl.module.css'
-import {AppStateType} from "../../redux/redux-store"
+import {AppDispatch} from "../../redux/redux-store"
+import {getCaptchaUrl, getIsAuth} from "../../redux/selectors/auth-selectors";
 
 type FormDataType = {
   email: string
@@ -53,9 +54,15 @@ type OwnLoginReduxFormPropsType = {
 // Создать форму Redux
 const LoginReduxForm = reduxForm<FormDataType, OwnLoginReduxFormPropsType>({form: 'login'})(LoginForm)
 
-const Login: FC<LoginPropsType> = ({login, isAuth, captchaUrl}) => {
-  const onSubmit = (formData: FormDataType) => {
-    login(formData.email, formData.password, formData.rememberMe, formData.captcha)
+
+export const LoginPage: FC = () => {
+
+  const isAuth = useSelector(getIsAuth)
+  const captchaUrl = useSelector(getCaptchaUrl)
+  const dispatch: AppDispatch = useDispatch()
+
+  const onSubmit = async (formData: FormDataType) => {
+    await dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))
   }
 
   // перенаправить, если аутентифицируется
@@ -70,17 +77,3 @@ const Login: FC<LoginPropsType> = ({login, isAuth, captchaUrl}) => {
     </div>
   )
 }
-
-type MapStateToPropsType = ReturnType<typeof mapStateToProps>
-type MapDispatchToPropsType = {
-  login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-}
-type LoginPropsType = MapStateToPropsType & MapDispatchToPropsType
-
-const mapStateToProps = (state: AppStateType) => ({
-  isAuth: state.auth.isAuth,
-  captchaUrl: state.auth.captchaUrl,
-})
-
-// подключить Redux к компоненту входа в систему
-export default connect(mapStateToProps, {login})(Login)

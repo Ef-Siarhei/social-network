@@ -6,7 +6,7 @@ import Navbar from './components/navbar/Navbar';
 import News from './components/news/News';
 import Settings from './components/settings/Settings';
 import HeaderContainer from './components/header/HeaderContainer';
-import Login from './components/Login/Login';
+import {LoginPage} from './components/Login/LoginPage';
 import {connect, Provider} from 'react-redux';
 import {initializeApp, showGlobalError, unShowGlobalError} from './redux/reduced/app-reducer';
 import Preloader from './components/common/Preloader/Preloader';
@@ -56,7 +56,7 @@ class App extends Component<PropsType> {
                 <Route path="/music" element={<Music/>}/>
                 <Route path="/users" element={<UsersPage pageTitle={'Just go ahead!!!'}/>}/>
                 <Route path="/settings" element={<Settings/>}/>
-                <Route path="/login" element={<Login/>}/>
+                <Route path="/login" element={<LoginPage/>}/>
                 <Route path="*" element={<div>404 NOT FOUND</div>}/>
               </Routes>
             </Suspense>
@@ -89,11 +89,11 @@ const AppContainer = connect(mapStateToProps, {initializeApp, showGlobalError, u
 const SamuraiJSApp: FC = () => {
   return (
     // <React.StrictMode>
-    <HashRouter>
-      <Provider store={store}>
-        <AppContainer/>
-      </Provider>
-    </HashRouter>
+      <HashRouter>
+        <Provider store={store}>
+          <AppContainer/>
+        </Provider>
+      </HashRouter>
     // </React.StrictMode>
   );
 };
