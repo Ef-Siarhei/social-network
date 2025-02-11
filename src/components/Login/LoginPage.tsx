@@ -8,6 +8,7 @@ import {Navigate} from 'react-router-dom'
 import s from '../common/FormsControl/FormsControl.module.css'
 import {AppDispatch} from "../../redux/redux-store"
 import {getCaptchaUrl, getIsAuth} from "../../redux/selectors/auth-selectors";
+import {LoginFormFormik} from "./LoginFormFormik";
 
 type FormDataType = {
   email: string
@@ -74,6 +75,7 @@ export const LoginPage: FC = () => {
     <div>
       <h1>Login here</h1>
       <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
+      <LoginFormFormik/>
     </div>
   )
 }

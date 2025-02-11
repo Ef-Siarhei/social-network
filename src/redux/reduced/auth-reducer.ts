@@ -9,7 +9,7 @@ let initialState = {
   email: null as (string | null),
   login: null as (string | null),
   isAuth: false,
-  captchaUrl: null as (string | null),
+  captchaUrl: ''
 }
 
 const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
