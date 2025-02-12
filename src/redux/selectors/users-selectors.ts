@@ -7,7 +7,6 @@ const getUsersPrimitiveSelector = (state: AppStateType) => {
 export const getUsers = createSelector([getUsersPrimitiveSelector], (users) => {
   return users.filter(user => true);
 })
-
 export const getPageSize = (state: AppStateType) => {
   return state.usersPage.pageSize;
 };
@@ -23,6 +22,4 @@ export const getIsFetching = (state: AppStateType) => {
 export const getFollowingIsProgress = (state: AppStateType) => {
   return state.usersPage.followingIsProgress;
 };
-export const getUsersFilter = createSelector([(state: AppStateType) => state.usersPage.filter], (filter) => {
-  return filter
-})
+export const getUsersFilter = (state: AppStateType) => state.usersPage.filter
