@@ -1,24 +1,26 @@
 import React, {ChangeEvent, FC, useEffect, useState} from 'react';
+import {AppDispatch} from "../../../../redux/redux-store";
+import {useDispatch, useSelector} from "react-redux";
+import {updateUserStatus} from "../../../../redux/reduced/profile-reducer";
+import {getStatus} from "../../../../redux/selectors/profile-selectors";
 
-type OwnPropsType = {
-  status: string
-  updateUserStatus: (newStatus: string) => void
-}
-
-const ProfileStatusWithHooks: FC<OwnPropsType> = (props) => {
+const ProfileStatusWithHooks: FC = () => {
+  const statusFromState = useSelector(getStatus)
   let [editMode, setEditMode] = useState<boolean>(false);
-  let [status, setStatus] = useState<string>(props.status);
+  let [status, setStatus] = useState<string>(statusFromState);
+
+  const dispatch: AppDispatch = useDispatch()
 
   useEffect(() => {
-    setStatus(props.status)
-  }, [props.status])
+    setStatus(statusFromState)
+  }, [statusFromState])
 
   const activateEditMode = () => {
     setEditMode(true);
   };
-  const deactivateEditMode = () => {
+  const deactivateEditMode = async () => {
     setEditMode(false);
-    props.updateUserStatus(status);
+    await dispatch(updateUserStatus(status))
   };
 
   const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +31,7 @@ const ProfileStatusWithHooks: FC<OwnPropsType> = (props) => {
     <div>
       <b>Status: </b>
       {!editMode &&
-          <span onDoubleClick={activateEditMode}>{props.status || '----'}</span>
+          <span onDoubleClick={activateEditMode}>{statusFromState || '----'}</span>
       }
       {editMode &&
           <input

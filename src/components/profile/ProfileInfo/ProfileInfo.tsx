@@ -6,30 +6,30 @@ import React, {ChangeEvent, FC} from "react";
 import ProfileData from "./ProfileData/ProfileData";
 import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 import {ProfileType} from "../../../types/types";
+import {useDispatch, useSelector} from "react-redux";
+import {getProfileUpdateStatus} from "../../../redux/selectors/profile-selectors";
+import {savePhoto, saveProfile} from "../../../redux/reduced/profile-reducer";
+import {AppDispatch} from "../../../redux/redux-store";
 
 type OwnPropsType = {
   isOwner: boolean
   profile: ProfileType
-  status: string
-  profileUpdateStatus: string
-  updateUserStatus: (newStatus: string) => void
-  savePhoto: (file: any) => void
-  saveProfile: (profile: ProfileType) => void
-  setProfileStatusEdit: (status: 'edit' | 'success' | 'error') => void
 }
 
 const ProfileInfo: FC<OwnPropsType> = (props) => {
 
-  let statusProfile = props.profileUpdateStatus
+  const profileUpdateStatus = useSelector(getProfileUpdateStatus)
 
-  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+  const dispatch: AppDispatch = useDispatch()
+
+  const onMainPhotoSelected = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      props.savePhoto(e.target.files[0])
+      await dispatch(savePhoto(e.target.files[0]))
     }
   }
 
-  const onSubmit = (formData: ProfileType) => {
-    props.saveProfile(formData)
+  const onSubmit = async (formData: ProfileType) => {
+    await dispatch(saveProfile(formData))
   }
 
   return (
@@ -50,12 +50,9 @@ const ProfileInfo: FC<OwnPropsType> = (props) => {
           <b>Full name:</b> {props.profile.fullName}
         </div>
 
-        <ProfileStatusWithHooks
-          status={props.status}
-          updateUserStatus={props.updateUserStatus}
-        />
+        <ProfileStatusWithHooks/>
 
-        {statusProfile === 'edit' || statusProfile === 'error'
+        {profileUpdateStatus === 'edit' || profileUpdateStatus === 'error'
           ? <ProfileDataForm
             initialValues={props.profile}
             onSubmit={onSubmit}
@@ -63,9 +60,6 @@ const ProfileInfo: FC<OwnPropsType> = (props) => {
           : <ProfileData
             profile={props.profile}
             isOwner={props.isOwner}
-            setProfileStatusEdit={() => {
-              props.setProfileStatusEdit('edit')
-            }}
           />}
       </div>
     </div>

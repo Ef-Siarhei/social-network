@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import Friends from './Friends';
 import {AppStateType} from "../../redux/redux-store";
-import {getIsAuth} from "../../redux/selectors/profile-selectors";
+import {getIsAuth} from "../../redux/selectors/auth-selectors";
 import {FC, useEffect} from "react";
 import {getFriends} from "../../redux/reduced/sidebar-reducer";
 import {

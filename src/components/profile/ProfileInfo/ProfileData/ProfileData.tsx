@@ -1,14 +1,23 @@
 import Contacts from "../Contacts/Contacts";
 import {ProfileType} from "../../../../types/types";
 import {FC} from "react";
+import {AppDispatch} from "../../../../redux/redux-store";
+import {useDispatch} from "react-redux";
+import {setProfileStatusEdit} from "../../../../redux/reduced/profile-reducer";
 
 type OwnPropsType = {
   isOwner: boolean
   profile: ProfileType
-  setProfileStatusEdit: () => void
 }
 
 const ProfileData: FC<OwnPropsType> = (props) => {
+
+  const dispatch: AppDispatch = useDispatch()
+
+  const submitEdit = async () => {
+    await dispatch(setProfileStatusEdit('edit'))
+  }
+
   return (
     <div>
       <Contacts contacts={props.profile.contacts}/>
@@ -30,7 +39,7 @@ const ProfileData: FC<OwnPropsType> = (props) => {
 
       {props.isOwner &&
         <div>
-          <button onClick={props.setProfileStatusEdit}>Edit profile</button>
+          <button onClick={submitEdit}>Edit profile</button>
         </div>}
     </div>
   )
