@@ -15,7 +15,7 @@ const initialState = {
   followingIsProgress: [] as Array<number>,
   filter: {
     term: '',
-    friend: null as null | boolean
+    friend: ''
   }
 }
 

@@ -1,5 +1,5 @@
 import {UserType} from "../types/types";
-import {instance, ApiResponseType} from "./api";
+import {ApiResponseType, instance} from "./api";
 
 export type GetUsersResponseType = {
   items: Array<UserType>
@@ -8,7 +8,7 @@ export type GetUsersResponseType = {
 }
 
 export const usersAPI = {
-  getUsers(currentPage = 1, pageSize = 10, term = '', friend: null | boolean = null) {
+  getUsers(currentPage = 1, pageSize = 10, term = '', friend: string = '') {
     return instance
       .get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}` + (term.length > 0 ? `&term=${term}` : '') + (friend === null ? '' : `&friend=${friend}`))
       .then((response) => response.data)

@@ -53,7 +53,7 @@ beforeEach(() =>
     followingIsProgress: [],
     filter: {
       term: '',
-      friend: null
+      friend: ''
     }
   }
 )

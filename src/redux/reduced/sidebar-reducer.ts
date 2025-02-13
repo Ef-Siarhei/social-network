@@ -6,7 +6,7 @@ let initialState = {
   friends: [] as Array<UserType>,
   portionFriendsNumber: 2,
   portionFriendsSize: 20,
-  showFriends: true
+  showFriends: 'true'
 };
 
 const sidebarReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -26,7 +26,7 @@ const actions = {
   setFriends: (friends: Array<UserType>) => ({type: 'sn/sidebar/SET_FRIENDS', friends} as const)
 }
 
-export const getFriends = (currentPage: number, pageSize: number, term: string, friends: boolean): ThunkType => async (dispatch) => {
+export const getFriends = (currentPage: number, pageSize: number, term: string, friends: string): ThunkType => async (dispatch) => {
   let data = await usersAPI.getUsers(currentPage, pageSize, term,  friends)
   dispatch(actions.setFriends(data.items))
 }
