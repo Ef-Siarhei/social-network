@@ -15,6 +15,7 @@ import {
   getUsersFilter
 } from "../../redux/selectors/users-selectors";
 import {AppDispatch} from "../../redux/redux-store";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Users: FC = () => {
 
@@ -26,10 +27,48 @@ const Users: FC = () => {
   const filter = useSelector(getUsersFilter)
 
   const dispatch: AppDispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
+
 
   useEffect(() => {
-    dispatch(requestUsers(currentPage, pageSize, filter));
-  }, [])
+      const {search} = location // ?term=b&friend=true&page=1
+      const params = new URLSearchParams(search);
+
+      // Получаем параметры
+      const term = params.get("term"); // "pa"
+      const friend = params.get("friend"); // "true"
+      const page = params.get("page"); // null (или вы можете проверить существование этого параметра)
+
+      const actualPage = page ? Number(page) : currentPage
+
+      let actualFilter = filter
+      if (term) {
+        actualFilter = {...actualFilter, term: term}
+      }
+
+      switch (friend) {
+        case 'true':
+          actualFilter = {...actualFilter, friend: true}
+          break
+        case 'false':
+          actualFilter = {...actualFilter, friend: false}
+          break
+        case '':
+          actualFilter = {...actualFilter, friend: null}
+          break
+        case null:
+          actualFilter = {...actualFilter, friend: null}
+          break
+      }
+
+      dispatch(requestUsers(actualPage, pageSize, actualFilter))
+    }, []
+  )
+
+  useEffect(() => {
+    navigate(`/users?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`)
+  }, [filter, currentPage])
 
   const onPageChanged = async (pageNumber: number) => {
     try {
@@ -86,7 +125,7 @@ const Users: FC = () => {
       <button className={style.show_more} onClick={showMore}>Show more</button>
     </div>
   );
-};
+}
 
 
 // const MyTextInput: FC<{ [key: string]: string }> = ({label, ...props}) => {
