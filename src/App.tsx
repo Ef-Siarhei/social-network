@@ -13,6 +13,8 @@ import Preloader from './components/common/Preloader/Preloader';
 import store, {AppStateType} from './redux/redux-store';
 import cn from 'classnames'
 import PopUpError from "./components/common/popUp/PopUpError/PopUpError";
+import {QueryParamProvider} from "use-query-params";
+import {ReactRouter6Adapter} from "use-query-params/adapters/react-router-6";
 
 // const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer')as Promise<{ default: React.ComponentType }>);
 const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer'));
@@ -47,19 +49,21 @@ class App extends Component<PropsType> {
           <HeaderContainer/>
           <Navbar/>
           <div className="app-wrapper-content">
-            <Suspense fallback={<div>LOADING....</div>}>
-              <Routes>
-                <Route path="/" element={<Navigate to='/profile'/>}/>
-                <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
-                <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                <Route path="/news" element={<News/>}/>
-                <Route path="/music" element={<Music/>}/>
-                <Route path="/users" element={<UsersPage pageTitle={'Just go ahead!!!'}/>}/>
-                <Route path="/settings" element={<Settings/>}/>
-                <Route path="/login" element={<LoginPage/>}/>
-                <Route path="*" element={<div>404 NOT FOUND</div>}/>
-              </Routes>
-            </Suspense>
+            <QueryParamProvider adapter={ReactRouter6Adapter}>
+              <Suspense fallback={<div>LOADING....</div>}>
+                <Routes>
+                  <Route path="/" element={<Navigate to='/profile'/>}/>
+                  <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
+                  <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                  <Route path="/news" element={<News/>}/>
+                  <Route path="/music" element={<Music/>}/>
+                  <Route path="/users" element={<UsersPage pageTitle={'Just go ahead!!!'}/>}/>
+                  <Route path="/settings" element={<Settings/>}/>
+                  <Route path="/login" element={<LoginPage/>}/>
+                  <Route path="*" element={<div>404 NOT FOUND</div>}/>
+                </Routes>
+              </Suspense>
+            </QueryParamProvider>
           </div>
         </div>
 
@@ -89,11 +93,11 @@ const AppContainer = connect(mapStateToProps, {initializeApp, showGlobalError, u
 const SamuraiJSApp: FC = () => {
   return (
     // <React.StrictMode>
-      <HashRouter>
-        <Provider store={store}>
-          <AppContainer/>
-        </Provider>
-      </HashRouter>
+    <HashRouter>
+      <Provider store={store}>
+        <AppContainer/>
+      </Provider>
+    </HashRouter>
     // </React.StrictMode>
   );
 };

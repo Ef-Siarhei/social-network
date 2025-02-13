@@ -10,27 +10,20 @@ type PropsType = {
 }
 
 export const UsersSearchForm: FC<PropsType> = (props) => {
-
   const filter = useSelector(getUsersFilter)
 
   return <div>
     <Formik
       enableReinitialize
-      // initialValues={{term: '', friend: 'null'}}
       initialValues={{term: filter.term, friend: filter.friend}}
       validationSchema={Yup.object({
         term: Yup.string().max(15, 'Must be 15 characters or less')
       })}
       onSubmit={(values, formik) => {
-        // const filter: FilterType = {
-        //   term: values.term,
-        //   friend: values.friend === 'null' ? null : values.friend === 'true'
-        // }
         const filter: FilterType = {
           term: values.term,
           friend: values.friend
         }
-        // alert(JSON.stringify(values, null,2))
         props.onFilterChanged(filter)
         formik.setSubmitting(false)
       }}
