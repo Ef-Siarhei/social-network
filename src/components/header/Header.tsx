@@ -2,14 +2,17 @@ import s from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 import UserIcon from '../common/UserIcon/UserIcon';
 import {FC} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getIsAuth, getLogin} from "../../redux/selectors/auth-selectors";
+import {logout} from "../../redux/reduced/auth-reducer";
+import {AppDispatch} from "../../redux/redux-store";
 
-type PropsType = {
-  isAuth: boolean
-  login: string | null
-  logout: () => void
-}
 
- const Header: FC<PropsType> = (props) => {
+export const Header: FC = () => {
+  const isAuth = useSelector(getIsAuth)
+  const login = useSelector(getLogin)
+  const dispatch: AppDispatch = useDispatch()
+
   return (
     <header className={s.header}>
       <img
@@ -17,11 +20,11 @@ type PropsType = {
         alt=""
       />
       <div className={s.loginBlock}>
-        {props.isAuth ? (
+        {isAuth ? (
           <>
             <UserIcon src={''}/>
-            {props.login}
-            <button onClick={props.logout}>Log out</button>
+            {login}
+            <button onClick={() => dispatch(logout)}>Log out</button>
           </>
         ) : (
           <NavLink to="/login">Login</NavLink>
@@ -30,4 +33,3 @@ type PropsType = {
     </header>
   );
 }
-export default Header

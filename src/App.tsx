@@ -5,7 +5,6 @@ import Music from './components/music/Music';
 import Navbar from './components/navbar/Navbar';
 import News from './components/news/News';
 import Settings from './components/settings/Settings';
-import HeaderContainer from './components/header/HeaderContainer';
 import {LoginPage} from './components/Login/LoginPage';
 import {connect, Provider} from 'react-redux';
 import {initializeApp, showGlobalError, unShowGlobalError} from './redux/reduced/app-reducer';
@@ -15,6 +14,7 @@ import cn from 'classnames'
 import PopUpError from "./components/common/popUp/PopUpError/PopUpError";
 import {QueryParamProvider} from "use-query-params";
 import {ReactRouter6Adapter} from "use-query-params/adapters/react-router-6";
+import {Header} from "./components/header/Header";
 
 // const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer')as Promise<{ default: React.ComponentType }>);
 const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer'));
@@ -46,7 +46,7 @@ class App extends Component<PropsType> {
     return (
       <>
         <div className={cn("app-wrapper")}>
-          <HeaderContainer/>
+          <Header/>
           <Navbar/>
           <div className="app-wrapper-content">
             <QueryParamProvider adapter={ReactRouter6Adapter}>
