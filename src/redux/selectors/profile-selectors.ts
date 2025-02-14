@@ -7,3 +7,4 @@ export const getStatus = createSelector([getStatusPrimitiveSelector], (status) =
 export const getAuthorizedUserId = (state: AppStateType) => state.auth.id;
 export const getProfileUpdateStatusPrimitiveSelector = (state: AppStateType) => state.profilePage.profileUpdateStatus;
 export const getProfileUpdateStatus = createSelector([getProfileUpdateStatusPrimitiveSelector], (status) => status)
+export const getPosts = (state: AppStateType) => state.profilePage.posts

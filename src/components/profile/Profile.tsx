@@ -1,9 +1,9 @@
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import MyPostContainer from './MyPosts/MyPostContainer';
 import Preloader from '../common/Preloader/Preloader';
 import {FC} from "react";
 import {useSelector} from "react-redux";
 import {getProfile} from "../../redux/selectors/profile-selectors";
+import {MyPosts} from "./MyPosts/MyPosts";
 
 type OwnPropsType = {
   isOwner: boolean
@@ -23,7 +23,7 @@ const Profile: FC<OwnPropsType> = (props) => {
         isOwner={props.isOwner}
         profile={profile}
       />
-      <MyPostContainer />
+      <MyPosts />
     </>
   );
 }

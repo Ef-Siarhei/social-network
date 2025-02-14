@@ -5,6 +5,10 @@ import {InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLengthCreator, required,} from '../../../utils/validators/validators';
 import {createField, Textarea} from '../../common/FormsControl/FormsControl';
 import {PostType} from "../../../types/types";
+import {useDispatch, useSelector} from "react-redux";
+import {getPosts} from "../../../redux/selectors/profile-selectors";
+import {addPost} from "../../../redux/reduced/profile-reducer";
+import {AppDispatch} from "../../../redux/redux-store";
 
 
 type FormDataType = {
@@ -12,10 +16,6 @@ type FormDataType = {
 }
 type FormDataKeyType = keyof FormDataType
 
-type OwnPropsType = {
-  posts: Array<PostType>;
-  addPost: (postText: string) => void;
-}
 
 const maxLength100 = maxLengthCreator(100);
 
@@ -34,26 +34,25 @@ const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = (props) => {
 const AddNewPostReduxForm = reduxForm<FormDataType>({form: 'profileAddNewPostForm'})(AddNewPostForm);
 
 
-class MyPosts extends React.Component<OwnPropsType> {
-  postsElements = () => {
-    return [...this.props.posts].reverse().map((p) => (
+export function MyPosts() {
+  const posts = useSelector(getPosts)
+  const dispatch: AppDispatch = useDispatch()
+
+  const postsElements = () => {
+    return [...posts].reverse().map((p) => (
       <Post message={p.message} like={p.like} key={p.id}/>
     ));
   };
 
-  onSubmit = (formData: FormDataType) => {
-    this.props.addPost(formData.newPostText);
+  const handlerSubmit = async (formData: FormDataType) => {
+    await dispatch(addPost(formData.newPostText))
   };
 
-  render() {
-    return (
-      <div className={s.myPosts}>
-        <h3>My posts</h3>
-        <AddNewPostReduxForm onSubmit={this.onSubmit}/>
-        <div>{this.postsElements()}</div>
-      </div>
-    );
-  }
+  return (
+    <div className={s.myPosts}>
+      <h3>My posts</h3>
+      <AddNewPostReduxForm onSubmit={handlerSubmit}/>
+      <div>{postsElements()}</div>
+    </div>
+  );
 }
-
-export default MyPosts
