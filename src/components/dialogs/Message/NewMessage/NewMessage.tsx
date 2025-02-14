@@ -3,6 +3,9 @@ import s from './NewMessage.module.css';
 import {createField, Textarea} from '../../../common/FormsControl/FormsControl';
 import {maxLengthCreator, required,} from '../../../../utils/validators/validators';
 import {FC} from "react";
+import {sendMessage} from "../../../../redux/reduced/messages-reducer";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../../../../redux/redux-store";
 
 type FormDataType = {
   message: string
@@ -19,19 +22,16 @@ const addMessageForm: FC<InjectedFormProps<FormDataType>> = (props) => {
     </form>
   );
 };
+
 const AddMessageReduxForm = reduxForm<FormDataType>({form: 'newMessage'})(addMessageForm);
 
 
-type OwnPropsType = {
-  sendMessage: (message: string) => void
-}
+export const NewMessage: FC = () => {
+  const dispatch: AppDispatch = useDispatch()
 
-const NewMessage: FC<OwnPropsType> = (props) => {
-  let addNewMessage = (formData: FormDataType) => {
-    props.sendMessage(formData.message);
+  const addNewMessage = (formData: FormDataType) => {
+    dispatch(sendMessage(formData.message))
   };
 
   return <AddMessageReduxForm onSubmit={addNewMessage}/>;
 };
-
-export default NewMessage;
