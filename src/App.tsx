@@ -18,7 +18,7 @@ import {ReactRouter6Adapter} from "use-query-params/adapters/react-router-6";
 
 // const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer')as Promise<{ default: React.ComponentType }>);
 const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer'));
-const DialogsContainer = lazy(() => import('./components/dialogs/DialogsContainer'));
+const DialogsPage = lazy(() => import('./components/dialogs/DialogsPage').then(module => ({ default: module.DialogsPage })));// then if export not default
 const UsersPage = lazy(() => import('./components/users/UsersContainer'));
 
 class App extends Component<PropsType> {
@@ -54,7 +54,7 @@ class App extends Component<PropsType> {
                 <Routes>
                   <Route path="/" element={<Navigate to='/profile'/>}/>
                   <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
-                  <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                  <Route path="/dialogs/*" element={<DialogsPage/>}/>
                   <Route path="/news" element={<News/>}/>
                   <Route path="/music" element={<Music/>}/>
                   <Route path="/users" element={<UsersPage pageTitle={'Just go ahead!!!'}/>}/>

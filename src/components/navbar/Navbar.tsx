@@ -20,7 +20,7 @@ function Navbar() {
         </NavLink>
 
         <NavLink to="/dialogs" className={setActive}>
-          Messages
+          Dialogs
         </NavLink>
 
         <NavLink to="/news" className={setActive}>

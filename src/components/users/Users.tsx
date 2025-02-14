@@ -36,7 +36,7 @@ const Users: FC = () => {
 
   useEffect(() => {
       const {term, friend, page} = search
-      console.log(friend)
+
       const actualPage = page ? Number(page) : currentPage
 
       let actualFilter = filter
