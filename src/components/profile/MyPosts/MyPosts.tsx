@@ -1,10 +1,9 @@
 import React, {FC} from 'react';
 import s from './MyPosts.module.css';
-import Post from './Post/Post';
+import {Post} from './Post/Post';
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLengthCreator, required,} from '../../../utils/validators/validators';
 import {createField, Textarea} from '../../common/FormsControl/FormsControl';
-import {PostType} from "../../../types/types";
 import {useDispatch, useSelector} from "react-redux";
 import {getPosts} from "../../../redux/selectors/profile-selectors";
 import {addPost} from "../../../redux/reduced/profile-reducer";
