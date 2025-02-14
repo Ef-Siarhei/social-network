@@ -13,6 +13,10 @@ export const Header: FC = () => {
   const login = useSelector(getLogin)
   const dispatch: AppDispatch = useDispatch()
 
+  const logOut = async () => {
+    await dispatch(logout())
+  }
+
   return (
     <header className={s.header}>
       <img
@@ -24,7 +28,7 @@ export const Header: FC = () => {
           <>
             <UserIcon src={''}/>
             {login}
-            <button onClick={() => dispatch(logout)}>Log out</button>
+            <button onClick={logOut}>Log out</button>
           </>
         ) : (
           <NavLink to="/login">Login</NavLink>
