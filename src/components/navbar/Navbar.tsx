@@ -1,12 +1,15 @@
 import n from './Navbar.module.css';
 import {NavLink} from 'react-router-dom';
-import FriendsContainer from '../friends/FriendsContainer';
+import {useSelector} from "react-redux";
+import {getIsAuth} from "../../redux/selectors/auth-selectors";
+import {Friends} from "../friends/Friends";
 
 type NavLinkProps = {
   isActive: boolean
 }
 
 function Navbar() {
+  const isAuth = useSelector(getIsAuth)
 
   const setActive = ({isActive}: NavLinkProps) => (isActive ? n.active : '');
   return (
@@ -36,7 +39,7 @@ function Navbar() {
           Settings
         </NavLink>
       </div>
-      <FriendsContainer/>
+      {isAuth && <Friends/>}
     </nav>
   );
 }

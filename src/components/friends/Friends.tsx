@@ -1,15 +1,31 @@
 import Friend from './friend/Friend';
 import s from './Friends.module.css';
-import {UserType} from "../../types/types";
-import {FC} from "react";
+import {FC, useEffect} from "react";
+import {
+  getFriendsSel,
+  getPortionFriendsNumber,
+  getPortionFriendsSize,
+  getShowFriends
+} from "../../redux/selectors/sidebar-selectors";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch} from "../../redux/redux-store";
+import {getFriends} from "../../redux/reduced/sidebar-reducer";
 
-type OwnPropsType = {
-  friends: Array<UserType>
-}
 
-const Friends: FC<OwnPropsType> = (props) => {
+export const Friends: FC = () => {
+  const friends = useSelector(getFriendsSel)
+  const portionFriendsNumber = useSelector(getPortionFriendsNumber)
+  const portionFriendsSize = useSelector(getPortionFriendsSize)
+  const showFriends = useSelector(getShowFriends)
 
-  let friendsElements = props.friends.map((friend) => {
+  const dispatch: AppDispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getFriends(portionFriendsNumber, portionFriendsSize, '', showFriends))
+  }, [portionFriendsNumber, portionFriendsSize, showFriends])
+
+
+  let friendsElements = friends.map((friend) => {
     return <Friend friend={friend} key={friend.id}/>;
   });
 
@@ -20,4 +36,3 @@ const Friends: FC<OwnPropsType> = (props) => {
     </div>
   )
 }
-export default Friends
