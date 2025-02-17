@@ -4,13 +4,13 @@ import Message from './Message/Message';
 import React, {FC} from 'react';
 import {useSelector} from "react-redux";
 import {getDialogs, getMessages} from "../../redux/selectors/dialogs-selectors";
-import {getIsAuth} from "../../redux/selectors/auth-selectors";
+import {selectIsAuth} from "../../redux/selectors/auth-selectors";
 import {Navigate} from "react-router-dom";
 import {NewMessage} from "./Message/NewMessage/NewMessage";
 
 
 export const DialogsPage: FC = () => {
-  const isAuth = useSelector(getIsAuth)
+  const isAuth = useSelector(selectIsAuth)
   const dialogs = useSelector(getDialogs)
   const messages = useSelector(getMessages)
 

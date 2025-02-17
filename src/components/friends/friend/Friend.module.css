@@ -1,18 +1,17 @@
 .friend {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   align-items: center;
   margin-bottom: .2rem;
 }
 
 .friend_img {
-  width: 2rem;
-  height: 2rem;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   justify-self: center;
 }
 
 .friend_name {
-  font-size: 1rem;
   justify-self: center;
 }

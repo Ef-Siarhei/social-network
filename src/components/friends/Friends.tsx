@@ -31,7 +31,7 @@ export const Friends: FC = () => {
 
   return (
     <div className={s.friends}>
-      Friends
+      My friends:
       <div className={s.friends_items}>{friendsElements}</div>
     </div>
   )

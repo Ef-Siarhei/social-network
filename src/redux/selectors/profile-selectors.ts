@@ -5,3 +5,4 @@ export const getStatus = (state: AppStateType) => state.profilePage.status;
 export const getAuthorizedUserId = (state: AppStateType) => state.auth.id;
 export const getProfileUpdateStatus = (state: AppStateType) => state.profilePage.profileUpdateStatus;
 export const getPosts = (state: AppStateType) => state.profilePage.posts
+export const getPhotos = (state: AppStateType) => state.profilePage.profile?.photos

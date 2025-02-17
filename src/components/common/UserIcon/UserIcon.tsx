@@ -1,7 +1,7 @@
 import noIconUser from '../../../assets/images/noIconUser.svg';
 
 type OwnPropsType = {
-  src?: string
+  src?: string | null
   className?: string
 }
 

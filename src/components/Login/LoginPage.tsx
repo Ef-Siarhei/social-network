@@ -7,7 +7,7 @@ import {login} from '../../redux/reduced/auth-reducer'
 import {Navigate} from 'react-router-dom'
 import s from '../common/FormsControl/FormsControl.module.css'
 import {AppDispatch} from "../../redux/redux-store"
-import {getCaptchaUrl, getIsAuth} from "../../redux/selectors/auth-selectors";
+import {getCaptchaUrl, selectIsAuth} from "../../redux/selectors/auth-selectors";
 import {LoginFormFormik} from "./LoginFormFormik";
 
 type FormDataType = {
@@ -58,7 +58,7 @@ const LoginReduxForm = reduxForm<FormDataType, OwnLoginReduxFormPropsType>({form
 
 export const LoginPage: FC = () => {
 
-  const isAuth = useSelector(getIsAuth)
+  const isAuth = useSelector(selectIsAuth)
   const captchaUrl = useSelector(getCaptchaUrl)
   const dispatch: AppDispatch = useDispatch()
 

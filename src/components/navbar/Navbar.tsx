@@ -1,7 +1,7 @@
 import n from './Navbar.module.css';
 import {NavLink} from 'react-router-dom';
 import {useSelector} from "react-redux";
-import {getIsAuth} from "../../redux/selectors/auth-selectors";
+import {selectIsAuth} from "../../redux/selectors/auth-selectors";
 import {Friends} from "../friends/Friends";
 
 type NavLinkProps = {
@@ -9,7 +9,7 @@ type NavLinkProps = {
 }
 
 function Navbar() {
-  const isAuth = useSelector(getIsAuth)
+  const isAuth = useSelector(selectIsAuth)
 
   const setActive = ({isActive}: NavLinkProps) => (isActive ? n.active : '');
   return (
