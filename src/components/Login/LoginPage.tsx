@@ -9,6 +9,7 @@ import s from '../common/FormsControl/FormsControl.module.css'
 import {AppDispatch} from "../../redux/redux-store"
 import {getCaptchaUrl, selectIsAuth} from "../../redux/selectors/auth-selectors";
 import {LoginFormFormik} from "./LoginFormFormik";
+import {LoginFormAntd} from "./LoginFormAntd";
 
 type FormDataType = {
   email: string
@@ -74,8 +75,9 @@ export const LoginPage: FC = () => {
   return (
     <div>
       <h1>Login here</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
-      <LoginFormFormik/>
+      {/*<LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>*/}
+      {/*<LoginFormFormik/>*/}
+      <LoginFormAntd/>
     </div>
   )
 }
