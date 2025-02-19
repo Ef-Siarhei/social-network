@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfileUpdateStatus} from "../../../redux/selectors/profile-selectors";
 import {savePhoto, saveProfile} from "../../../redux/reduced/profile-reducer";
 import {AppDispatch} from "../../../redux/redux-store";
+import {ProfileDataFormFormik} from "./ProfileDataForm/ProfileDataFormFormik";
 
 type OwnPropsType = {
   isOwner: boolean
@@ -53,10 +54,12 @@ const ProfileInfo: FC<OwnPropsType> = (props) => {
         <ProfileStatusWithHooks/>
 
         {profileUpdateStatus === 'edit' || profileUpdateStatus === 'error'
-          ? <ProfileDataForm
-            initialValues={props.profile}
-            onSubmit={onSubmit}
-          />
+          ? <>
+          {/*  <ProfileDataForm*/}
+          {/*  initialValues={props.profile}*/}
+          {/*  onSubmit={onSubmit}*/}
+          {/*/>*/}
+          <ProfileDataFormFormik/></>
           : <ProfileData
             profile={props.profile}
             isOwner={props.isOwner}
