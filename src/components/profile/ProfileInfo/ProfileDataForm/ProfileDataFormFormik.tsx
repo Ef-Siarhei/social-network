@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../../../redux/selectors/profile-selectors";
 import {saveProfile} from "../../../../redux/reduced/profile-reducer";
@@ -26,15 +26,18 @@ export const ProfileDataFormFormik: FC = () => {
         <Form style={{display: 'flex', flexDirection: 'column'}}>
           <label htmlFor={'fullName'}>Full Name: </label>
           <Field name={'fullName'}/>
+          <ErrorMessage name={'fullName'}/>
 
           <label htmlFor={'lookingForAJob'}>Looking for a job: </label>
           <Field name={'lookingForAJob'} type={'checkbox'}/>
 
           <label htmlFor={'lookingForAJobDescription'}>The job description: </label>
           <Field name={'lookingForAJobDescription'} type={'textarea'}/>
+          <ErrorMessage name={'lookingForAJobDescription'}/>
 
           <label htmlFor={'aboutMe'}>About me: </label>
           <Field name={'aboutMe'} type={'textarea'}/>
+          <ErrorMessage name={'aboutMe'}/>
 
           {Object.keys(profile?.contacts ?? {}).map(key => {
             return <div key={key}>
@@ -43,7 +46,7 @@ export const ProfileDataFormFormik: FC = () => {
             </div>
           })}
 
-          <button type={'submit'} disabled={formik.isSubmitting}>Submit</button>
+          <button type={'submit'} disabled={formik.isSubmitting}>Save</button>
         </Form>
       )}
     </Formik>
