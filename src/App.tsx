@@ -22,6 +22,7 @@ import {Breadcrumb, Layout, Menu, MenuProps, theme} from 'antd';
 const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer'));
 const DialogsPage = lazy(() => import('./components/dialogs/DialogsPage').then(module => ({default: module.DialogsPage})));// then if export not default
 const UsersPage = lazy(() => import('./components/users/UsersContainer'));
+const ChatPage = lazy(() => import('./pages/Chat/ChatPage').then(module => ({default: module.ChatPage})));
 
 // Antd -----------------------------------------------------------------------
 const {Content, Footer, Sider} = Layout;
@@ -35,7 +36,7 @@ const menuSidebar = [
   },
   {
     label: 'Developers',
-    children: ['Users']
+    children: ['Users', 'Chat']
   },
   {
     label: 'Others',
@@ -147,6 +148,7 @@ const App: React.FC = () => {
                   <Route path="/users" element={<UsersPage pageTitle={'Just go ahead!!!'}/>}/>
                   <Route path="/settings" element={<Settings/>}/>
                   <Route path="/login" element={<LoginPage/>}/>
+                  <Route path="/chat" element={<ChatPage/>}/>
                   <Route path="*" element={<div>404 NOT FOUND</div>}/>
                 </Routes>
               </QueryParamProvider>
