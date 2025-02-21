@@ -16,8 +16,24 @@ const Chat: FC = () => {
 }
 
 const Messages: FC = () => {
+  const messages = ['adsa', 'saaf', 'fsgs']
+  return <div style={{height: '400px', overflowY: 'auto'}}>
+    {messages.map((m) => <Message message={m} />)}
+    {messages.map((m) => <Message message={m} />)}
+    {messages.map((m) => <Message message={m} />)}
+  </div>
+}
+
+const Message: FC<any> = (props) => {
+  const mes = {
+    url: 'https://cdnb.artstation.com/p/assets/images/images/034/664/093/small/you-sian-jjevmori-pixel1.jpg?1612888820',
+    name: 'Sergei'
+  }
   return <div>
-    messages
+    <img src={mes.url} alt={''} style={{width: '40px'}}/>
+    <b>{mes.name}</b>
+    <div>{props.message}</div>
+    <br/>
   </div>
 }
 
