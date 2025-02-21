@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from "react";
 
-const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+const wsChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 export const ChatPage: FC = () => {
   return (
@@ -28,8 +28,9 @@ const Messages: FC = () => {
   const [messages, setMessages] = useState<ChatMessageType[]>([])
 
   useEffect(() => {
-    ws.addEventListener('message', (e) => {
-      setMessages(JSON.parse(e.data))
+    wsChannel.addEventListener('message', (e) => {
+      let newMessages = JSON.parse(e.data);
+      setMessages((prevMessages)=>[...prevMessages, ...newMessages])
     })
   }, [])
 
