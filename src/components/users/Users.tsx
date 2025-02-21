@@ -5,7 +5,7 @@ import Paginator from '../common/Paginator/Paginator';
 import User from './User';
 import {UserType} from "../../types/types";
 import {UsersSearchForm} from "./UsersSearchForm";
-import {FilterType, requestUsers} from "../../redux/reduced/users-reducer";
+import {FilterType, requestUsers, follow, unFollow} from "../../redux/reduced/users-reducer";
 import {
   getCurrentPage,
   getFollowingIsProgress,
@@ -79,13 +79,11 @@ const Users: FC = () => {
     await dispatch(requestUsers(1, pageSize, filter))
   }
 
-  const follow = async (userId: number) => {
-    // @ts-ignore
+  const followDispatch = async (userId: number) => {
     await dispatch(follow(userId))
   }
 
-  const unFollow = async (userId: number) => {
-    // @ts-ignore
+  const unFollowDispatch = async (userId: number) => {
     await dispatch(unFollow(userId))
   }
 
@@ -105,8 +103,8 @@ const Users: FC = () => {
             user={user}
             key={user.id}
             followingIsProgress={followingIsProgress}
-            follow={follow}
-            unFollow={unFollow}
+            follow={followDispatch}
+            unFollow={unFollowDispatch}
           />
         );
       })}
