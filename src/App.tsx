@@ -18,6 +18,7 @@ import {Header} from "./components/header/Header";
 
 import {LaptopOutlined, NotificationOutlined, SettingOutlined, UserOutlined} from '@ant-design/icons';
 import {Breadcrumb, Layout, Menu, MenuProps, theme} from 'antd';
+import {selectIsAuth} from "./redux/selectors/auth-selectors";
 
 const ProfileContainer = lazy(() => import('./components/profile/ProfileContainer'));
 const DialogsPage = lazy(() => import('./components/dialogs/DialogsPage').then(module => ({default: module.DialogsPage})));// then if export not default
@@ -73,6 +74,7 @@ const App: React.FC = () => {
     token: {colorBgContainer, borderRadiusLG},
   } = theme.useToken();
 
+  const isAuth = useSelector(selectIsAuth)
   const initialized = useSelector(getInitialized)
   const globalError = useSelector(getGlobalError)
   const dispatch: AppDispatch = useDispatch()
@@ -134,7 +136,7 @@ const App: React.FC = () => {
               {/*  <Menu.Item key={'5'}><NavLink to="/news"> News </NavLink></Menu.Item>*/}
               {/*  <Menu.Item key={'6'} icon={<SettingOutlined/>}><NavLink to="/settings"> Settings </NavLink></Menu.Item>*/}
             </Menu>
-            <Friends/>
+            {isAuth ? <Friends/> : <NavLink to={'/login'}/>}
           </Sider>
           <Content style={{padding: '0 24px', minHeight: 280}}>
             <Suspense fallback={<div>LOADING....</div>}>
