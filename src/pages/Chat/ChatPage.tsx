@@ -28,10 +28,10 @@ const Messages: FC = () => {
   const [messages, setMessages] = useState<ChatMessageType[]>([])
 
   useEffect(() => {
-    wsChannel.addEventListener('message', (e) => {
+    wsChannel.onmessage = (e) => {
       let newMessages = JSON.parse(e.data);
-      setMessages((prevMessages)=>[...prevMessages, ...newMessages])
-    })
+      setMessages((prevMessages) => [...prevMessages, ...newMessages])
+    }
   }, [])
 
   return <div style={{height: '400px', overflowY: 'auto'}}>
@@ -50,27 +50,32 @@ const Message: FC<{ message: ChatMessageType }> = (props) => {
     </div>
     <hr/>
   </>
-
 }
 
 const AddMessageForm: FC = () => {
   const [message, setMessage] = useState('')
+  const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
+
+  useEffect(()=>{
+    wsChannel.onopen = () => {
+      setReadyStatus('ready')
+    }
+  }, [])
 
   const sendMessage = () => {
     if (!message) {
       return
     }
-
     wsChannel.send(message)
     setMessage('')
   }
 
   return <div>
     <div>
-      <textarea onChange={(e)=> setMessage(e.currentTarget.value)} value={message}></textarea>
+      <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea>
     </div>
     <div>
-      <button onClick={sendMessage}>Send</button>
+      <button onClick={sendMessage} disabled={readyStatus !== 'ready'}>Send</button>
     </div>
   </div>
 }
