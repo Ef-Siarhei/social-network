@@ -18,11 +18,13 @@ type ChatMessageType = {
 
 const Chat: FC = () => {
   const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
+  const [chatStatus, setChatStatus] = useState<'connected' | 'disabled' | null>(null)
 
   useEffect(() => {
     let ws: WebSocket
     const closeHandler = () => {
       setTimeout(createChannel, 5000)
+      setChatStatus('disabled')
     }
 
     function createChannel() {
@@ -42,7 +44,25 @@ const Chat: FC = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const connectedHandler = () => {
+      setChatStatus('connected')
+    };
+    wsChannel?.addEventListener('open', connectedHandler)
+
+    return () => {
+      wsChannel?.removeEventListener('open', connectedHandler)
+    }
+  }, [wsChannel])
+
   return <div>
+    {chatStatus === 'disabled' && <div
+      style={{color: 'red', position: 'fixed', top: '50%', left: '50%'}}
+    >The channel disabled
+      <button onClick={() => {
+        setChatStatus(null)
+      }}>Ok</button>
+    </div>}
     <Messages wsChannel={wsChannel}/>
     <AddMessageForm wsChannel={wsChannel}/>
   </div>
