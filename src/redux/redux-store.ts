@@ -7,6 +7,7 @@ import authReducer from './reduced/auth-reducer'
 import {thunk as thunkMiddleware, ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import appReducer from './reduced/app-reducer'
+import chatReducer from "./reduced/chat-reducer";
 // createStore устарел потому legacy_createStore as createStore
 
 let rootReducer = combineReducers({
@@ -17,6 +18,7 @@ let rootReducer = combineReducers({
   auth: authReducer,
   form: formReducer,
   app: appReducer,
+  chat: chatReducer,
 });
 
 type RootReducerType = typeof rootReducer
