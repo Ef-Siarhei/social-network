@@ -1,10 +1,12 @@
 import {FormAction} from 'redux-form'
 import {BaseThunkType, InferActionsTypes} from "../redux-store"
-import {chatApi, ChatMessageType} from "../../api/chat-api";
+import {chatApi, ChatMessageType, StatusType} from "../../api/chat-api";
 import {Dispatch} from "redux";
 
+
 let initialState = {
-  messages: [] as ChatMessageType[]
+  messages: [] as ChatMessageType[],
+  status: 'pending' as StatusType
 }
 
 const chatReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -21,6 +23,12 @@ const chatReducer = (state = initialState, action: ActionsTypes): InitialStateTy
         messages: []
       }
     }
+    case 'sn/chat/STATUS_CHANGED': {
+      return {
+        ...state,
+        status: action.payload.status
+      }
+    }
     default:
       return state
   }
@@ -34,6 +42,10 @@ const actions = {
   } as const),
   messagesClear: () => ({
     type: 'sn/chat/MESSAGES_CLEAR',
+  } as const),
+  statusChanged: (status: StatusType) => ({
+    type: 'sn/chat/STATUS_CHANGED',
+    payload: {status}
   } as const)
 }
 
@@ -48,13 +60,25 @@ const newMessagesHandlerCreator = (dispatch: Dispatch) => {
   return _newMessageHandler
 }
 
+let _newChangedHandler: ((status: StatusType) => void) | null = null
+const newChangedHandlerCreator = (dispatch: Dispatch) => {
+  if (_newChangedHandler === null) {
+    _newChangedHandler = (status) => {
+      dispatch(actions.statusChanged(status))
+    }
+  }
+  return _newChangedHandler
+}
+
 // Thunks creator
 export const startMessagesListening = (): ThunkType => async (dispatch) => {
   chatApi.start()
-  chatApi.subscribe(newMessagesHandlerCreator(dispatch))
+  chatApi.subscribe('messages-received', newMessagesHandlerCreator(dispatch))
+  chatApi.subscribe('status-changed', newChangedHandlerCreator(dispatch))
 }
 export const stopMessagesListening = (): ThunkType => async (dispatch) => {
-  chatApi.unSubscribe(newMessagesHandlerCreator(dispatch))
+  chatApi.unSubscribe('messages-received', newMessagesHandlerCreator(dispatch))
+  chatApi.unSubscribe('status-changed', newChangedHandlerCreator(dispatch))
   chatApi.stop()
   dispatch(actions.messagesClear())
 }
