@@ -2,10 +2,13 @@ import {FormAction} from 'redux-form'
 import {BaseThunkType, InferActionsTypes} from "../redux-store"
 import {chatApi, ChatMessageType, StatusType} from "../../api/chat-api";
 import {Dispatch} from "redux";
+import {v1} from 'uuid'
 
+
+type  ChatMessageTypeWithId = ChatMessageType & {id: string}
 
 let initialState = {
-  messages: [] as ChatMessageType[],
+  messages: [] as ChatMessageTypeWithId[],
   status: 'pending' as StatusType
 }
 
@@ -14,7 +17,8 @@ const chatReducer = (state = initialState, action: ActionsTypes): InitialStateTy
     case 'sn/chat/MESSAGES_RECEIVED': {
       return {
         ...state,
-        messages: [...state.messages, ...action.payload.messages]
+        messages: [...state.messages, ...action.payload.messages.map(m => ({...m, id: v1()}))]
+          .filter((m, i, arr) => i >= arr.length - 30)
       }
     }
     case 'sn/chat/MESSAGES_CLEAR': {
