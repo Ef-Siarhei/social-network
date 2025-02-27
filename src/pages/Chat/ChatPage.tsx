@@ -61,7 +61,7 @@ const Messages: FC = () => {
   </div>
 }
 
-const Message: FC<{ message: ChatMessageType }> = (props) => {
+const Message: FC<{ message: ChatMessageType }> = React.memo((props) => {
   return <>
     <div style={{display: 'flex', justifyContent: 'space-between', padding: '0 10px'}}>
       <div style={{display: 'flex', alignItems: 'center'}}>
@@ -72,7 +72,7 @@ const Message: FC<{ message: ChatMessageType }> = (props) => {
     </div>
     <hr/>
   </>
-}
+})
 
 const AddMessageForm: FC = () => {
   const [message, setMessage] = useState('')
