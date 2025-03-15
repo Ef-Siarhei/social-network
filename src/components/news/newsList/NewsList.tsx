@@ -6,7 +6,6 @@ import Preloader from '../../common/Preloader/Preloader'
 import {NewsListItem} from '../newsListItem/NewsListItem'
 import s from './NewsList.module.css'
 
-const NEWS_API_KEY = '&apiKey=16685a2bb69a4455a00935f17819e5c6'
 const BASE_URL = 'https://newsapi.org/v2/everything?domains=bbc.com'
 
 export const NewsList: FC<OwnProps> = ({searchText}) => {
@@ -16,7 +15,7 @@ export const NewsList: FC<OwnProps> = ({searchText}) => {
 	useEffect(() => {
 		setLoading(true)
 		axios
-			.get<ResultNews>(`${BASE_URL + NEWS_API_KEY + (!!searchText ? `&q='${searchText}'` : '')}`)
+			.get<ResultNews>(`${BASE_URL}&apiKey=16685a2bb69a4455a00935f17819e5c6${(!!searchText ? `&q='${searchText}'` : '')}`)
 			.then(res => {
 				setNewsList(res.data.articles)
 				setLoading(false)
